@@ -1,0 +1,85 @@
+.banner {
+    &_1 {
+        --cta-hover-color: #6828fa;
+        background: linear-gradient(to right, rgb(104, 40, 250), rgb(255, 186, 164));
+    }
+    &_2 {
+        --cta-hover-color: #2877fa;
+        background: linear-gradient(to right, rgb(40, 119, 250), rgb(103, 23, 205));
+    }
+    &_3 {
+        --cta-hover-color: #7612ff;
+        background: linear-gradient(to right, rgb(118, 18, 255), rgb(5, 178, 255));
+    }
+    &_4 {
+        --cta-hover-color: #fe215e;
+        background: linear-gradient(to right, rgb(254, 33, 94), rgb(255, 148, 2));
+    }
+    &_5 {
+        --cta-hover-color: #007efe;
+        background: linear-gradient(to right, rgb(0, 126, 254), rgb(6, 195, 254));
+    }
+}
+
+.item {
+    display: flex !important;
+    border-radius: 16px;
+    height: 270px;
+    overflow: hidden;
+}
+.left {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    font-size: 1.6rem;
+    justify-content: center;
+    line-height: 1.6;
+    max-width: 100%;
+    padding: 0 36px 36px;
+    width: 640px;
+}
+
+.heading {
+    margin-bottom: 8px;
+    a {
+        color: #fff;
+        font-size: 3.2rem;
+        font-weight: 700;
+        line-height: 1.5;
+    }
+}
+
+.crownIcon {
+    display: inline-block;
+    margin-left: 4px;
+    width: 24px;
+    img {
+        width: 100%;
+    }
+}
+
+.desc {
+    margin-bottom: 24px;
+    margin-top: 0;
+    max-width: 600px;
+}
+
+.ctaBtn {
+    border: 2px solid #fff;
+    border-radius: 16px;
+    color: #fff;
+    display: inline-block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    min-width: 124px;
+    padding: 4px 10px;
+    text-align: center;
+    transition: 0.2s ease;
+}
+
+.right {
+    display: flex;
+    flex: 3 1;
+    justify-content: flex-end;
+}

@@ -1,0 +1,14 @@
+.withSidebar {
+    display: flex;
+    min-height: 100vh;
+    &Content {
+        max-width: calc(100% - 96px);
+        padding: 0 40px 0 20px;
+        flex: 1 1;
+        max-width: 100%;
+    }
+}
+
+.sidebarWrap {
+    flex-shrink: 0;
+}

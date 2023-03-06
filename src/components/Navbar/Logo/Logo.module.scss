@@ -1,0 +1,25 @@
+.logo {
+    align-items: center;
+    display: flex;
+    flex: 1 1;
+    &Heading {
+        color: #000;
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-left: 16px;
+    }
+    a {
+        display: flex;
+    }
+    a:focus, a:hover, a:visited{
+        outline: none;
+        text-decoration: none;
+    }
+    img {
+        border-radius: 8px;
+        flex-shrink: 0;
+        height: 38px;
+        object-fit: contain;
+        width: 38px;
+    }
+}
