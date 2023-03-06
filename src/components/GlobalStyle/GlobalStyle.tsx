@@ -1,4 +1,4 @@
-import './GlobalStyle.scss';
+import './scss/GlobalStyle.scss';
 
 type Props = {
     children: JSX.Element;

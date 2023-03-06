@@ -1,0 +1,14 @@
+.login {
+    &Btn {
+        background-color: var(--primary-color);
+        border-radius: 999px;
+        color: #fff;
+        cursor: pointer;
+        font-size: 1.4rem;
+        font-weight: 600;
+        padding: 9px 20px;
+    }
+    &Btn:hover {
+        opacity: 0.9;
+    }
+}

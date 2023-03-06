@@ -1,0 +1,33 @@
+.wrapper {
+    align-items: center;
+    background-color: #1473e6;
+    border-color: #1473e6;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    height: 44px;
+    justify-content: center;
+    margin: 8px 0 2px;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 44px;
+}
+
+.icon {
+    font-size: 1.6rem;
+    transition: -webkit-transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+
+// .wrapper:hover .icon {
+//     -webkit-transform: scale(1.5);
+//     transform: scale(1.5);
+// }
+
+.show {
+    -webkit-transform: rotate(45deg) scale(1.4);
+    transform: rotate(45deg) scale(1.4);
+}
