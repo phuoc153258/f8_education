@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './ScrollList.module.scss';
+import CommonItem from '../CommonItem/CommonItem';
+import { ENV } from '../../config/env';
 
 const ScrollList = (): JSX.Element => {
     return (
@@ -51,7 +53,100 @@ const ScrollList = (): JSX.Element => {
                     </a>
                 </div>
             </div>
-            <div className={styles.body}></div>
+            <div className={styles.body}>
+                <section className="index-module_row">
+                    <section className="index-module_col index-module_c-12 index-module_m-4 index-module_l-3">
+                        <CommonItem
+                            backgroundImage={`${ENV.apiUrl}/api/v1/file/course_image_1.png`}
+                            href="/learning/lessons-for-newbie"
+                            isRegister={false}
+                            name="Kiến Thức Nhập Môn IT"
+                            typeCommon={1}
+                        />
+                    </section>
+                    <section className="index-module_col index-module_c-12 index-module_m-4 index-module_l-3">
+                        <CommonItem
+                            backgroundImage={`${ENV.apiUrl}/api/v1/file/course_image_1.png`}
+                            href="/learning/lessons-for-newbie"
+                            isRegister={false}
+                            name="Kiến Thức Nhập Môn IT"
+                            typeCommon={1}
+                        />
+                    </section>
+                    <section className="index-module_col index-module_c-12 index-module_m-4 index-module_l-3">
+                        <CommonItem
+                            backgroundImage={`${ENV.apiUrl}/api/v1/file/course_image_1.png`}
+                            href="/learning/lessons-for-newbie"
+                            isRegister={false}
+                            name="Kiến Thức Nhập Môn IT"
+                            typeCommon={1}
+                        />
+                    </section>
+                    <section className="index-module_col index-module_c-12 index-module_m-4 index-module_l-3">
+                        <CommonItem
+                            backgroundImage={`${ENV.apiUrl}/api/v1/file/course_image_1.png`}
+                            href="/learning/lessons-for-newbie"
+                            isRegister={false}
+                            name="Kiến Thức Nhập Môn IT"
+                            typeCommon={1}
+                        />
+                    </section>
+                    <section className="index-module_col index-module_c-12 index-module_m-4 index-module_l-3">
+                        <CommonItem
+                            backgroundImage={`${ENV.apiUrl}/api/v1/file/course_image_1.png`}
+                            href="/learning/lessons-for-newbie"
+                            isRegister={false}
+                            name="Kiến Thức Nhập Môn IT"
+                            typeCommon={1}
+                        />
+                    </section>
+                    <section className="index-module_col index-module_c-12 index-module_m-4 index-module_l-3">
+                        <CommonItem
+                            backgroundImage={`${ENV.apiUrl}/api/v1/file/course_image_1.png`}
+                            href="/learning/lessons-for-newbie"
+                            isRegister={false}
+                            name="Kiến Thức Nhập Môn IT"
+                            typeCommon={1}
+                        />
+                    </section>
+                    <section className="index-module_col index-module_c-12 index-module_m-4 index-module_l-3">
+                        <CommonItem
+                            backgroundImage={`${ENV.apiUrl}/api/v1/file/course_image_1.png`}
+                            href="/learning/lessons-for-newbie"
+                            isRegister={false}
+                            name="Kiến Thức Nhập Môn IT"
+                            typeCommon={1}
+                        />
+                    </section>
+                    <section className="index-module_col index-module_c-12 index-module_m-4 index-module_l-3">
+                        <CommonItem
+                            backgroundImage={`${ENV.apiUrl}/api/v1/file/course_image_1.png`}
+                            href="/learning/lessons-for-newbie"
+                            isRegister={false}
+                            name="Kiến Thức Nhập Môn IT"
+                            typeCommon={1}
+                        />
+                    </section>
+                    <section className="index-module_col index-module_c-12 index-module_m-4 index-module_l-3">
+                        <CommonItem
+                            backgroundImage={`${ENV.apiUrl}/api/v1/file/course_image_1.png`}
+                            href="/learning/lessons-for-newbie"
+                            isRegister={false}
+                            name="Kiến Thức Nhập Môn IT"
+                            typeCommon={1}
+                        />
+                    </section>
+                    <section className="index-module_col index-module_c-12 index-module_m-4 index-module_l-3">
+                        <CommonItem
+                            backgroundImage={`${ENV.apiUrl}/api/v1/file/course_image_1.png`}
+                            href="/learning/lessons-for-newbie"
+                            isRegister={false}
+                            name="Kiến Thức Nhập Môn IT"
+                            typeCommon={1}
+                        />
+                    </section>
+                </section>
+            </div>
         </div>
     );
 };
