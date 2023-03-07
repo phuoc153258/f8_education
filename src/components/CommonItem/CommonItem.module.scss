@@ -1,0 +1,72 @@
+.wrapper {
+    flex-shrink: 0;
+    margin-bottom: 32px;
+    overflow: hidden;
+}
+
+.thumb {
+    background-color: rgba(0, 0, 0, 0.1);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 16px;
+    display: block;
+    object-fit: cover;
+    overflow: hidden;
+    padding-top: 56.25%;
+    position: relative;
+    width: 100%;
+}
+
+.ctaBtn {
+    background-color: #fff;
+    border-color: #fff;
+    color: #000;
+    left: 50%;
+    opacity: 0;
+    position: absolute;
+    top: 60%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease 0s;
+    visibility: hidden;
+    z-index: 1;
+}
+
+.thumb:hover .ctaBtn {
+    top: 50%;
+}
+
+.thumb:hover .ctaBtn,
+.thumb:hover:after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.thumb:hover:after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.thumb:after {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    content: '';
+    inset: 0;
+    opacity: 0;
+    position: absolute;
+    transition: all 0.3s ease 0s;
+    visibility: hidden;
+}
+
+.title a,
+.title span {
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    color: #292929;
+    display: -webkit-box;
+    font-size: 1.8rem;
+    line-height: 1.4;
+    overflow: hidden;
+}
