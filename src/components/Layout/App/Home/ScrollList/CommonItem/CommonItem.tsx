@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './CommonItem.module.scss';
-import homeStyles from '../Home/Home.module.scss';
-import buttonStyles from '../Button/Button.module.scss';
+import homeStyles from '../../Home.module.scss';
+import buttonStyles from '../../../../../Share/Button/Button.module.scss';
 import clsx from 'clsx';
-import CourseItem from '../CourseItem/CourseItem';
+import CourseItem from './CourseItem/CourseItem';
 
 type Props = {
     name: string;

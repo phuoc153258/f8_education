@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Item.module.scss';
-import { ENV } from '../../../config/env';
+import { ENV } from '../../../../../../config/env';
 import clsx from 'clsx';
 
 type Props = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './App.module.scss';
-import Sidebar from '../Sidebar/Sidebar';
-import Home from '../Home/Home';
+import Sidebar from './Sidebar/Sidebar';
+import Home from './Home/Home';
 
 const App = (): JSX.Element => {
     return (
