@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Action.module.scss';
-import Button from '../../Button/Button';
+import Button from '../../../Share/Button/Button';
 
 const Body = (): JSX.Element => {
     return (

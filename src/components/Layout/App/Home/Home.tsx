@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './Home.module.scss';
-import SlideShow from '../SlideShow/SlideShow';
-import ScrollList from '../ScrollList/ScrollList';
+import SlideShow from './SlideShow/SlideShow';
+import ScrollList from './ScrollList/ScrollList';
+import { scrollListData } from '../../../../data/scrollList';
 
 const Home = (): JSX.Element => {
     return (
@@ -10,7 +11,11 @@ const Home = (): JSX.Element => {
                 <SlideShow />
             </div>
             <div className={styles.wrapper}>
-                <ScrollList />
+                <>
+                    {scrollListData.map((x) => {
+                        return <ScrollList data={x} />;
+                    })}
+                </>
             </div>
         </>
     );

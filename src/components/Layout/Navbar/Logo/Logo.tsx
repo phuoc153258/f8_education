@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Logo.module.scss';
-import { ENV } from '../../../config/env';
+import { ENV } from '../../../../config/env';
 
 const Logo = (): JSX.Element => {
     return (

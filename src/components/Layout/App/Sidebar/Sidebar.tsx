@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Sidebar.module.scss';
 import clsx from 'clsx';
-import CreateButton from '../CreateButton/CreateButton';
+import CreateButton from './CreateButton/CreateButton';
 // import Tippy from '@tippyjs/react';
 // import 'tippy.js/dist/tippy.css';
 

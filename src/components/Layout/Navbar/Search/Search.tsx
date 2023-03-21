@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Search.module.scss';
 import clsx from 'clsx';
-import { ENV } from '../../../config/env';
+import { ENV } from '../../../../config/env';
 
 const Search = (): JSX.Element => {
     return (
