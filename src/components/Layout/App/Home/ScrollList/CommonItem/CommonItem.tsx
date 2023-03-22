@@ -4,37 +4,35 @@ import homeStyles from '../../Home.module.scss';
 import buttonStyles from '../../../../../Share/Button/Button.module.scss';
 import clsx from 'clsx';
 import CourseItem from './CourseItem/CourseItem';
+import PostItem from './PostItem/PostItem';
+import VideoItem from './VideoItem/VideoItem';
 
 type Props = {
-    name: string;
-    isRegister: boolean;
-    backgroundImage: string;
-    href: string;
-    typeCommon: number;
+    data: any;
 };
 
-const CommonItem = (props: Props): JSX.Element => {
+const CommonItem = ({ data }: Props): JSX.Element => {
     return (
         <div className={clsx(styles.wrapper, homeStyles.courseItem)}>
             <a
                 className={clsx(styles.thumb, styles.hasLink)}
-                title={props.name}
+                title={data.name}
                 target="_self"
-                href={props.href}
+                href={data.href}
                 style={{
-                    backgroundImage: `url(${props.backgroundImage})`,
+                    backgroundImage: `url(${data.backgroundImage})`,
                 }}
             >
-                <button className={clsx(buttonStyles.btn, styles.ctaBtn)}>
-                    {props.isRegister ? 'Tiếp tục học' : 'Xem khóa học'}
-                </button>
+                <button className={clsx(buttonStyles.btn, styles.ctaBtn)}>{data.btnContent}</button>
             </a>
             <h3 className={styles.title}>
-                <a target="_self" href={props.href}>
-                    {props.name}
+                <a target="_self" href={data.href}>
+                    {data.name}
                 </a>
             </h3>
-            {props.typeCommon === 1 ? <CourseItem /> : ''}
+            <>{data.course ? <CourseItem /> : ''}</>
+            <>{data.post ? <PostItem /> : ''}</>
+            <>{data.video ? <VideoItem /> : ''}</>
         </div>
     );
 };

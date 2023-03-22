@@ -1,53 +1,29 @@
 import React from 'react';
 import styles from './ScrollList.module.scss';
 import CommonItem from './CommonItem/CommonItem';
-import { ENV } from '../../../../../config/env';
-import { IScrollList } from '../../../../../interfaces/scrollList';
+import { IScrollList, ICommonItem } from '../../../../../interfaces';
 
 type Props = {
-    data: IScrollList;
+    scrollListData: IScrollList;
+    commonItemData: Array<ICommonItem>;
 };
 
-const commonItemData = [
-    {
-        backgroundImage: `${ENV.apiUrl}/api/v1/file/course_image_1.png`,
-        href: '/courses/lessons-for-newbie',
-        isRegister: false,
-        name: 'Kiến Thức Nhập Môn IT',
-        typeCommon: 1,
-    },
-    {
-        backgroundImage: `${ENV.apiUrl}/api/v1/file/course_image_1.png`,
-        href: '/courses/lessons-for-newbie',
-        isRegister: false,
-        name: 'Kiến Thức Nhập Môn IT',
-        typeCommon: 1,
-    },
-    {
-        backgroundImage: `${ENV.apiUrl}/api/v1/file/course_image_1.png`,
-        href: '/courses/lessons-for-newbie',
-        isRegister: false,
-        name: 'Kiến Thức Nhập Môn IT',
-        typeCommon: 1,
-    },
-];
-
-const ScrollList = ({ data }: Props): JSX.Element => {
+const ScrollList = ({ scrollListData, commonItemData }: Props): JSX.Element => {
     return (
         <div className={styles.vertical}>
             <div>
-                {data.countRegister === 0 || !data.countRegister ? (
+                {scrollListData.countRegister === 0 || !scrollListData.countRegister ? (
                     ''
                 ) : (
                     <p className={styles.subHeading}>
-                        <strong>{data.countRegister}+</strong> người đã học
+                        <strong>{scrollListData.countRegister}+</strong> người đã học
                     </p>
                 )}
 
                 <div className={styles.headingWrap}>
                     <h2 className={styles.heading}>
-                        <a rel="noreferrer" target="_self" href={data.href}>
-                            {data.heading}
+                        <a rel="noreferrer" target="_self" href={scrollListData.href}>
+                            {scrollListData.heading}
                             <span className={styles.viewAllIcon}>
                                 <svg
                                     aria-hidden="true"
@@ -67,8 +43,8 @@ const ScrollList = ({ data }: Props): JSX.Element => {
                             </span>
                         </a>
                     </h2>
-                    <a className={styles.viewAll} rel="noreferrer" target="_self" href={data.href}>
-                        {data.exploreBtn}
+                    <a className={styles.viewAll} rel="noreferrer" target="_self" href={scrollListData.href}>
+                        {scrollListData.exploreBtn}
                         <svg
                             aria-hidden="true"
                             focusable="false"
@@ -92,14 +68,11 @@ const ScrollList = ({ data }: Props): JSX.Element => {
                     <>
                         {commonItemData.map((x) => {
                             return (
-                                <section className="index-module_col index-module_c-12 index-module_m-4 index-module_l-3">
-                                    <CommonItem
-                                        backgroundImage={x.backgroundImage}
-                                        href={x.href}
-                                        isRegister={x.isRegister}
-                                        name={x.name}
-                                        typeCommon={x.typeCommon}
-                                    />
+                                <section
+                                    key={x.id}
+                                    className="index-module_col index-module_c-12 index-module_m-4 index-module_l-3"
+                                >
+                                    <CommonItem data={x} key={x.id} />
                                 </section>
                             );
                         })}
