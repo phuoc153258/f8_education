@@ -1,0 +1,41 @@
+.author {
+    align-items: center;
+    display: flex;
+}
+
+.author .avatarWrapper {
+    margin-right: 8px;
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+}
+
+.author a {
+    color: #757575;
+    font-size: 1.4rem;
+}
+
+@media (min-width: 1024px) {
+    html ::-webkit-scrollbar {
+        border-radius: 0;
+        height: 8px;
+        width: 8px;
+    }
+    html ::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+    }
+
+    html ::-webkit-scrollbar-track {
+        background-color: transparent;
+        border-radius: 0;
+    }
+}
+
+.author .username {
+    color: #292929;
+    font-weight: 600;
+}
+
+.author .dot {
+    margin: 0 8px;
+}

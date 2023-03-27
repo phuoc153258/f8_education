@@ -1,0 +1,21 @@
+.avatar .pro {
+    align-items: center;
+    background: linear-gradient(180deg, #ffd900, #b45264 93.68%);
+    display: flex;
+    justify-content: center;
+    padding: 0.7em;
+    position: relative;
+}
+
+.avatar {
+    background: transparent;
+    border-radius: 50%;
+    font-size: var(--font-size);
+}
+
+.avatar img:not(crown) {
+    border-radius: 50%;
+    height: 9em;
+    object-fit: cover;
+    width: 9em;
+}

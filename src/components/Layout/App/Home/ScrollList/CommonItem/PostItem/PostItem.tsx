@@ -1,18 +1,18 @@
 import React from 'react';
 import styles from './PostItem.module.scss';
+import FallbackAvatar from '../../../../../../Share/FallbackAvatar/FallbackAvatar';
+import { ENV } from '../../../../../../../config';
 
 const PostItem = (): JSX.Element => {
     return (
         <div className={styles.author}>
-            <a className="PostItem_avatar-wrapper__IdMDr" href="/@son-dang">
-                <div className="FallbackAvatar_avatar__gmj3S FallbackAvatar_pro__-8mK+" style={{ fontSize: '2.9px' }}>
-                    <img src="https://files.fullstack.edu.vn/f8-prod/user_avatars/1/623d4b2d95cec.png" alt="Sơn Đặng" />
-                    <img
-                        className="FallbackAvatar_crown__BnONf"
-                        src="/static/media/crown.8edf462029b3c37a7f673303d8d3bedc.svg"
-                        alt="crown"
-                    />
-                </div>
+            <a className={styles.avatarWrapper} href="/@son-dang">
+                <FallbackAvatar image={ENV.apiUrl + '/api/v1/file/user-avatar.png'} name="Sơn Đặng" />
+            </a>
+            <a href="/@son-dang">
+                <span className={styles.username}>Sơn Đặng</span>
+                <span className={styles.dot}>·</span>
+                <span>6 phút đọc</span>
             </a>
         </div>
     );
