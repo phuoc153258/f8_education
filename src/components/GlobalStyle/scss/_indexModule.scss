@@ -22,6 +22,12 @@
     padding-right: 4px;
 }
 
+.index-module_wide {
+    width: 100%;
+    max-width: 1224px;
+    margin: 0 auto;
+}
+
 @media (min-width: 740px) {
     .index-module_row {
         margin-left: -8px;
@@ -47,6 +53,10 @@
     .index-module_col {
         padding-left: 8px;
         padding-right: 8px;
+    }
+
+    .index-module_m-12 {
+        width: 100%;
     }
 }
 @media (min-width: 1113px) {
@@ -74,5 +84,8 @@
     .index-module_l-11,
     .index-module_l-12 {
         display: block;
+    }
+    .index-module_l-2 {
+        width: 14%;
     }
 }

@@ -144,6 +144,7 @@ export const commonItemVideoData: ICommonItem[] = [
             view: 2000,
             like: 2000,
             comment: 2000,
+            videoLength: '10:00',
         },
     },
     {
@@ -156,6 +157,7 @@ export const commonItemVideoData: ICommonItem[] = [
             view: 2000,
             like: 2000,
             comment: 2000,
+            videoLength: '10:00',
         },
     },
     {
@@ -168,6 +170,7 @@ export const commonItemVideoData: ICommonItem[] = [
             view: 2000,
             like: 2000,
             comment: 2000,
+            videoLength: '10:00',
         },
     },
     {
@@ -180,6 +183,7 @@ export const commonItemVideoData: ICommonItem[] = [
             view: 2000,
             like: 2000,
             comment: 2000,
+            videoLength: '10:00',
         },
     },
     {
@@ -192,6 +196,7 @@ export const commonItemVideoData: ICommonItem[] = [
             view: 2000,
             like: 2000,
             comment: 2000,
+            videoLength: '10:00',
         },
     },
     {
@@ -204,6 +209,7 @@ export const commonItemVideoData: ICommonItem[] = [
             view: 2000,
             like: 2000,
             comment: 2000,
+            videoLength: '10:00',
         },
     },
     {
@@ -216,6 +222,7 @@ export const commonItemVideoData: ICommonItem[] = [
             view: 2000,
             like: 2000,
             comment: 2000,
+            videoLength: '10:00',
         },
     },
     {
@@ -228,6 +235,7 @@ export const commonItemVideoData: ICommonItem[] = [
             view: 2000,
             like: 2000,
             comment: 2000,
+            videoLength: '10:00',
         },
     },
 ];

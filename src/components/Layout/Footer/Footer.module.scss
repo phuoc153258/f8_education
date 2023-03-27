@@ -1,0 +1,96 @@
+.wrapper {
+    background-color: #181821;
+    color: #a9b3bb;
+    overflow: hidden;
+    padding: 68px 0 40px;
+}
+.column {
+    display: flex;
+    justify-content: center;
+}
+.columnTop {
+    align-items: center;
+    display: flex;
+}
+
+.contactList {
+    color: #a9b3bb;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    position: relative;
+    a {
+        color: #a9b3bb;
+    }
+}
+
+.topLogo {
+    border-radius: 8px;
+    height: 38px;
+    margin-right: 10px;
+    width: 38px;
+}
+
+.topSlogan {
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.dmca {
+    margin-top: 20px;
+}
+
+.heading,
+.heading a {
+    color: #fff;
+    font-size: 1.8rem;
+    line-height: 1.6;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
+.list {
+    padding-left: 0;
+    li {
+        font-size: 1.4rem;
+        line-height: 2.2rem;
+        margin-bottom: 8px;
+        position: relative;
+    }
+    a {
+        color: #a9b3bb;
+        cursor: pointer;
+        position: relative;
+        transition: 0.3s ease;
+    }
+}
+
+.bottom {
+    align-items: baseline;
+    display: flex;
+    margin-top: 48px;
+}
+
+.copyright {
+    font-size: 1.4rem;
+}
+
+.socialList {
+    margin-left: auto;
+}
+.socialItem.youtube {
+    color: #eb2c3b;
+}
+
+.socialItem {
+    font-size: 3.2rem;
+}
+.socialItem.facebook {
+    color: #4867aa;
+}
+.socialItem + .socialItem {
+    margin-left: 16px;
+}
+.socialItem.tiktok {
+    color: #ccc;
+}
