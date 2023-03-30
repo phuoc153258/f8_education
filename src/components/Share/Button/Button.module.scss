@@ -32,3 +32,13 @@
     user-select: none;
     white-space: nowrap;
 }
+
+.btn:hover {
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.btn.primary {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}

@@ -5,7 +5,7 @@ export const commonItemCourseData: ICommonItem[] = [
     {
         id: 'fc3c0155-9117-40d5-909f-54f98a1bf884',
         backgroundImage: `${ENV.apiUrl}/api/v1/file/course_image_1.png`,
-        href: '/blog/tong-hop-cac-san-pham-cua-hoc-vien-tai-f8',
+        href: '/courses/tong-hop-cac-san-pham-cua-hoc-vien-f8',
         btnContent: 'Xem bài viết',
         name: 'Tổng hợp các sản phẩm của học viên F8',
         course: {
@@ -15,7 +15,7 @@ export const commonItemCourseData: ICommonItem[] = [
     {
         id: '6711c577-649e-439a-a823-3ffa4c2e0712   ',
         backgroundImage: `${ENV.apiUrl}/api/v1/file/course_image_1.png`,
-        href: '/blog/tong-hop-cac-san-pham-cua-hoc-vien-tai-f8',
+        href: '/courses/tong-hop-cac-san-pham-cua-hoc-vien-f8',
         btnContent: 'Xem bài viết',
         name: 'Tổng hợp các sản phẩm của học viên F8',
         course: {
@@ -25,7 +25,7 @@ export const commonItemCourseData: ICommonItem[] = [
     {
         id: 'a64bb57a-2ee3-4263-89c3-431a71f52102',
         backgroundImage: `${ENV.apiUrl}/api/v1/file/course_image_1.png`,
-        href: '/blog/tong-hop-cac-san-pham-cua-hoc-vien-tai-f8',
+        href: '/courses/tong-hop-cac-san-pham-cua-hoc-vien-f8',
         btnContent: 'Xem bài viết',
         name: 'Tổng hợp các sản phẩm của học viên F8',
         course: {

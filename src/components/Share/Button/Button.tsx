@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './Button.module.scss';
+import { Link } from 'react-router-dom';
 
 const Button = (): JSX.Element => {
     return (
-        <a href="/" className={styles.loginBtn}>
+        <Link to="/" className={styles.loginBtn}>
             Đăng nhập
-        </a>
+        </Link>
     );
 };
 

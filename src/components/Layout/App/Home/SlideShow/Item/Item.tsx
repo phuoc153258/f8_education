@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Item.module.scss';
 import { ENV } from '../../../../../../config/env';
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
 type Props = {
     bannerNumer: number;
@@ -17,7 +18,7 @@ const Item = (props: Props): JSX.Element => {
             <div className={clsx(styles.item, styles['banner_' + props.bannerNumer])}>
                 <div className={styles.left}>
                     <h2 className={styles.heading}>
-                        <a rel="noreferrer noopener noreferrer" target="_blank" href={props.btnHref}>
+                        <Link rel="noreferrer noopener noreferrer" target="_blank" to={props.btnHref}>
                             {props.heading}
                             {props.bannerNumer === 1 ? (
                                 <span className={styles.crownIcon}>
@@ -26,7 +27,7 @@ const Item = (props: Props): JSX.Element => {
                             ) : (
                                 ''
                             )}
-                        </a>
+                        </Link>
                     </h2>
                     <p className={styles.desc}>{props.title}</p>
                     <div>
@@ -41,14 +42,14 @@ const Item = (props: Props): JSX.Element => {
                     </div>
                 </div>
                 <div className={styles.right}>
-                    <a rel="noreferrer noopener noreferrer" target="_blank" href={props.btnHref}>
+                    <Link rel="noreferrer noopener noreferrer" target="_blank" to={props.btnHref}>
                         <img
                             className={styles.img}
                             src={`${ENV.apiUrl}/api/v1/file/banner_${props.bannerNumer}.png`}
                             alt="Khóa Học HTML CSS Pro"
                             title="Khóa học HTML CSS Pro"
                         />
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>
