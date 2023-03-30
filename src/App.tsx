@@ -1,12 +1,16 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
-import GlobalStyle from './components/GlobalStyle/GlobalStyle';
+import CourseDetail from './pages/CourseDetail/CourseDetail';
 
 function App() {
     return (
-        <GlobalStyle>
-            <Home />
-        </GlobalStyle>
+        <>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/courses/:slug" element={<CourseDetail />} />
+            </Routes>
+        </>
     );
 }
 

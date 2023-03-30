@@ -7,6 +7,7 @@ import CourseItem from './CourseItem/CourseItem';
 import PostItem from './PostItem/PostItem';
 import VideoItem from './VideoItem/VideoItem';
 import videoItemStyles from './VideoItem/VideoItem.module.scss';
+import { Link } from 'react-router-dom';
 
 type Props = {
     data: any;
@@ -55,9 +56,9 @@ const CommonItem = ({ data }: Props): JSX.Element => {
                 </div>
             </a>
             <h3 className={styles.title}>
-                <a target="_self" href={data.href}>
+                <Link target="_self" to={data.href}>
                     {data.name}
-                </a>
+                </Link>
             </h3>
             <>{data.course ? <CourseItem /> : ''}</>
             <>{data.post ? <PostItem /> : ''}</>

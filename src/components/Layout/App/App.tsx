@@ -2,8 +2,13 @@ import React from 'react';
 import styles from './App.module.scss';
 import Sidebar from './Sidebar/Sidebar';
 import Home from './Home/Home';
+import CourseDetail from './CourseDetail/CourseDetail';
 
-const App = (): JSX.Element => {
+type Props = {
+    page: string;
+};
+
+const App = ({ page }: Props): JSX.Element => {
     return (
         <div className={styles.withSidebar}>
             <div className={styles.sidebarWrap}>
@@ -11,7 +16,8 @@ const App = (): JSX.Element => {
             </div>
             <div className={styles.withSidebarContent}>
                 <section className="index-module_grid index-module_fullWidth" style={{ maxWidth: `1425px` }}>
-                    <Home />
+                    {page === 'home' ? <Home /> : ''}
+                    {page === 'courseDetail' ? <CourseDetail /> : ''}
                 </section>
             </div>
         </div>

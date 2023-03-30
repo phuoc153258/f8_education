@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './ScrollList.module.scss';
 import CommonItem from './CommonItem/CommonItem';
 import { IScrollList, ICommonItem } from '../../../../../interfaces';
+import { Link } from 'react-router-dom';
 
 type Props = {
     scrollListData: IScrollList;
@@ -22,7 +23,7 @@ const ScrollList = ({ scrollListData, commonItemData }: Props): JSX.Element => {
 
                 <div className={styles.headingWrap}>
                     <h2 className={styles.heading}>
-                        <a rel="noreferrer" target="_self" href={scrollListData.href}>
+                        <Link rel="noreferrer" target="_self" to={scrollListData.href}>
                             {scrollListData.heading}
                             <span className={styles.viewAllIcon}>
                                 <svg
@@ -41,9 +42,9 @@ const ScrollList = ({ scrollListData, commonItemData }: Props): JSX.Element => {
                                     ></path>
                                 </svg>
                             </span>
-                        </a>
+                        </Link>
                     </h2>
-                    <a className={styles.viewAll} rel="noreferrer" target="_self" href={scrollListData.href}>
+                    <Link className={styles.viewAll} rel="noreferrer" target="_self" to={scrollListData.href}>
                         {scrollListData.exploreBtn}
                         <svg
                             aria-hidden="true"
@@ -60,7 +61,7 @@ const ScrollList = ({ scrollListData, commonItemData }: Props): JSX.Element => {
                                 d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"
                             ></path>
                         </svg>
-                    </a>
+                    </Link>
                 </div>
             </div>
             <div className={styles.body}>

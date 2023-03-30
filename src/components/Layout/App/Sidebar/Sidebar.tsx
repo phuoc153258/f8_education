@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import CreateButton from './CreateButton/CreateButton';
 // import Tippy from '@tippyjs/react';
 // import 'tippy.js/dist/tippy.css';
+import { Link } from 'react-router-dom';
 
 const Sidebar = (): JSX.Element => {
     return (
@@ -13,7 +14,7 @@ const Sidebar = (): JSX.Element => {
             </div>
             <ul className={styles.list}>
                 <li>
-                    <a href="/" className={clsx(styles.itemBtn, styles.active)}>
+                    <Link to="/" className={clsx(styles.itemBtn, styles.active)}>
                         <svg
                             aria-hidden="true"
                             focusable="false"
@@ -30,10 +31,10 @@ const Sidebar = (): JSX.Element => {
                             ></path>
                         </svg>
                         <span>Home</span>
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="/" className={styles.itemBtn}>
+                    <Link to="/learning-paths" className={styles.itemBtn}>
                         <svg
                             aria-hidden="true"
                             focusable="false"
@@ -50,10 +51,10 @@ const Sidebar = (): JSX.Element => {
                             ></path>
                         </svg>
                         <span>Lộ trình</span>
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="/" className={styles.itemBtn}>
+                    <Link to="/courses" className={styles.itemBtn}>
                         <svg
                             aria-hidden="true"
                             focusable="false"
@@ -70,10 +71,10 @@ const Sidebar = (): JSX.Element => {
                             ></path>
                         </svg>
                         <span>Học</span>
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="/" className={styles.itemBtn}>
+                    <Link to="/blog" className={styles.itemBtn}>
                         <svg
                             aria-hidden="true"
                             focusable="false"
@@ -90,7 +91,7 @@ const Sidebar = (): JSX.Element => {
                             ></path>
                         </svg>
                         <span>Blog</span>
-                    </a>
+                    </Link>
                 </li>
             </ul>
         </div>

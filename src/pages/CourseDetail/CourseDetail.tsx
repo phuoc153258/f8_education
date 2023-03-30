@@ -1,17 +1,17 @@
 import React from 'react';
-// import styles from './Home.module.scss';
+// import styles from './Course.module.scss';
 import Navbar from '../../components/Layout/Navbar/Navbar';
 import App from '../../components/Layout/App/App';
 import Footer from '../../components/Layout/Footer/Footer';
 
-const Home = (): JSX.Element => {
+const CourseDetail = (): JSX.Element => {
     return (
         <>
             <Navbar />
-            <App page="home" />
+            <App page="courseDetail" />
             <Footer />
         </>
     );
 };
 
-export default Home;
+export default CourseDetail;
