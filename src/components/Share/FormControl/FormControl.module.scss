@@ -1,0 +1,53 @@
+.wrapper {
+    margin-top: 10px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.wrapper {
+    color: #292929;
+    text-align: left;
+    width: 100%;
+}
+
+.labelGroup {
+    display: flex;
+    justify-content: space-between;
+}
+
+.label {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 10px 0 10px 8px;
+}
+
+.label.right {
+    cursor: pointer;
+}
+
+.inputWrap {
+    background: rgba(22, 24, 35, 0.06);
+    border: 1px solid rgba(22, 24, 35, 0.06);
+    border-radius: 44px;
+    display: flex;
+    height: 44px;
+    overflow: hidden;
+}
+
+.inputWrap input {
+    background-color: transparent;
+    border: none;
+    display: block;
+    flex: 1 1;
+    font-size: 1.4rem;
+    outline: none;
+    padding: 12px 20px;
+}
+.help__KZbU7,
+.message {
+    color: var(--invalid-color);
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin: 8px 0 8px 8px;
+}

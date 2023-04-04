@@ -1,0 +1,12 @@
+.ranks-module_primary {
+    background-color: var(--button-color);
+    background-image: var(--button-image);
+}
+.ranks-module_primary {
+    background-position: 0 0;
+    background-size: 100% 200%;
+    border: 0;
+    color: var(--white-color);
+    font-weight: 600;
+    transition: background-position 0.15s cubic-bezier(0.2, 0.2, 0.2, 1);
+}
