@@ -16,11 +16,11 @@ type Props = {
 const CommonItem = ({ data }: Props): JSX.Element => {
     return (
         <div className={clsx(styles.wrapper, homeStyles.courseItem)}>
-            <a
+            <Link
                 className={clsx(styles.thumb, styles.hasLink)}
                 title={data.name}
                 target="_self"
-                href={data.href}
+                to={data.href}
                 style={{
                     backgroundImage: `url(${data.backgroundImage})`,
                 }}
@@ -54,7 +54,7 @@ const CommonItem = ({ data }: Props): JSX.Element => {
                         ''
                     )}
                 </div>
-            </a>
+            </Link>
             <h3 className={styles.title}>
                 <Link target="_self" to={data.href}>
                     {data.name}

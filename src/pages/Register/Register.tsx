@@ -1,7 +1,8 @@
 import React from 'react';
+import RegisterComponent from '../../components/Layout/Register/Register';
 
 const Register = (): JSX.Element => {
-    return <></>;
+    return <RegisterComponent />;
 };
 
 export default Register;

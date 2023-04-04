@@ -31,14 +31,14 @@ const Item = (props: Props): JSX.Element => {
                     </h2>
                     <p className={styles.desc}>{props.title}</p>
                     <div>
-                        <a
+                        <Link
                             rel="noreferrer noopener noreferrer"
                             className={styles.ctaBtn}
                             target="_blank"
-                            href={props.btnHref}
+                            to={props.btnHref}
                         >
                             {props.btnContent}
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 <div className={styles.right}>
