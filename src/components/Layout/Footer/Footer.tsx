@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Footer.module.scss';
 import clsx from 'clsx';
 import { ENV } from '../../../config';
+import { Link } from 'react-router-dom';
 
 const Footer = (): JSX.Element => {
     return (
@@ -12,13 +13,13 @@ const Footer = (): JSX.Element => {
                         <div className={styles.column}>
                             <div>
                                 <div className={styles.columnTop}>
-                                    <a href="/">
+                                    <Link to="/">
                                         <img
                                             className={styles.topLogo}
                                             src={ENV.apiUrl + '/api/v1/file/f8-icon38x38.png'}
                                             alt="F8"
                                         />
-                                    </a>
+                                    </Link>
                                     <h2 className={styles.topSlogan}>Học Lập Trình Để Đi Làm</h2>
                                 </div>
                                 <p className={styles.contactList}>

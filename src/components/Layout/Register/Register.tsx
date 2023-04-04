@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
-import styles from './Login.module.scss';
+import styles from './Register.module.scss';
 import formControlStyles from '../../Share/FormControl/FormControl.module.scss';
 import clsx from 'clsx';
 import FormControl from '../../Share/FormControl/FormControl';
 import { Link } from 'react-router-dom';
 
-const Login = (): JSX.Element => {
+const Register = (): JSX.Element => {
     return (
         <div className={clsx(styles.wrapper, styles.hasBg)}>
             <div className={styles.container}>
@@ -18,33 +18,38 @@ const Login = (): JSX.Element => {
                                 alt="F8"
                             />
                         </Link>
-                        <h1 className={styles.title}>Đăng nhập vào F8</h1>
+                        <h1 className={styles.title}>Đăng ký tài khoản F8</h1>
                     </div>
                     <div className={styles.body}>
                         <div className={styles.formBody}>
                             <FormControl
                                 label={
                                     <Fragment>
-                                        <label className={formControlStyles.label}>Email</label>
+                                        <label className={formControlStyles.label}>Tên của bạn?</label>
                                     </Fragment>
                                 }
-                                placeholder={'Địa chỉ email'}
-                                name={'email'}
+                                placeholder={'Họ và tên của bạn'}
+                                name={'name'}
                                 maxLength={50}
                                 type={'text'}
                             />
                             <FormControl
-                                placeholder={'Mật khẩu'}
-                                name={'password'}
-                                maxLength={50}
-                                type={'password'}
-                                message={
+                                label={
                                     <Fragment>
-                                        <div className={formControlStyles.message}>
-                                            Tài khoản hoặc mật khẩu không chính xác
-                                        </div>
+                                        <label className={formControlStyles.label}>Email</label>
                                     </Fragment>
                                 }
+                                placeholder={'Email'}
+                                name={'email'}
+                                maxLength={50}
+                                type={'email'}
+                            />
+                            <FormControl placeholder={'Password'} name={'password'} maxLength={50} type={'password'} />
+                            <FormControl
+                                placeholder={'Confirm password'}
+                                name={'confirmPassword'}
+                                maxLength={50}
+                                type={'password'}
                             />
                             <button
                                 className={clsx(
@@ -58,12 +63,12 @@ const Login = (): JSX.Element => {
                                 type="button"
                             >
                                 <div className="base-module_inner sizes-module_inner">
-                                    <span className="base-module_text">Đăng nhập</span>
+                                    <span className="base-module_text">Đăng ký</span>
                                 </div>
                             </button>
                         </div>
                         <p className={styles.dontHaveAcc}>
-                            Bạn chưa có tài khoản? <Link to="/register?continue=">Đăng ký</Link>
+                            Bạn đã có tài khoản? <Link to="/login">Đăng nhập</Link>
                         </p>
                         <p className={styles.forgotPassword}>Quên mật khẩu?</p>
                     </div>
@@ -90,4 +95,4 @@ const Login = (): JSX.Element => {
     );
 };
 
-export default Login;
+export default Register;
