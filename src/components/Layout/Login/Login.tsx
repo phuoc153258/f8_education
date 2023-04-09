@@ -1,11 +1,40 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import styles from './Login.module.scss';
 import formControlStyles from '../../Share/FormControl/FormControl.module.scss';
 import clsx from 'clsx';
 import FormControl from '../../Share/FormControl/FormControl';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import AuthService from '../../../services/auth';
+import { isAuthenticate, setToken, setUser } from '../../../utils';
+import UserService from '../../../services/user';
 
 const Login = (): JSX.Element => {
+    const navigate = useNavigate();
+    const [email, setEmail] = useState<any>('');
+    const [password, setPassword] = useState<any>('');
+
+    const handleLogin = async () => {
+        try {
+            const responseAuth: any = await AuthService.login({ email, password });
+            if (responseAuth?.data?.data) {
+                setToken(responseAuth?.data?.data.token);
+                const responseUser: any = await UserService.getMe();
+
+                if (responseUser?.data?.data) {
+                    setUser(JSON.stringify(responseUser?.data?.data));
+                }
+                return navigate('/');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        const isAuth = isAuthenticate();
+        if (isAuth) navigate('/');
+    }, [navigate]);
+
     return (
         <div className={clsx(styles.wrapper, styles.hasBg)}>
             <div className={styles.container}>
@@ -32,6 +61,8 @@ const Login = (): JSX.Element => {
                                 name={'email'}
                                 maxLength={50}
                                 type={'text'}
+                                data={email}
+                                setData={setEmail}
                             />
                             <FormControl
                                 placeholder={'Mật khẩu'}
@@ -45,6 +76,8 @@ const Login = (): JSX.Element => {
                                         </div>
                                     </Fragment>
                                 }
+                                data={password}
+                                setData={setPassword}
                             />
                             <button
                                 className={clsx(
@@ -54,8 +87,8 @@ const Login = (): JSX.Element => {
                                     'tooltip-module_tooltip',
                                     styles.submitBtn,
                                 )}
-                                disabled={true}
                                 type="button"
+                                onClick={handleLogin}
                             >
                                 <div className="base-module_inner sizes-module_inner">
                                     <span className="base-module_text">Đăng nhập</span>
