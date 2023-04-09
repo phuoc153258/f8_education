@@ -1,3 +1,2 @@
-export const ROUTER = {
-    INDEX: '/',
-};
+export * from './api/user';
+export * from './api/auth';

@@ -160,6 +160,7 @@ export const fetch = {
     },
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function fmt<TObject>(text: string, myHash: any) {
     let key;
     for (key in myHash) {

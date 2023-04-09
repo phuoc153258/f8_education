@@ -1,10 +1,10 @@
 import { fetch } from '../../utils/api';
-import { USER_ROUTER } from '../../constants/user';
+import { USER_ROUTER } from '../../routes';
 
 class UserService {
-    static getListuser(param: object) {
-        let uri = USER_ROUTER.GET_LIST_USER;
-        return fetch.get(uri, param, '5|HL5GUje8oJB2iFmq2EtkhrV6fqeg2PdoMPYjxm4Z');
+    static getMe() {
+        let uri = USER_ROUTER.GET_ME;
+        return fetch.get(uri);
     }
 }
 
