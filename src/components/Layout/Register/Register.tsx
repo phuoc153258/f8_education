@@ -1,11 +1,41 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import styles from './Register.module.scss';
 import formControlStyles from '../../Share/FormControl/FormControl.module.scss';
 import clsx from 'clsx';
 import FormControl from '../../Share/FormControl/FormControl';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import AuthService from '../../../services/auth';
+import { isAuthenticate } from '../../../utils';
 
 const Register = (): JSX.Element => {
+    const navigate = useNavigate();
+    const [fullname, setFullname] = useState<any>('');
+    const [email, setEmail] = useState<any>('');
+    const [password, setPassword] = useState<any>('');
+    const [confirmPassword, setConfirmPassword] = useState<any>('');
+    const [show, setShow] = useState<any>(false);
+
+    const handleRegister = async () => {
+        try {
+            if (password === confirmPassword) {
+                const responseAuth: any = await AuthService.register({ email, password, fullname });
+                if (responseAuth?.data?.data) {
+                    return navigate('/login');
+                } else {
+                    setShow(true);
+                }
+            } else setShow(true);
+        } catch (error) {
+            setShow(true);
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        const isAuth = isAuthenticate();
+        if (isAuth) navigate('/');
+    }, [navigate]);
+
     return (
         <div className={clsx(styles.wrapper, styles.hasBg)}>
             <div className={styles.container}>
@@ -32,6 +62,8 @@ const Register = (): JSX.Element => {
                                 name={'name'}
                                 maxLength={50}
                                 type={'text'}
+                                data={fullname}
+                                setData={setFullname}
                             />
                             <FormControl
                                 label={
@@ -43,13 +75,30 @@ const Register = (): JSX.Element => {
                                 name={'email'}
                                 maxLength={50}
                                 type={'email'}
+                                data={email}
+                                setData={setEmail}
                             />
-                            <FormControl placeholder={'Password'} name={'password'} maxLength={50} type={'password'} />
+                            <FormControl
+                                placeholder={'Password'}
+                                name={'password'}
+                                maxLength={50}
+                                type={'password'}
+                                data={password}
+                                setData={setPassword}
+                            />
                             <FormControl
                                 placeholder={'Confirm password'}
                                 name={'confirmPassword'}
                                 maxLength={50}
                                 type={'password'}
+                                data={confirmPassword}
+                                setData={setConfirmPassword}
+                                message={
+                                    <Fragment>
+                                        <div className={formControlStyles.message}>Thông tin đăng ký không hợp lệ</div>
+                                    </Fragment>
+                                }
+                                isShowMessage={show}
                             />
                             <button
                                 className={clsx(
@@ -59,7 +108,7 @@ const Register = (): JSX.Element => {
                                     'tooltip-module_tooltip',
                                     styles.submitBtn,
                                 )}
-                                disabled={true}
+                                onClick={handleRegister}
                                 type="button"
                             >
                                 <div className="base-module_inner sizes-module_inner">

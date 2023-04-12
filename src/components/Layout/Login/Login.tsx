@@ -12,6 +12,7 @@ const Login = (): JSX.Element => {
     const navigate = useNavigate();
     const [email, setEmail] = useState<any>('');
     const [password, setPassword] = useState<any>('');
+    const [show, setShow] = useState<any>(false);
 
     const handleLogin = async () => {
         try {
@@ -24,8 +25,9 @@ const Login = (): JSX.Element => {
                     setUser(JSON.stringify(responseUser?.data?.data));
                 }
                 return navigate('/');
-            }
+            } else setShow(true);
         } catch (error) {
+            setShow(true);
             console.log(error);
         }
     };
@@ -76,6 +78,7 @@ const Login = (): JSX.Element => {
                                         </div>
                                     </Fragment>
                                 }
+                                isShowMessage={show}
                                 data={password}
                                 setData={setPassword}
                             />
