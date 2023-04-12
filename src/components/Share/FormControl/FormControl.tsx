@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './FormControl.module.scss';
 
-const FormControl = ({ label, placeholder, name, maxLength, type, message, data, setData }: any): JSX.Element => {
-    // const [show, setShow] = useState<any>(false);
-
+const FormControl = ({
+    label,
+    placeholder,
+    name,
+    maxLength,
+    type,
+    data,
+    setData,
+    isShowMessage,
+    message,
+}: any): JSX.Element => {
     const handleInput = (e: any) => {
         setData(e.target.value);
     };
@@ -22,7 +30,7 @@ const FormControl = ({ label, placeholder, name, maxLength, type, message, data,
                         onInput={handleInput}
                     />
                 </div>
-                {message}
+                {isShowMessage ? message : ''}
             </div>
         </div>
     );
