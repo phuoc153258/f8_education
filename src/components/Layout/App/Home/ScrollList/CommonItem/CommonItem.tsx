@@ -57,10 +57,10 @@ const CommonItem = ({ data }: Props): JSX.Element => {
             </Link>
             <h3 className={styles.title}>
                 <Link target="_self" to={data.href}>
-                    {data.name}
+                    {data.title}
                 </Link>
             </h3>
-            <>{data.course ? <CourseItem /> : ''}</>
+            <>{data.studentCount ? <CourseItem studentCount={data.studentCount} /> : ''}</>
             <>{data.post ? <PostItem /> : ''}</>
             <>{data.video ? <VideoItem /> : ''}</>
         </div>
