@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './ScrollList.module.scss';
 import CommonItem from './CommonItem/CommonItem';
-import { IScrollList, ICommonItem } from '../../../../../interfaces';
+import { IScrollList } from '../../../../../interfaces';
 import { Link } from 'react-router-dom';
 
 type Props = {
     scrollListData: IScrollList;
-    commonItemData: Array<ICommonItem>;
+    commonItemData: Array<any>;
 };
 
 const ScrollList = ({ scrollListData, commonItemData }: Props): JSX.Element => {
@@ -23,7 +23,12 @@ const ScrollList = ({ scrollListData, commonItemData }: Props): JSX.Element => {
 
                 <div className={styles.headingWrap}>
                     <h2 className={styles.heading}>
-                        <Link rel="noreferrer" target="_self" to={scrollListData.href}>
+                        <Link
+                            key={'50ee4b2d-39b8-4128-83a6-43ef3f3aa7d5'}
+                            rel="noreferrer"
+                            target="_self"
+                            to={scrollListData.href}
+                        >
                             {scrollListData.heading}
                             <span className={styles.viewAllIcon}>
                                 <svg
@@ -44,7 +49,13 @@ const ScrollList = ({ scrollListData, commonItemData }: Props): JSX.Element => {
                             </span>
                         </Link>
                     </h2>
-                    <Link className={styles.viewAll} rel="noreferrer" target="_self" to={scrollListData.href}>
+                    <Link
+                        key={'494e9be6-a857-4b1a-a755-f591ff4368b4'}
+                        className={styles.viewAll}
+                        rel="noreferrer"
+                        target="_self"
+                        to={scrollListData.href}
+                    >
                         {scrollListData.exploreBtn}
                         <svg
                             aria-hidden="true"
@@ -67,13 +78,13 @@ const ScrollList = ({ scrollListData, commonItemData }: Props): JSX.Element => {
             <div className={styles.body}>
                 <section className="index-module_row">
                     <>
-                        {commonItemData.map((x) => {
+                        {commonItemData.map((x, index) => {
                             return (
                                 <section
-                                    key={x.id}
+                                    key={index}
                                     className="index-module_col index-module_c-12 index-module_m-4 index-module_l-3"
                                 >
-                                    <CommonItem data={x} key={x.id} />
+                                    <CommonItem data={x} />
                                 </section>
                             );
                         })}
