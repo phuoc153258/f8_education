@@ -7,7 +7,7 @@ export const commonItemCourseData: ICommonItem[] = [
         backgroundImage: `${ENV.apiUrl}/api/v1/file/course_image_1.png`,
         href: '/courses/tong-hop-cac-san-pham-cua-hoc-vien-f8',
         btnContent: 'Xem bài viết',
-        name: 'Tổng hợp các sản phẩm của học viên F8',
+        title: 'Tổng hợp các sản phẩm của học viên F8',
         course: {
             countRegister: 1000,
         },
@@ -17,7 +17,7 @@ export const commonItemCourseData: ICommonItem[] = [
         backgroundImage: `${ENV.apiUrl}/api/v1/file/course_image_1.png`,
         href: '/courses/tong-hop-cac-san-pham-cua-hoc-vien-f8',
         btnContent: 'Xem bài viết',
-        name: 'Tổng hợp các sản phẩm của học viên F8',
+        title: 'Tổng hợp các sản phẩm của học viên F8',
         course: {
             countRegister: 1000,
         },
@@ -27,7 +27,7 @@ export const commonItemCourseData: ICommonItem[] = [
         backgroundImage: `${ENV.apiUrl}/api/v1/file/course_image_1.png`,
         href: '/courses/tong-hop-cac-san-pham-cua-hoc-vien-f8',
         btnContent: 'Xem bài viết',
-        name: 'Tổng hợp các sản phẩm của học viên F8',
+        title: 'Tổng hợp các sản phẩm của học viên F8',
         course: {
             countRegister: 1000,
         },
@@ -40,7 +40,7 @@ export const commonItemPostData: ICommonItem[] = [
         backgroundImage: `${ENV.apiUrl}/api/v1/file/tong-hop-cac-san-pham-cua-hoc-vien-tai-f8.png`,
         href: '/blog/tong-hop-cac-san-pham-cua-hoc-vien-tai-f8',
         btnContent: 'Xem bài viết',
-        name: 'Tổng hợp các sản phẩm của học viên F8',
+        title: 'Tổng hợp các sản phẩm của học viên F8',
         post: {
             author: 'Sơn Đặng',
             avatar: `${ENV.apiUrl}/api/v1/file/user-avatar.png`,
@@ -52,7 +52,7 @@ export const commonItemPostData: ICommonItem[] = [
         backgroundImage: `${ENV.apiUrl}/api/v1/file/phan-1-tao-du-an-reactjs-voi-webpack-va-babel.jpg`,
         href: '/blog/phan-1-tao-du-an-reactjs-voi-webpack-va-babel',
         btnContent: 'Xem bài viết',
-        name: '[Phần 1] Tạo dự án ReactJS với Webpack và Babel',
+        title: '[Phần 1] Tạo dự án ReactJS với Webpack và Babel',
         post: {
             author: 'Sơn Đặng',
             avatar: `${ENV.apiUrl}/api/v1/file/user-avatar.png`,
@@ -64,7 +64,7 @@ export const commonItemPostData: ICommonItem[] = [
         backgroundImage: `${ENV.apiUrl}/api/v1/file/ky-su-ngay-thu-25-hoc-o-f8-1.png`,
         href: '/blog/ky-su-ngay-thu-25-hoc-o-f8-1',
         btnContent: 'Xem bài viết',
-        name: 'Ký sự ngày thứ 25 học ở F8 ',
+        title: 'Ký sự ngày thứ 25 học ở F8 ',
         post: {
             author: 'Sơn Đặng',
             avatar: `${ENV.apiUrl}/api/v1/file/user-avatar.png`,
@@ -76,7 +76,7 @@ export const commonItemPostData: ICommonItem[] = [
         backgroundImage: `${ENV.apiUrl}/api/v1/file/cach-dua-code-len-github-va-tao-github-pages.png`,
         href: '/blog/cach-dua-code-len-github-va-tao-github-pages',
         btnContent: 'Xem bài viết',
-        name: 'Cách đưa code lên GitHub và tạo GitHub Pages',
+        title: 'Cách đưa code lên GitHub và tạo GitHub Pages',
         post: {
             author: 'Sơn Đặng',
             avatar: `${ENV.apiUrl}/api/v1/file/user-avatar.png`,
@@ -88,7 +88,7 @@ export const commonItemPostData: ICommonItem[] = [
         backgroundImage: `${ENV.apiUrl}/api/v1/file/cac-nguon-tai-nguyen-huu-ich-cho-1-front-end-developer.png`,
         href: '/blog/cac-nguon-tai-nguyen-huu-ich-cho-1-front-end-developer',
         btnContent: 'Xem bài viết',
-        name: 'Các nguồn tài nguyên hữu ích cho 1 front-end developer',
+        title: 'Các nguồn tài nguyên hữu ích cho 1 front-end developer',
         post: {
             author: 'Sơn Đặng',
             avatar: `${ENV.apiUrl}/api/v1/file/user-avatar.png`,
@@ -100,7 +100,7 @@ export const commonItemPostData: ICommonItem[] = [
         backgroundImage: `${ENV.apiUrl}/api/v1/file/thoi-gian-va-dong-luc.jpg`,
         href: '/blog/thoi-gian-va-dong-luc',
         btnContent: 'Xem bài viết',
-        name: 'Thời gian và Động lực',
+        title: 'Thời gian và Động lực',
         post: {
             author: 'Sơn Đặng',
             avatar: `${ENV.apiUrl}/api/v1/file/user-avatar.png`,
@@ -112,7 +112,7 @@ export const commonItemPostData: ICommonItem[] = [
         backgroundImage: `${ENV.apiUrl}/api/v1/file/tong-hop-tai-lieu-tu-hoc-tieng-anh-co-ban.png`,
         href: '/blog/tong-hop-tai-lieu-tu-hoc-tieng-anh-co-ban',
         btnContent: 'Xem bài viết',
-        name: 'Tổng hợp tài liệu tự học tiếng anh cơ bản.',
+        title: 'Tổng hợp tài liệu tự học tiếng anh cơ bản.',
         post: {
             author: 'Sơn Đặng',
             avatar: `${ENV.apiUrl}/api/v1/file/user-avatar.png`,
@@ -124,7 +124,7 @@ export const commonItemPostData: ICommonItem[] = [
         backgroundImage: `${ENV.apiUrl}/api/v1/file/hoc-nhu-the-nao-la-phu-hop.jpg`,
         href: '/blog/hoc-nhu-the-nao-la-phu-hop',
         btnContent: 'Xem bài viết',
-        name: 'Học như thế nào là phù hợp ?',
+        title: 'Học như thế nào là phù hợp ?',
         post: {
             author: 'Sơn Đặng',
             avatar: `${ENV.apiUrl}/api/v1/file/user-avatar.png`,
@@ -139,7 +139,7 @@ export const commonItemVideoData: ICommonItem[] = [
         backgroundImage: `https://i.ytimg.com/vi/YH-E4Y3EaT4/maxresdefault.jpg`,
         href: 'https://youtu.be/YH-E4Y3EaT4',
         btnContent: 'Xem Video',
-        name: 'Sinh viên IT đi thực tập tại doanh nghiệp cần biết những gì?',
+        title: 'Sinh viên IT đi thực tập tại doanh nghiệp cần biết những gì?',
         video: {
             view: 2000,
             like: 2000,
@@ -152,7 +152,7 @@ export const commonItemVideoData: ICommonItem[] = [
         backgroundImage: `https://i.ytimg.com/vi/sgq7BH6WxL8/maxresdefault.jpg`,
         href: 'https://youtu.be/sgq7BH6WxL8',
         btnContent: 'Xem Video',
-        name: '"Code Thiếu Nhi Battle" Tranh Giành Trà Sữa Size L',
+        title: '"Code Thiếu Nhi Battle" Tranh Giành Trà Sữa Size L',
         video: {
             view: 2000,
             like: 2000,
@@ -165,7 +165,7 @@ export const commonItemVideoData: ICommonItem[] = [
         backgroundImage: `https://i.ytimg.com/vi/DpvYHLUiZpc/maxresdefault.jpg`,
         href: 'https://youtu.be/DpvYHLUiZpc',
         btnContent: 'Xem Video',
-        name: 'Phương pháp học lập trình của Admin F8?',
+        title: 'Phương pháp học lập trình của Admin F8?',
         video: {
             view: 2000,
             like: 2000,
@@ -178,7 +178,7 @@ export const commonItemVideoData: ICommonItem[] = [
         backgroundImage: `https://i.ytimg.com/vi/R6plN3FvzFY/maxresdefault.jpg`,
         href: 'https://youtu.be/R6plN3FvzFY',
         btnContent: 'Xem Video',
-        name: 'Bạn sẽ làm được gì sau khóa học?',
+        title: 'Bạn sẽ làm được gì sau khóa học?',
         video: {
             view: 2000,
             like: 2000,
@@ -191,7 +191,7 @@ export const commonItemVideoData: ICommonItem[] = [
         backgroundImage: `https://i.ytimg.com/vi/oF7isq9IjZM/maxresdefault.jpg`,
         href: 'https://youtu.be/oF7isq9IjZM',
         btnContent: 'Xem Video',
-        name: 'Làm sao để có thu nhập cao và đi xa hơn trong ngành IT?',
+        title: 'Làm sao để có thu nhập cao và đi xa hơn trong ngành IT?',
         video: {
             view: 2000,
             like: 2000,
@@ -204,7 +204,7 @@ export const commonItemVideoData: ICommonItem[] = [
         backgroundImage: `https://i.ytimg.com/vi/0SJE9dYdpps/maxresdefault.jpg`,
         href: 'https://youtu.be/0SJE9dYdpps',
         btnContent: 'Xem Video',
-        name: 'Javascript có thể làm được gì? Giới thiệu qua về trang F8 | Học lập trình Javascript cơ bản',
+        title: 'Javascript có thể làm được gì? Giới thiệu qua về trang F8 | Học lập trình Javascript cơ bản',
         video: {
             view: 2000,
             like: 2000,
@@ -217,7 +217,7 @@ export const commonItemVideoData: ICommonItem[] = [
         backgroundImage: `https://i.ytimg.com/vi/x0fSBAgBrOQ/maxresdefault.jpg`,
         href: 'https://youtu.be/x0fSBAgBrOQ',
         btnContent: 'Xem Video',
-        name: 'ReactJS là gì? Tại sao nên học ReactJS?',
+        title: 'ReactJS là gì? Tại sao nên học ReactJS?',
         video: {
             view: 2000,
             like: 2000,
@@ -230,7 +230,7 @@ export const commonItemVideoData: ICommonItem[] = [
         backgroundImage: `https://i.ytimg.com/vi/G19jZzK5FWI/maxresdefault.jpg`,
         href: 'https://youtu.be/G19jZzK5FWI',
         btnContent: 'Xem Video',
-        name: 'Học Flexbox qua ví dụ',
+        title: 'Học Flexbox qua ví dụ',
         video: {
             view: 2000,
             like: 2000,

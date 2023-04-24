@@ -4,11 +4,13 @@ import Home from './pages/Home/Home';
 import CourseDetail from './pages/CourseDetail/CourseDetail';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import Learning from './pages/Learning/Learning';
 
 function App() {
     return (
         <>
             <Routes>
+                <Route path="/learning/:slug" element={<Learning />} />
                 <Route path="/courses/:slug" element={<CourseDetail />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />

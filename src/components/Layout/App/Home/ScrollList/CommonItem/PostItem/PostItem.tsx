@@ -8,7 +8,7 @@ const PostItem = (): JSX.Element => {
     return (
         <div className={styles.author}>
             <Link className={styles.avatarWrapper} to="/@son-dang">
-                <FallbackAvatar image={ENV.apiUrl + '/api/v1/file/user-avatar.png'} name="Sơn Đặng" />
+                <FallbackAvatar image={ENV.apiUrl + '/api/v1/file/user-avatar.png'} name="Sơn Đặng" fontSize={'2.9'} />
             </Link>
             <Link to="/@son-dang">
                 <span className={styles.username}>Sơn Đặng</span>

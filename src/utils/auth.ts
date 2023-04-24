@@ -21,24 +21,26 @@ function Logout() {
 
 function getCurrentToken() {
     const token: string = cookie.get('token')!;
-    if (typeof JSON.parse(token) !== 'undefined') {
-        if (JSON.parse(token)) {
-            return JSON.parse(token);
+    if (typeof token !== 'undefined') {
+        if (token) {
+            return token;
         } else {
             Logout();
         }
     }
+    return undefined;
 }
 
 function getCurrentUser() {
-    const user: string = cookie.get('user')!;
-    if (typeof JSON.parse(user) !== 'undefined') {
+    const user: any = cookie.get('user')!;
+    if (typeof user !== 'undefined') {
         if (JSON.parse(user)) {
             return JSON.parse(user);
         } else {
             Logout();
         }
     }
+    return undefined;
 }
 
 function isAuthenticate() {

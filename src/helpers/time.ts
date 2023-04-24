@@ -1,10 +1,10 @@
 export const getTotalTime = (course: any) => {
-    if (course.courseContents === undefined) return 0;
+    if (course.tracks === undefined) return 0;
 
     let totalTime = 0;
-    course.courseContents.forEach((chapter: any) => {
-        chapter.lessons.forEach((lesson: any) => {
-            totalTime += lesson.lessonLength;
+    course.tracks.forEach((chapter: any) => {
+        chapter.steps.forEach((lesson: any) => {
+            totalTime += lesson.duration;
         });
     });
     return totalTime;
