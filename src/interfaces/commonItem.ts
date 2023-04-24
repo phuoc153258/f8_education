@@ -3,7 +3,7 @@ export interface ICommonItem {
     backgroundImage: string;
     href: string;
     btnContent: string;
-    name: string;
+    title: string;
     course?: any;
     post?: any;
     video?: any;

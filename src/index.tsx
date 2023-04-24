@@ -4,14 +4,17 @@ import App from './App';
 import GlobalStyle from './components/GlobalStyle/GlobalStyle';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { StoreProvider } from './store';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <React.StrictMode>
         <GlobalStyle>
-            <Router>
-                <App />
-            </Router>
+            <StoreProvider>
+                <Router>
+                    <App />
+                </Router>
+            </StoreProvider>
         </GlobalStyle>
     </React.StrictMode>,
 );

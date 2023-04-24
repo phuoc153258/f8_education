@@ -7,8 +7,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import AuthService from '../../../services/auth';
 import { isAuthenticate, setToken, setUser } from '../../../utils';
 import UserService from '../../../services/user';
+import { useStore } from '../../../hooks';
+import { actions } from '../../../store';
 
 const Login = (): JSX.Element => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [state, dispatch] = useStore();
+
     const navigate = useNavigate();
     const [email, setEmail] = useState<any>('');
     const [password, setPassword] = useState<any>('');
@@ -19,10 +24,12 @@ const Login = (): JSX.Element => {
             const responseAuth: any = await AuthService.login({ email, password });
             if (responseAuth?.data?.data) {
                 setToken(responseAuth?.data?.data.token);
+                dispatch(actions.userLogIn(responseAuth?.data?.data.token));
                 const responseUser: any = await UserService.getMe();
 
                 if (responseUser?.data?.data) {
                     setUser(JSON.stringify(responseUser?.data?.data));
+                    dispatch(actions.setCurrentUserInfo(responseUser?.data?.data));
                 }
                 return navigate('/');
             } else setShow(true);

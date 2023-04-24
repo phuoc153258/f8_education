@@ -10,6 +10,10 @@ class CourseService {
         let uri = COURSE_ROUTER.analytics;
         return fetch.get(uri, params);
     }
+    static courseDetail(params: object, slug: any) {
+        let uri = COURSE_ROUTER.courseDetail + slug;
+        return fetch.get(uri, params);
+    }
 }
 
 export default CourseService;

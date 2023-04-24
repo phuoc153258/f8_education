@@ -1,0 +1,42 @@
+.wrapper {
+    min-width: 230px;
+    padding: 8px 24px !important;
+}
+.user {
+    align-items: center;
+    display: flex;
+}
+.avatarWrapper {
+    margin: 10px 0;
+    position: relative;
+}
+.info {
+    margin-left: 12px;
+}
+.name {
+    color: #292929;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+.username {
+    color: #757575;
+    font-size: 1.4rem;
+    margin-top: 4px;
+}
+.list {
+    margin: 0;
+    padding-left: 0;
+}
+.list .affiliate:hover,
+.list .item:hover {
+    color: #292929;
+}
+
+.list .affiliate,
+.list .item {
+    color: #666;
+    cursor: pointer;
+    display: block;
+    font-size: 1.4rem;
+    padding: 10px 0;
+}

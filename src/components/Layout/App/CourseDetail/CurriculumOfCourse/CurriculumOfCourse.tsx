@@ -48,8 +48,8 @@ const CurriculumOfCourse = ({ course, times }: any): JSX.Element => {
                 <div className={styles.panelGroup}>
                     <div>
                         <>
-                            {course.courseContents
-                                ? course.courseContents.map((chapter: any, index: any) => {
+                            {course.tracks
+                                ? course.tracks.map((chapter: any, index: any) => {
                                       return (
                                           <div className={styles.panel} key={chapter.id} onClick={() => {}}>
                                               <div
@@ -59,13 +59,13 @@ const CurriculumOfCourse = ({ course, times }: any): JSX.Element => {
                                                       <div className={styles.headline}>
                                                           <span className={clsx(styles.floatLeft, styles.groupName)}>
                                                               <strong>
-                                                                  {index + 1}. {chapter.name}
+                                                                  {index + 1}. {chapter.title}
                                                               </strong>
                                                           </span>
                                                           <span
                                                               className={clsx(styles.floatRight, styles.timeOfSection)}
                                                           >
-                                                              {chapter.lessons.length} bài học
+                                                              {chapter.steps.length} bài học
                                                           </span>
                                                       </div>
                                                   </h5>
@@ -75,8 +75,8 @@ const CurriculumOfCourse = ({ course, times }: any): JSX.Element => {
                                                       <div>
                                                           <div>
                                                               <>
-                                                                  {chapter.lessons
-                                                                      ? chapter.lessons.map((lesson: any) => {
+                                                                  {chapter.steps
+                                                                      ? chapter.steps.map((lesson: any) => {
                                                                             return (
                                                                                 <div
                                                                                     className={styles.lessonItem}
@@ -114,12 +114,12 @@ const CurriculumOfCourse = ({ course, times }: any): JSX.Element => {
                                                                                             }
                                                                                         >
                                                                                             {indexLesson++}.{' '}
-                                                                                            {lesson.name}
+                                                                                            {lesson.title}
                                                                                         </div>
                                                                                     </span>
                                                                                     <span className={styles.floatRight}>
                                                                                         {convertNumberToTimeENG(
-                                                                                            lesson.lessonLength,
+                                                                                            lesson.duration,
                                                                                         )}
                                                                                     </span>
                                                                                 </div>
