@@ -415,3 +415,14 @@ html ::-webkit-scrollbar-track {
     background-color: transparent;
     border-radius: 0px;
 }
+body {
+    font-family: var(--system-ui);
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    overflow-y: overlay;
+    overscroll-behavior: none;
+    touch-action: manipulation;
+    -webkit-user-drag: none;
+    -ms-content-zooming: none;
+}

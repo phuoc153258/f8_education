@@ -1,0 +1,60 @@
+.pieWrapper {
+    height: 40px;
+    height: var(--size, 40px);
+    position: relative;
+    width: 40px;
+    width: var(--size, 40px);
+}
+.pieWrapper:nth-child(3n + 1) {
+    clear: both;
+}
+.pieWrapper:hover .shadow {
+    background-color: transparent;
+    background-color: var(--shadow-bg-hover-color, transparent);
+}
+.pie {
+    clip: rect(0, 40px, 40px, 20px);
+    clip: rect(0, var(--size, 40px), var(--size, 40px), calc(var(--size, 40px) / 2));
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+--size .pie.overHalf {
+    clip: rect(auto, auto, auto, auto);
+}
+.pie.overHalf .rightSide {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+.halfCircle {
+    clip: rect(0, 20px, 40px, 0);
+    clip: rect(0, calc(var(--size, 40px) / 2), var(--size, 40px), 0);
+    border: var(--bar-width) solid var(--bar-color, var(--primary-color));
+    border-radius: 50%;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.leftSide {
+    -webkit-transform: rotate(calc(var(--progress) * 3.6deg));
+    transform: rotate(calc(var(--progress) * 3.6deg));
+    transition: 0.3s ease;
+}
+.shadow {
+    border: var(--bar-width) solid var(--shadow-border-color, #d4d4d4);
+    border-radius: 50%;
+    height: 100%;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+.body {
+    bottom: var(--bar-width);
+    left: var(--bar-width);
+    position: absolute;
+    right: var(--bar-width);
+    top: var(--bar-width);
+}

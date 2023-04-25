@@ -1,0 +1,85 @@
+.wrapper {
+    --wrapper-height: 50px;
+    align-items: center;
+    background-color: #29303b;
+    display: flex;
+    height: var(--wrapper-height);
+    position: relative;
+    z-index: 1;
+}
+.backBtn {
+    cursor: pointer;
+    display: flex;
+    height: var(--wrapper-height);
+    transition: background-color 0.2s linear;
+    width: 60px;
+}
+.backBtn .icon {
+    color: var(--white-color);
+    font-size: 1.6rem;
+    margin: auto;
+}
+.logo {
+    margin-left: 8px;
+    position: relative;
+    top: 1px;
+}
+.logo img {
+    height: 30px;
+}
+.logo img {
+    border-radius: 8px;
+}
+.courseTitle {
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    color: var(--white-color);
+    display: -webkit-box;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-left: 16px;
+    overflow: hidden;
+}
+.actions {
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+}
+.progressBar {
+    align-items: center;
+    display: flex;
+    margin-right: 24px;
+}
+.percent {
+    color: var(--white-color);
+    font-weight: 600;
+    line-height: 30px;
+    text-align: center;
+}
+.num {
+    -webkit-font-feature-settings: 'tnum';
+    font-feature-settings: 'tnum';
+    font-variant-numeric: tabular-nums;
+}
+.completedMsg {
+    color: var(--white-color);
+    font-size: 1.3rem;
+    margin-left: 6px;
+}
+.completedMsg .num {
+    font-size: 1.2rem;
+}
+.actionBtn {
+    background-color: transparent;
+    color: var(--white-color);
+    font-size: 1.4rem;
+    margin-right: 24px;
+    opacity: 0.8;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.actionBtn .icon {
+    margin-right: 6px;
+}

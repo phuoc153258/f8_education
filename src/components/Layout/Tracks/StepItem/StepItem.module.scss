@@ -1,0 +1,52 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0 10px 2px;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+.info {
+    cursor: pointer;
+    flex: 1 1;
+    margin: 0 0 0 28px;
+    position: relative;
+}
+.title {
+    color: var(--black-color);
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.4;
+    margin: 0;
+    position: relative;
+    top: -2px;
+}
+.desc {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+.lessonIcon {
+    color: #888;
+    font-size: 1.1rem;
+    margin-right: 6px;
+    transition: all 0.3s ease-in-out;
+}
+.iconBox {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-right: 12px;
+    width: 36px;
+}
+.stateIcon {
+    color: #5db85c;
+    font-size: 1.4rem;
+    margin-top: 1px;
+}
+.locked {
+    background-color: #e7e7e7;
+    opacity: 0.6;
+    pointer-events: none;
+}
+.stateIcon.lock {
+    color: rgba(0, 0, 0, 0.6);
+}

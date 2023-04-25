@@ -1,17 +1,28 @@
 import React from 'react';
 import styles from './CircularProgressBar.module.scss';
+import headerStyles from '../../Layout/Header/Header.module.scss';
 import clsx from 'clsx';
 
 const CircularProgressBar = (): JSX.Element => {
     return (
-        <div className="CircularProgressBar_pie-wrapper__ga0xC progress-45 style-2">
-            <div className="CircularProgressBar_pie__pROMB">
-                <div className="CircularProgressBar_left-side__Q9ngf CircularProgressBar_half-circle__07yig"></div>
+        <div
+            className={clsx(styles.pieWrapper, 'progress-45', 'style-2')}
+            style={
+                {
+                    '--size': '35px',
+                    '--progress': 47,
+                    '--bar-width': '3px',
+                    'shadow-border-color': '#4d4f50',
+                } as React.CSSProperties
+            }
+        >
+            <div className={styles.pie}>
+                <div className={clsx(styles.leftSide, styles.halfCircle)}></div>
             </div>
-            <div className="CircularProgressBar_shadow__N5Vl-"></div>
-            <div className="CircularProgressBar_body__BYOBo">
-                <div className="Header_percent__WYlCI">
-                    <span className="Header_num__0cLsk">0</span>%
+            <div className={styles.shadow}></div>
+            <div className={styles.body}>
+                <div className={headerStyles.percent}>
+                    <span className={headerStyles.num}>0</span>%
                 </div>
             </div>
         </div>
