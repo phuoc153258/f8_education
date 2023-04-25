@@ -1,0 +1,43 @@
+.wrapper {
+    background-color: #f7f8fa;
+    border-bottom: 1px solid #dedfe0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 8px 20px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    z-index: 2;
+}
+
+.title {
+    color: var(--black-color);
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0;
+}
+.desc {
+    color: #29303b;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-top: 4px;
+}
+.icon {
+    color: var(--text-color);
+    font-size: 1.6rem;
+    position: absolute;
+    right: 23px;
+    top: 12px;
+}
+
+.trackStepsList {
+    display: none;
+}
+.opened {
+    display: block;
+}

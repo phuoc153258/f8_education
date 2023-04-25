@@ -1,0 +1,53 @@
+.wrapper {
+    word-wrap: break-word;
+    color: #292929;
+    font-size: 1.8rem;
+    font-size: var(--font-size, 1.8rem);
+    line-height: 2;
+    line-height: var(--line-height, 2);
+}
+.wrapper p {
+    margin: 6px 0;
+}
+.wrapper a[href] {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+.wrapper hr {
+    background-color: #ddd;
+    border: transparent;
+    height: 1px;
+    margin: 40px 0;
+}
+.wrapper h2[data-appended] {
+    scroll-margin-top: 100px;
+}
+
+.wrapper h1,
+.wrapper h2,
+.wrapper h3,
+.wrapper h4,
+.wrapper h5,
+.wrapper h6 {
+    font-weight: 600;
+}
+.wrapper a[data-link] {
+    color: #666;
+    display: none;
+    font-size: 1.8rem;
+    margin-left: -28px;
+    text-decoration: none;
+    width: 28px;
+}
+.wrapper strong {
+    font-weight: 700;
+}
+.wrapper blockquote {
+    border-left: 3px solid var(--primary-color);
+    color: #757575;
+    margin-left: 0;
+    padding: 0 0 2px 20px;
+}
+.wrapper blockquote p {
+    margin: 0;
+}

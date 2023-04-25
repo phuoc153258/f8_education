@@ -11,3 +11,12 @@
 .m-0-auto {
     margin: 0 auto;
 }
+
+@keyframes fadeIn {
+    from {
+        top: 25px;
+    }
+    to {
+        top: 40px;
+    }
+}

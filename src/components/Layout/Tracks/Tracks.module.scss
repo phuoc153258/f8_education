@@ -1,0 +1,54 @@
+.wrapper {
+    border-left: 1px solid #e7e7e7;
+    bottom: 50px;
+    margin-top: 50px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 23%;
+    z-index: 2;
+}
+.container {
+    -webkit-animation: fadeIn 0.2s ease-in;
+    animation: fadeIn 0.2s ease-in;
+    background-color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.heading {
+    font-size: 1.6rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.closeBtn {
+    background-color: transparent;
+    display: none;
+    font-size: 1.8rem;
+    margin-right: 8px;
+}
+
+.body {
+    -ms-scroll-chaining: none;
+    flex: 1 1;
+    overscroll-behavior: contain;
+}
+
+@supports (overflow: overlay) {
+    .body {
+        overflow-y: overlay;
+    }
+}
