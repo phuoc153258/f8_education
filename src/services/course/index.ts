@@ -14,6 +14,10 @@ class CourseService {
         let uri = COURSE_ROUTER.courseDetail + slug;
         return fetch.get(uri, params);
     }
+    static registerCourse(params: object, slug: any) {
+        let uri = COURSE_ROUTER.courseDetail + slug;
+        return fetch.post(uri, params);
+    }
 }
 
 export default CourseService;
