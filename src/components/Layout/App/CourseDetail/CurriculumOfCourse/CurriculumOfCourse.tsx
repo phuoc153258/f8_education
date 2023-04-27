@@ -76,11 +76,11 @@ const CurriculumOfCourse = ({ course, times }: any): JSX.Element => {
                                                           <div>
                                                               <>
                                                                   {chapter.steps
-                                                                      ? chapter.steps.map((lesson: any) => {
+                                                                      ? chapter.steps.map((lesson: any, index: any) => {
                                                                             return (
                                                                                 <div
                                                                                     className={styles.lessonItem}
-                                                                                    key={lesson.id}
+                                                                                    key={index}
                                                                                 >
                                                                                     <span
                                                                                         className={clsx(

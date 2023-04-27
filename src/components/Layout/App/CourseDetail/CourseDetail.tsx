@@ -16,6 +16,12 @@ const CourseDetail = (): JSX.Element => {
     const [course, setCourse] = useState<any>({});
     const [times, setTimes] = useState<any>(0);
 
+    const handleRegisterCourse = async () => {
+        if (!course.isRegister) {
+            await CourseService.registerCourse({}, slug);
+        }
+        navigate('/learning/' + slug);
+    };
     const fetchData = async () => {
         try {
             const courseResponse: any = await CourseService.courseDetail({}, slug);
@@ -140,7 +146,7 @@ const CourseDetail = (): JSX.Element => {
             </section>
             <section className="index-module_col index-module_c-12 index-module_m-12 index-module_l-4">
                 <div className={styles.purchaseBadge}>
-                    <div className={styles.imgPreview}>
+                    <div className={styles.imgPreview} onClick={handleRegisterCourse}>
                         <div
                             className={styles.bg}
                             style={{ backgroundImage: `url(${ENV.apiUrl}/api/v1/file/${course.image})` }}
@@ -163,8 +169,11 @@ const CourseDetail = (): JSX.Element => {
                         <p>Xem giới thiệu khóa học</p>
                     </div>
                     <h5>Miễn phí</h5>
-                    <button className={clsx(buttonStyles.btn, buttonStyles.primary, styles.learnNow)}>
-                        ĐĂNG KÝ HỌC
+                    <button
+                        className={clsx(buttonStyles.btn, buttonStyles.primary, styles.learnNow)}
+                        onClick={handleRegisterCourse}
+                    >
+                        {!course.isRegister ? 'ĐĂNG KÝ HỌC' : 'TIẾP TỤC HỌC'}
                     </button>
                     <ul>
                         <li>
