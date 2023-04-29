@@ -31,12 +31,13 @@ const CourseDetail = (): JSX.Element => {
             setTimes(getTotalTime(courseResponse.data.data));
             setIsLoading(true);
         } catch (error) {
-            return navigate('/');
+            return navigate('/login');
         }
     };
 
     useEffect(() => {
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (!isLoading) return <></>;
