@@ -1,11 +1,27 @@
 import React from 'react';
 import styles from './ActionBar.module.scss';
 import clsx from 'clsx';
+import { useNavigate } from 'react-router-dom';
 
-const ActionBar = (): JSX.Element => {
+const ActionBar = ({ steps, slug, setShowTrack, showTrack }: any): JSX.Element => {
+    const navigate = useNavigate();
+    const handleStepLesson = (id: any) => {
+        navigate(`/learning/${slug}?id=${id}`);
+        navigate(0);
+    };
     return (
         <div className={styles.wrapper}>
-            <button className={clsx(styles.btn, styles.disabled)}>
+            <button
+                onClick={() => {
+                    handleStepLesson(steps.previous_id);
+                }}
+                className={clsx(
+                    styles.btn,
+                    steps.previous_id === '' || steps.step.position - 1 > steps.userCourse.lessonCompleted.length - 1
+                        ? styles.disabled
+                        : '',
+                )}
+            >
                 <svg
                     aria-hidden="true"
                     focusable="false"
@@ -23,7 +39,18 @@ const ActionBar = (): JSX.Element => {
                 </svg>
                 <span>BÀI TRƯỚC</span>
             </button>
-            <button className={clsx(styles.btn, styles.primary, styles.disabled)}>
+            <button
+                onClick={() => {
+                    handleStepLesson(steps.next_id);
+                }}
+                className={clsx(
+                    styles.btn,
+                    styles.primary,
+                    steps.next_id === '' || steps.step.position + 1 > steps.userCourse.lessonCompleted.length
+                        ? styles.disabled
+                        : '',
+                )}
+            >
                 <span>BÀI TIẾP THEO</span>
                 <svg
                     aria-hidden="true"
@@ -42,8 +69,15 @@ const ActionBar = (): JSX.Element => {
                 </svg>
             </button>
             <div className={styles.toggleWrap}>
-                <h3 className={styles.trackTitle}>2. Ôn lại ES6+</h3>
-                <button className={styles.toggleBtn}>
+                <h3 className={styles.trackTitle}>
+                    {steps.userCourse.indexVideo + 1}. {steps.step.title}
+                </h3>
+                <button
+                    className={styles.toggleBtn}
+                    onClick={() => {
+                        setShowTrack(!showTrack);
+                    }}
+                >
                     <svg
                         aria-hidden="true"
                         focusable="false"

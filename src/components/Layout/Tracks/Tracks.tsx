@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Tracks.module.scss';
 import TrackItem from './TrackItem/TrackItem';
 
-const Tracks = (): JSX.Element => {
+const Tracks = ({ tracks, steps, slug }: any): JSX.Element => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
@@ -27,19 +27,20 @@ const Tracks = (): JSX.Element => {
                     </button>
                 </header>
                 <div className={styles.body}>
-                    <TrackItem />
-                    <TrackItem />
-                    <TrackItem />
-                    <TrackItem />
-                    <TrackItem />
-                    <TrackItem />
-                    <TrackItem />
-                    <TrackItem />
-                    <TrackItem />
-                    <TrackItem />
-                    <TrackItem />
-                    <TrackItem />
-                    <TrackItem />
+                    <>
+                        {tracks.tracks.map((track: any, index: any) => {
+                            return (
+                                <TrackItem
+                                    key={index}
+                                    track={track}
+                                    index={index}
+                                    slug={slug}
+                                    currentStep={steps.step}
+                                    userProgress={tracks.userProgress}
+                                />
+                            );
+                        })}
+                    </>
                 </div>
             </div>
         </div>

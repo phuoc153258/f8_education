@@ -3,12 +3,13 @@ import styles from './TrackItem.module.scss';
 import clsx from 'clsx';
 import StepItem from '../StepItem/StepItem';
 
-const TrackItem = (): JSX.Element => {
+const TrackItem = ({ track, index, userProgress, slug, currentStep }: any): JSX.Element => {
     return (
         <>
             <div className={clsx(styles.wrapper)}>
-                <h3 className={styles.title}>1. Giới thiệu</h3>
-                <span className={styles.desc}>4/4 | 34:15</span>
+                <h3 className={styles.title}>
+                    {index + 1}. {track.title}
+                </h3>
                 <span className={styles.icon}>
                     <svg
                         aria-hidden="true"
@@ -28,8 +29,19 @@ const TrackItem = (): JSX.Element => {
                 </span>
             </div>
             <div className={clsx(styles.trackStepsList, styles.opened)}>
-                <StepItem index={1} step={{ title: 'React la gi', duration: '10:40' }} />
-                <StepItem index={1} step={{ title: 'React la gi', duration: '10:40' }} />
+                <>
+                    {track.steps.map((step: any, index: any) => {
+                        return (
+                            <StepItem
+                                currentStep={currentStep}
+                                key={index}
+                                slug={slug}
+                                userProgress={userProgress}
+                                step={step}
+                            />
+                        );
+                    })}
+                </>
             </div>
         </>
     );

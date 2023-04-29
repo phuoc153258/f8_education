@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './Heading.module.scss';
+import { convertToDate } from '../../../../../helpers';
 
-const Heading = (): JSX.Element => {
+const Heading = ({ step }: any): JSX.Element => {
     return (
         <>
-            <h1 className={styles.heading}>useEffect with timer functions</h1>
-            <p className={styles.updated}>Cập nhật tháng 5 năm 2022</p>
+            <h1 className={styles.heading}>{step.title}</h1>
+            <p className={styles.updated}>Cập nhật vào {convertToDate(step.updatedAt)}</p>
         </>
     );
 };

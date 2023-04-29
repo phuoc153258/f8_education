@@ -36,6 +36,9 @@
     justify-content: center;
     margin-right: 12px;
     width: 36px;
+    :hover {
+        cursor: pointer;
+    }
 }
 .stateIcon {
     color: #5db85c;
@@ -49,4 +52,10 @@
 }
 .stateIcon.lock {
     color: rgba(0, 0, 0, 0.6);
+}
+.wrapper.active {
+    background: rgba(240, 81, 35, 0.2);
+}
+.wrapper.active .title {
+    font-weight: 500;
 }

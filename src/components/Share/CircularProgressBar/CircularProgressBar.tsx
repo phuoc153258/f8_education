@@ -3,16 +3,16 @@ import styles from './CircularProgressBar.module.scss';
 import headerStyles from '../../Layout/Header/Header.module.scss';
 import clsx from 'clsx';
 
-const CircularProgressBar = (): JSX.Element => {
+const CircularProgressBar = ({ progress }: any): JSX.Element => {
     return (
         <div
             className={clsx(styles.pieWrapper, 'progress-45', 'style-2')}
             style={
                 {
                     '--size': '35px',
-                    '--progress': 47,
+                    '--progress': progress,
                     '--bar-width': '3px',
-                    'shadow-border-color': '#4d4f50',
+                    shadowBorderColor: '#4d4f50',
                 } as React.CSSProperties
             }
         >
@@ -22,7 +22,7 @@ const CircularProgressBar = (): JSX.Element => {
             <div className={styles.shadow}></div>
             <div className={styles.body}>
                 <div className={headerStyles.percent}>
-                    <span className={headerStyles.num}>0</span>%
+                    <span className={headerStyles.num}>{progress}</span>%
                 </div>
             </div>
         </div>

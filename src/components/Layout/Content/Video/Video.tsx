@@ -6,16 +6,16 @@ import VideoPlayer from './VideoPlayer/VideoPlayer';
 import MarkdownParser from '../MarkdownParser/MarkdownParser';
 import Powered from '../Powered/Powered';
 
-const Video = (): JSX.Element => {
+const Video = ({ steps }: any): JSX.Element => {
     return (
         <>
             <div className={clsx(styles.wrapper, 'noselect')}>
-                <VideoPlayer />
+                <VideoPlayer videoUrl={steps.step.videoUrl} />
             </div>
             <div className={styles.content}>
                 <div className={styles.contentTop}>
                     <header className="wrapper">
-                        <Heading />
+                        <Heading step={steps.step} />
                     </header>
                     <button className={styles.addNote} data-tour="notes-tutorial">
                         <svg
@@ -34,11 +34,11 @@ const Video = (): JSX.Element => {
                             ></path>
                         </svg>
                         <span className={styles.label}>
-                            Thêm ghi chú tại <span className={styles.num}>00:06</span>
+                            Thêm ghi chú tại <span className={styles.num}>00:00</span>
                         </span>
                     </button>
                 </div>
-                <MarkdownParser />
+                <MarkdownParser step={steps.step} />
             </div>
             <Powered />
         </>

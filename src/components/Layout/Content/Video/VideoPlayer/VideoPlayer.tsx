@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './VideoPlayer.module.scss';
 
-const VideoPlayer = (): JSX.Element => {
+const VideoPlayer = ({ videoUrl }: any): JSX.Element => {
     return (
         <div className={styles.wrapper}>
             <div
@@ -28,7 +28,7 @@ const VideoPlayer = (): JSX.Element => {
                         title="useEffect() with timer functions"
                         width="100%"
                         height="100%"
-                        src="https://www.youtube.com/embed/zGNOhVjrWFw?autoplay=1&amp;mute=0&amp;controls=1&amp;origin=https%3A%2F%2Ffullstack.edu.vn&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;iv_load_policy=3&amp;modestbranding=1&amp;enablejsapi=1&amp;widgetid=1"
+                        src={`https://www.youtube.com/embed/${videoUrl}?mute=0&amp;controls=1&amp;origin=https%3A%2F%2Ffullstack.edu.vn&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;iv_load_policy=3&amp;modestbranding=1&amp;enablejsapi=1&amp;widgetid=1`}
                         id="widget2"
                     ></iframe>
                 </div>
