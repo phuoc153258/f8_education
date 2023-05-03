@@ -11,7 +11,9 @@
     a {
         display: flex;
     }
-    a:focus, a:hover, a:visited{
+    a:focus,
+    a:hover,
+    a:visited {
         outline: none;
         text-decoration: none;
     }
@@ -22,4 +24,20 @@
         object-fit: contain;
         width: 38px;
     }
+}
+
+.backHome {
+}
+
+.backHome .logoHeading {
+    color: #808990;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.logoHeading svg {
+    font-size: 1rem;
+    margin-right: 4px;
+    transition: 0.3s ease;
 }

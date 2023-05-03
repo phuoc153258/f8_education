@@ -16,8 +16,9 @@ const CircularProgressBar = ({ progress }: any): JSX.Element => {
                 } as React.CSSProperties
             }
         >
-            <div className={styles.pie}>
+            <div className={clsx(styles.pie, progress > 50 ? styles.overHalf : '')}>
                 <div className={clsx(styles.leftSide, styles.halfCircle)}></div>
+                {progress > 50 ? <div className={clsx(styles.rightSide, styles.halfCircle)}></div> : ''}
             </div>
             <div className={styles.shadow}></div>
             <div className={styles.body}>
