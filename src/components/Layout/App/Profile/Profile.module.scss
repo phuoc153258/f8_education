@@ -1,0 +1,94 @@
+.banner {
+    background: center top / cover no-repeat;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    margin-top: -66px;
+    padding-top: 28%;
+    position: relative;
+    width: 100%;
+}
+.user {
+    align-items: flex-end;
+    bottom: -70px;
+    display: flex;
+    left: 40px;
+    position: absolute;
+    z-index: 1;
+}
+.userAvatar {
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    display: flex;
+    height: 172px;
+    justify-content: center;
+    width: 172px;
+}
+.userName {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    margin-left: 16px;
+    text-align: center;
+}
+.container {
+    margin-top: 90px;
+    padding: 0 24px;
+}
+
+.participation {
+    align-items: flex-start;
+    display: flex;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    margin-top: 15px;
+}
+.participationIcon {
+    color: #808990;
+    margin-right: 8px;
+    margin-top: 2px;
+    text-align: center;
+    width: 20px;
+}
+.highlight {
+    font-weight: 600;
+}
+.inner {
+    align-items: flex-start;
+    border-bottom: 1px solid #d0d7de;
+    display: flex;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding-bottom: 12px;
+}
+.thumb {
+    flex-shrink: 0;
+    height: 128px;
+    margin-right: 24px;
+    width: 228px;
+}
+.thumb .thumbImage {
+    border-radius: 16px;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+.infoTitle {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.infoTitle a {
+    color: var(--text-color);
+}
+.infoDesc {
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    display: -webkit-box;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    margin-top: 4px;
+    overflow: hidden;
+}

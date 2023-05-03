@@ -21,9 +21,11 @@
     top: 0;
     width: 100%;
 }
---size .pie.overHalf {
+
+.pie.overHalf {
     clip: rect(auto, auto, auto, auto);
 }
+
 .pie.overHalf .rightSide {
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
@@ -57,4 +59,8 @@
     position: absolute;
     right: var(--bar-width);
     top: var(--bar-width);
+}
+.rightSide {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
