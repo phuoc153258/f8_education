@@ -6,6 +6,7 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Learning from './pages/Learning/Learning';
 import Profile from './pages/Profile/Profile';
+import Setting from './pages/Setting/Setting';
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/courses/:slug" element={<CourseDetail />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/settings/:slug" element={<Setting />} />
                 <Route path="/:slug" element={<Profile />} />
                 <Route path="/" element={<Home />} />
             </Routes>

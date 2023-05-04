@@ -147,6 +147,22 @@ export const fetch = {
         });
     },
 
+    async putFile(url: string, formData?: any) {
+        const token = cookie.get('token') || null;
+        return new Promise((res, rej) => {
+            try {
+                let response = axios.put(url, formData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                return res(response);
+            } catch (error) {
+                rej(error);
+            }
+        });
+    },
+
     async delete(url: string, params?: any) {
         return new Promise(async (res, rej) => {
             try {
