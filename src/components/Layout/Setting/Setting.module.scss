@@ -1,0 +1,51 @@
+.settingWrapper {
+    display: flex;
+    gap: 80px;
+    margin: 0 120px;
+    min-height: 100vh;
+}
+.sidebarWrapper {
+    width: 24%;
+}
+.heading {
+    color: var(--text-color);
+    font-size: 3rem;
+    font-weight: 600;
+}
+.sidebarList {
+    min-width: 270px;
+    padding-left: 0;
+}
+.sidebarList li {
+    border-radius: 8px;
+}
+.sidebarList li .active {
+    background-color: #eee;
+    border-radius: 8px;
+}
+.sidebarList li a {
+    align-items: center;
+    border-radius: 8px;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 4px;
+    padding: 14px 12px;
+}
+.sidebarList li .icon {
+    color: #fb8500;
+    font-size: 2rem;
+    width: 20px;
+}
+.sidebarList li span {
+    color: var(--text-color);
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 2rem;
+}
+.pageWrapper {
+    width: 60%;
+}
+.wrapper {
+    margin-top: 54px;
+    padding-bottom: 48px;
+}

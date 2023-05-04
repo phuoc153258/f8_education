@@ -1,0 +1,32 @@
+.fieldContent {
+    flex: 1 1;
+    margin-right: 10px !important;
+}
+.fieldContentLabel {
+    font-size: 1.6rem;
+    margin: 0;
+}
+.fieldContentEdit {
+    margin-top: 16px;
+    max-width: 500px;
+}
+.fieldContentInput {
+    background-color: #fff;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.84) !important;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    outline: none;
+    padding-bottom: 8px;
+    width: 100%;
+}
+.description {
+    color: #757575;
+    font-size: 1.4rem;
+    line-height: 2rem;
+}
+.editMode,
+.fieldBtn {
+    display: flex;
+}

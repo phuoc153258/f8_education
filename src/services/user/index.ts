@@ -10,6 +10,10 @@ class UserService {
         let uri = USER_ROUTER.GET_USER + slug;
         return fetch.get(uri, params);
     }
+    static updateCurrentUser(params: any) {
+        let uri = USER_ROUTER.UPDATE_CURRENT_USER;
+        return fetch.putFile(uri, params);
+    }
 }
 
 export default UserService;
