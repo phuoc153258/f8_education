@@ -7,11 +7,13 @@ import Register from './pages/Register/Register';
 import Learning from './pages/Learning/Learning';
 import Profile from './pages/Profile/Profile';
 import Setting from './pages/Setting/Setting';
+import LearningPath from './pages/LearningPath/LearningPath';
 
 function App() {
     return (
         <>
             <Routes>
+                <Route path="/learning-paths" element={<LearningPath />} />
                 <Route path="/learning/:slug" element={<Learning />} />
                 <Route path="/courses/:slug" element={<CourseDetail />} />
                 <Route path="/login" element={<Login />} />

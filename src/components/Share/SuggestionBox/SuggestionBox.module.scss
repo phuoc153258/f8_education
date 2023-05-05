@@ -1,0 +1,38 @@
+.wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    overflow: hidden;
+}
+.info {
+    width: 400px;
+}
+.info h2 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    line-height: 1.6;
+}
+.info p {
+    font-size: 1.4rem;
+    line-height: 1.6;
+}
+.cta {
+    border: 2px solid #292929;
+    border-radius: 999px;
+    color: #292929;
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 8px;
+    padding: 10px 16px;
+    text-align: center;
+    transition: 0.2s ease;
+}
+.image {
+}
+.image img {
+    position: relative;
+    right: -44px;
+    width: 420px;
+}

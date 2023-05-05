@@ -4,6 +4,7 @@ import Sidebar from './Sidebar/Sidebar';
 import Home from './Home/Home';
 import CourseDetail from './CourseDetail/CourseDetail';
 import Profile from './Profile/Profile';
+import DefaultLayout from './DefaultLayout/DefaultLayout';
 
 type Props = {
     page: string;
@@ -13,7 +14,7 @@ const App = ({ page }: Props): JSX.Element => {
     return (
         <div className={styles.withSidebar}>
             <div className={styles.sidebarWrap}>
-                <Sidebar />
+                <Sidebar page={page} />
             </div>
             <div className={styles.withSidebarContent}>
                 <section
@@ -25,6 +26,7 @@ const App = ({ page }: Props): JSX.Element => {
                     {page === 'home' ? <Home /> : ''}
                     {page === 'courseDetail' ? <CourseDetail /> : ''}
                     {page === 'profile' ? <Profile /> : ''}
+                    {page === 'learning-paths' ? <DefaultLayout /> : ''}
                 </section>
             </div>
         </div>
