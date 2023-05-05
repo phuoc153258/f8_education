@@ -1,7 +1,7 @@
 import { IScrollList } from '../interfaces/scrollList';
 
 export const scrollListData: IScrollList[] = [
-    { countRegister: 200000, exploreBtn: 'Xem lộ trình', href: '/learning-paths', heading: 'Khóa học miễn phí' },
+    { countRegister: 200000, exploreBtn: 'Xem lộ trình', href: '/learning-paths/', heading: 'Khóa học miễn phí' },
     { exploreBtn: 'Xem tất cả', href: '/blog', heading: 'Bài viết nổi bật' },
     {
         exploreBtn: 'Xem tất cả',

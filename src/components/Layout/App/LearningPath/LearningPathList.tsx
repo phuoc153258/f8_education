@@ -6,7 +6,6 @@ import LearningPathService from '../../../../services/learningPath';
 const LearningPathList = (): JSX.Element => {
     const [show, setShow] = useState<any>(false);
     const [learningPath, setLearningPath] = useState<any>(null);
-
     const fetchData = async () => {
         setShow(false);
         const learningPathResponse: any = await LearningPathService.list({});

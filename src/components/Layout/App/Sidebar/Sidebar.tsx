@@ -41,7 +41,7 @@ const Sidebar = ({ page }: any): JSX.Element => {
                 </li>
                 <li>
                     <Link
-                        to="/learning-paths"
+                        to="/learning-paths/"
                         className={clsx(styles.itemBtn, page === 'learning-paths' ? styles.active : '')}
                     >
                         <svg
