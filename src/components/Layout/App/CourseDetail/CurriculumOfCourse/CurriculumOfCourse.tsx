@@ -51,7 +51,7 @@ const CurriculumOfCourse = ({ course, times }: any): JSX.Element => {
                             {course.tracks
                                 ? course.tracks.map((chapter: any, index: any) => {
                                       return (
-                                          <div className={styles.panel} key={chapter.id} onClick={() => {}}>
+                                          <div className={styles.panel} key={index} onClick={() => {}}>
                                               <div
                                                   className={clsx(styles.panelHeading, 'noselect', styles.activePanel)}
                                               >
@@ -76,11 +76,11 @@ const CurriculumOfCourse = ({ course, times }: any): JSX.Element => {
                                                           <div>
                                                               <>
                                                                   {chapter.steps
-                                                                      ? chapter.steps.map((lesson: any, index: any) => {
+                                                                      ? chapter.steps.map((lesson: any, idx: any) => {
                                                                             return (
                                                                                 <div
                                                                                     className={styles.lessonItem}
-                                                                                    key={index}
+                                                                                    key={idx}
                                                                                 >
                                                                                     <span
                                                                                         className={clsx(

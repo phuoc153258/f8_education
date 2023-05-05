@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styles from './Header.module.scss';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
@@ -34,7 +34,16 @@ const Header = ({ tracks, course }: any): JSX.Element => {
             <div className={styles.courseTitle}>{course.title}</div>
             <div className={styles.actions}>
                 <div className={styles.progressBar}>
-                    <CircularProgressBar progress={tracks.passPercent} />
+                    <CircularProgressBar
+                        progress={tracks.passPercent}
+                        content={
+                            <Fragment>
+                                <div className={styles.percent}>
+                                    <span className={styles.num}>{tracks.passPercent}</span>%
+                                </div>
+                            </Fragment>
+                        }
+                    />
 
                     <p className={styles.completedMsg}>
                         <strong>

@@ -6,7 +6,7 @@ import CreateButton from './CreateButton/CreateButton';
 // import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom';
 
-const Sidebar = (): JSX.Element => {
+const Sidebar = ({ page }: any): JSX.Element => {
     return (
         <div className={styles.wrapper}>
             <div>
@@ -14,7 +14,13 @@ const Sidebar = (): JSX.Element => {
             </div>
             <ul className={styles.list}>
                 <li>
-                    <Link to="/" className={clsx(styles.itemBtn, styles.active)}>
+                    <Link
+                        to="/"
+                        className={clsx(
+                            styles.itemBtn,
+                            page === 'home' || page === 'courseDetail' ? styles.active : '' ? styles.active : '',
+                        )}
+                    >
                         <svg
                             aria-hidden="true"
                             focusable="false"
@@ -34,7 +40,10 @@ const Sidebar = (): JSX.Element => {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/learning-paths" className={styles.itemBtn}>
+                    <Link
+                        to="/learning-paths"
+                        className={clsx(styles.itemBtn, page === 'learning-paths' ? styles.active : '')}
+                    >
                         <svg
                             aria-hidden="true"
                             focusable="false"

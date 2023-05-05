@@ -8,8 +8,11 @@ import UserMenuList from '../UserMenu/UserMenuList';
 import { Logout } from '../../../utils/';
 import { useStore } from '../../../hooks';
 import { actions } from '../../../store';
+import { useNavigate } from 'react-router-dom';
 
 const Tippy_module = ({ user }: any): JSX.Element => {
+    const navigate = useNavigate();
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [state, dispatch] = useStore();
 
@@ -69,6 +72,7 @@ const Tippy_module = ({ user }: any): JSX.Element => {
                                     Logout();
                                     dispatch(actions.userLogIn(''));
                                     dispatch(actions.setCurrentUserInfo(undefined));
+                                    navigate('/login');
                                 }}
                             >
                                 {'Đăng xuất'}
