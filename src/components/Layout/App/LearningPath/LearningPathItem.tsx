@@ -40,7 +40,7 @@ const LearningPathItem = ({ item }: any): JSX.Element => {
                 </>
             </div>
             <div>
-                <Button href={'/learning-paths/front-end-development'} content={'Xem chi tiết'} />
+                <Button href={'/learning-paths/' + item.slug} content={'Xem chi tiết'} />
             </div>
         </div>
     );

@@ -46,7 +46,7 @@ const Home = (): JSX.Element => {
                     scrollListData={{
                         countRegister: analytics.studentCount,
                         exploreBtn: 'Xem lộ trình',
-                        href: '/learning-paths',
+                        href: '/learning-paths/',
                         heading: 'Khóa học miễn phí',
                     }}
                     commonItemData={courses}

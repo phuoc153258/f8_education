@@ -13,6 +13,7 @@ function App() {
     return (
         <>
             <Routes>
+                <Route path="/learning-paths/:slug" element={<LearningPath />} />
                 <Route path="/learning-paths" element={<LearningPath />} />
                 <Route path="/learning/:slug" element={<Learning />} />
                 <Route path="/courses/:slug" element={<CourseDetail />} />
