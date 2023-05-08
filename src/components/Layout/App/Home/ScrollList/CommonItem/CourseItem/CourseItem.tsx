@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './CourseItem.module.scss';
 
-const CourseItem = ({ studentCount }: any): JSX.Element => {
+const CourseItem = ({ studentCount, price = 0 }: any): JSX.Element => {
+    if (price !== 0) return <span className={styles.mainPrice}>1.299.000đ</span>;
     return (
         <div className={styles.studentsCount}>
             <svg

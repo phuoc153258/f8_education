@@ -8,17 +8,12 @@ import CourseService from '../../../../services/course';
 const StepItem = ({ userProgress, step, slug, currentStep }: any): JSX.Element => {
     const navigate = useNavigate();
     const isCompleted = userProgress.find((progress: any) => progress.stepId === step._id);
-    console.log(userProgress);
-    console.log(step._id);
-    console.log(isCompleted);
-
     const handleSwitchLesson = () => {
         navigate(`/learning/${slug}?id=${step._id}`);
         navigate(0);
     };
 
     const handleCompleteLesson = async (e: any, id: any) => {
-        console.log(id);
         e.stopPropagation();
         const lessonResponse: any = await CourseService.completedLesson({ stepId: id }, slug);
         if (lessonResponse?.data?.data) {

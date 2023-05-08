@@ -8,11 +8,13 @@ import Learning from './pages/Learning/Learning';
 import Profile from './pages/Profile/Profile';
 import Setting from './pages/Setting/Setting';
 import LearningPath from './pages/LearningPath/LearningPath';
+import Payment from './pages/Payment/Payment';
 
 function App() {
     return (
         <>
             <Routes>
+                <Route path="/payment/:slug" element={<Payment />} />
                 <Route path="/learning-paths/:slug" element={<LearningPath />} />
                 <Route path="/learning-paths" element={<LearningPath />} />
                 <Route path="/learning/:slug" element={<Learning />} />

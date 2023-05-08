@@ -9,6 +9,7 @@ import { ENV } from '../../../../config';
 const Home = (): JSX.Element => {
     const [analytics, setAnalytics] = useState<any>({});
     const [courses, setCourses] = useState<any>([]);
+    const [coursesPro, setCoursesPro] = useState<any>([]);
 
     const fetchData = async () => {
         try {
@@ -16,7 +17,7 @@ const Home = (): JSX.Element => {
             const analyticsResponse: any = await CourseService.analytics({});
 
             if (courseResponse?.data?.data) {
-                const newCourses = courseResponse?.data?.data.map((item: any) => {
+                const newCourses = courseResponse?.data?.data.freeCourses.map((item: any) => {
                     if (item.isRegister) item.btnContent = 'Tiếp tục học';
                     else item.btnContent = 'Xem khóa học';
                     item.backgroundImage = `${ENV.apiUrl}/api/v1/file/${item.image}`;
@@ -24,6 +25,15 @@ const Home = (): JSX.Element => {
                     return item;
                 });
                 setCourses(newCourses);
+
+                const newCoursesPro = courseResponse?.data?.data.proCourses.map((item: any) => {
+                    if (item.isRegister) item.btnContent = 'Tiếp tục học';
+                    else item.btnContent = 'Xem khóa học';
+                    item.backgroundImage = `${ENV.apiUrl}/api/v1/file/${item.image}`;
+                    item.href = `/${!item.isRegister ? 'payment' : 'courses'}/${item.slug}`;
+                    return item;
+                });
+                setCoursesPro(newCoursesPro);
             }
             if (analyticsResponse?.data?.data) setAnalytics(analyticsResponse.data.data);
         } catch (error) {
@@ -42,7 +52,15 @@ const Home = (): JSX.Element => {
             </div>
             <div className={styles.wrapper}>
                 <ScrollList
-                    key={'fe432d85-a478-41a4-b668-afe3218879c2'}
+                    key={'1'}
+                    scrollListData={{
+                        countRegister: 0,
+                        heading: 'Khóa học Pro',
+                    }}
+                    commonItemData={coursesPro}
+                />
+                <ScrollList
+                    key={'2'}
                     scrollListData={{
                         countRegister: analytics.studentCount,
                         exploreBtn: 'Xem lộ trình',
@@ -51,16 +69,8 @@ const Home = (): JSX.Element => {
                     }}
                     commonItemData={courses}
                 />
-                <ScrollList
-                    key={'61a58294-4c66-43e1-adbd-563cec189541'}
-                    scrollListData={scrollListData[1]}
-                    commonItemData={commonItemPostData}
-                />
-                <ScrollList
-                    key={'f692674f-6eb9-4467-906e-da4ac57f57b6'}
-                    scrollListData={scrollListData[2]}
-                    commonItemData={commonItemVideoData}
-                />
+                <ScrollList key={'3'} scrollListData={scrollListData[1]} commonItemData={commonItemPostData} />
+                <ScrollList key={'4'} scrollListData={scrollListData[2]} commonItemData={commonItemVideoData} />
             </div>
         </>
     );

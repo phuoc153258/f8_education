@@ -1,0 +1,33 @@
+.wrapper {
+    height: 100px;
+    padding: 27px 40px;
+    position: relative;
+    width: 100vw;
+}
+.logo {
+    align-items: center;
+    display: flex;
+}
+.logo a {
+    display: inline-block;
+    height: 48px;
+    width: 48px;
+}
+.logo img {
+    border-radius: 8px;
+    width: 100%;
+}
+.title {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 24px;
+    margin-left: 12px;
+    text-transform: uppercase;
+}
+.title span {
+    display: inline-block;
+    flex: 1 1;
+    width: 193px;
+}
