@@ -1,0 +1,40 @@
+.wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 122px;
+}
+.payment {
+}
+.wrapper.payment {
+    margin-top: 85px;
+}
+
+.title {
+    color: #fff;
+    font-size: 4.8rem;
+    font-weight: 500;
+    line-height: 120%;
+    max-width: 441px;
+    text-align: center;
+}
+
+.titleWrapper,
+.titleWrapper p {
+    margin: 0;
+}
+.content {
+    margin-top: 54px;
+    max-width: 90vw;
+    width: 980px;
+}
+.wrapper ul {
+    list-style-type: unset;
+}
+.content li {
+    color: #dae4f0;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}

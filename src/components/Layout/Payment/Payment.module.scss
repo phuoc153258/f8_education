@@ -1,0 +1,26 @@
+.wrapper {
+    align-items: center;
+    background-color: #191d1e;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+.title {
+    font-size: 4.8rem;
+    font-weight: 500;
+    line-height: 120%;
+    margin-top: 18px;
+    text-align: center;
+}
+
+.titleWrapper {
+}
+
+.titleWrapper p {
+    margin: 0;
+}

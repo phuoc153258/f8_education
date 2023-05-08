@@ -60,7 +60,7 @@ const CommonItem = ({ data }: Props): JSX.Element => {
                     {data.title}
                 </Link>
             </h3>
-            <>{data.studentCount ? <CourseItem studentCount={data.studentCount} /> : ''}</>
+            <>{data.studentCount ? <CourseItem studentCount={data.studentCount} price={data.price} /> : ''}</>
             <>{data.post ? <PostItem /> : ''}</>
             <>{data.video ? <VideoItem /> : ''}</>
         </div>

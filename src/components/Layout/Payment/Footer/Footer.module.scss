@@ -1,0 +1,130 @@
+.wrapper {
+    margin-top: 142px;
+    max-width: 90vw;
+    width: 1078px;
+    z-index: 1;
+}
+.top {
+    align-items: center;
+    display: flex;
+}
+.logo {
+    align-items: center;
+    display: flex;
+    padding-right: 48px;
+}
+
+.logo img {
+    border-radius: 4px;
+    height: 48px;
+    width: 48px;
+}
+.logo .title {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.9rem;
+    font-weight: 500;
+    line-height: 28px;
+    margin-left: 12px;
+    text-transform: uppercase;
+}
+.aboutUs {
+    margin-top: 29px;
+}
+.contactItem {
+    align-items: flex-start;
+    display: flex;
+    margin-bottom: 16px;
+}
+.contactItem .icon {
+    margin-right: 12px;
+    padding-top: 4px;
+}
+.contactItem .text {
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 24px;
+    text-decoration: none;
+}
+.recruitment-wrapper {
+    padding-left: 42px;
+}
+.recruitment {
+}
+.recruitment .item,
+.support .item {
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 24px;
+    margin-bottom: 12px;
+}
+.support {
+}
+.itemTitle {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(180deg, #5ebbff, #a174ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 24px;
+    margin-bottom: 8px;
+    min-height: 48px;
+    text-transform: uppercase;
+}
+.tax {
+}
+.copyRight {
+    display: flex;
+    justify-content: center;
+    margin: 48px 0 84px;
+    position: relative;
+}
+
+.copyRight .socialLinks {
+    align-items: center;
+    display: flex;
+    gap: 32px;
+    left: 0;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.copyRight .socialLinks a {
+    align-items: center;
+    display: flex;
+    height: 32px;
+    width: 32px;
+}
+.copyRight span {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 24px;
+}
+.copyRight .socialLinks img {
+    width: 100%;
+}
+.copyRight span {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 24px;
+}
+.recruitment .list,
+.support .list {
+    display: flex;
+    flex-direction: column;
+}
+.tax .item {
+    color: rgba(207, 210, 216, 0.8);
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 24px;
+}
+.top:after {
+    border: 1px solid #333c6d;
+    content: '';
+    flex: 1 1;
+}

@@ -1,0 +1,183 @@
+@media (min-width: 1024px) {
+    .wrapper {
+        gap: 40px;
+    }
+}
+.wrapper {
+    display: flex;
+    margin-top: 64px;
+    max-width: 100vw;
+    width: 1024px;
+}
+.left {
+    flex: 1 1;
+}
+.description {
+    color: #dae4f0;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 24px;
+}
+.MdContentWrapper {
+}
+.MdContentWrapper strong {
+    color: #5ebbff;
+}
+.MdContentWrapper ol,
+.MdContentWrapper ul {
+    margin: 28px 0;
+    padding-left: 24px;
+}
+.MdContentWrapper ul li {
+    list-style: disc;
+}
+.price {
+    align-items: flex-end;
+    background: #202425;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    font-size: 2.4rem;
+    justify-content: center;
+    line-height: 40px;
+    margin-top: 32px;
+    padding: 8px 24px;
+}
+.price .priceContainer {
+    align-items: center;
+    display: flex;
+    gap: 16px;
+}
+.price .priceTitle {
+    color: #a2adbd;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: right;
+}
+.price span {
+    color: #52eeee;
+    font-weight: 700;
+}
+.price .priceWrapper {
+    display: flex;
+    gap: 16px;
+}
+.price .priceWrapper del,
+.price .priceWrapper span {
+    font-size: 2rem;
+    font-weight: 500;
+}
+.price del {
+    color: #a2adbd;
+    font-size: 2.4rem;
+    font-weight: 400;
+}
+.price span {
+    color: #52eeee;
+    font-weight: 700;
+}
+.divider {
+    border: none;
+    border-radius: 20px;
+    border-top: 1px solid #333c6d;
+    margin: 16px 0;
+    width: 100%;
+}
+.price .priceContainer {
+    align-items: center;
+    display: flex;
+    gap: 16px;
+}
+.price .totalPrice {
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.price .priceFinal {
+    color: #52eeee;
+    font-size: 2.6rem;
+    font-weight: 700;
+}
+.price .priceWrapperDiscount {
+    color: #a2adbd;
+    display: flex;
+    font-size: 2rem;
+    font-weight: 500;
+    justify-content: flex-end;
+    min-width: 243px;
+}
+.getInfoPayment {
+    margin-top: 32px;
+    width: 100%;
+}
+.infoPaymentBtn {
+    display: block;
+    width: 100%;
+}
+.buttonWrapper {
+    -webkit-appearance: none;
+    appearance: none;
+    background: linear-gradient(177.34deg, #21a2ff, #8951ff 73.36%);
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.9rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 28px;
+    padding: 8px 24px;
+    text-align: center;
+    text-transform: uppercase;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.right {
+    width: 350px;
+}
+.benefit {
+    background: linear-gradient(90deg, #5ebbff, #a174ff);
+    border-radius: 8px;
+    padding: 4px 1px;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 100px;
+    width: 100%;
+}
+.benefit .benefitWrapper {
+    background: #272a31;
+    border-radius: 6px;
+    padding: 16px;
+}
+.benefitTitle {
+    color: #dae4f0;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 40px;
+    margin: 0 0 32px;
+    text-align: center;
+}
+.benefitItem {
+    align-items: flex-start;
+    color: #dae4f0;
+    display: flex;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 24px;
+    margin-bottom: 16px;
+}
+.benefitItem .icon {
+    align-items: flex-start;
+    display: flex;
+    justify-content: center;
+    margin-right: 8px;
+    padding-top: 6px;
+    width: 20px;
+}
+.benefitItem .icon img {
+    width: 14px;
+}
+.benefitItem strong {
+    color: #5ebbff;
+}
