@@ -426,3 +426,36 @@ body {
     -webkit-user-drag: none;
     -ms-content-zooming: none;
 }
+
+input {
+    font-size: 1.4rem !important;
+}
+
+// [type='text'],
+[type='email'],
+[type='url'],
+[type='password'],
+[type='number'],
+[type='date'],
+[type='datetime-local'],
+[type='month'],
+[type='search'],
+[type='tel'],
+[type='time'],
+[type='week'],
+[multiple],
+textarea,
+select {
+    appearance: none;
+    background-color: #fff;
+    border-color: #6b7280;
+    border-width: 1px;
+    border-radius: 0px;
+    padding-top: 0.5rem;
+    padding-right: 0.75rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem;
+    font-size: 1.4rem;
+    line-height: 1.5rem;
+    --tw-shadow: 0 0 #0000;
+}

@@ -9,6 +9,7 @@ import Profile from './pages/Profile/Profile';
 import Setting from './pages/Setting/Setting';
 import LearningPath from './pages/LearningPath/LearningPath';
 import Payment from './pages/Payment/Payment';
+import Course from './components/Admin/Dashboard/Course';
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/settings/:slug" element={<Setting />} />
                 <Route path="/:slug" element={<Profile />} />
+                <Route path="/admin/courses" element={<Course />} />
                 <Route path="/" element={<Home />} />
             </Routes>
         </>

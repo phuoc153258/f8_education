@@ -23,6 +23,8 @@ const CommonItem = ({ data }: Props): JSX.Element => {
                 to={data.href}
                 style={{
                     backgroundImage: `url(${data.backgroundImage})`,
+
+                    pointerEvents: data.isPublished === false ? 'none' : 'unset',
                 }}
             >
                 <button className={clsx(buttonStyles.btn, styles.ctaBtn)}>{data.btnContent}</button>
@@ -60,7 +62,13 @@ const CommonItem = ({ data }: Props): JSX.Element => {
                     {data.title}
                 </Link>
             </h3>
-            <>{data.studentCount ? <CourseItem studentCount={data.studentCount} price={data.price} /> : ''}</>
+            <>
+                {data.studentCount && data.isPublished ? (
+                    <CourseItem studentCount={data.studentCount} price={data.price} />
+                ) : (
+                    ''
+                )}
+            </>
             <>{data.post ? <PostItem /> : ''}</>
             <>{data.video ? <VideoItem /> : ''}</>
         </div>

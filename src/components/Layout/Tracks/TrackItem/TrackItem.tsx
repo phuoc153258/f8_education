@@ -3,7 +3,7 @@ import styles from './TrackItem.module.scss';
 import clsx from 'clsx';
 import StepItem from '../StepItem/StepItem';
 
-const TrackItem = ({ track, index, userProgress, slug, currentStep }: any): JSX.Element => {
+const TrackItem = ({ track, index, userProgress, slug, currentStep, setIsFetchData }: any): JSX.Element => {
     return (
         <>
             <div className={clsx(styles.wrapper)}>
@@ -33,6 +33,7 @@ const TrackItem = ({ track, index, userProgress, slug, currentStep }: any): JSX.
                     {track.steps.map((step: any, index: any) => {
                         return (
                             <StepItem
+                                setIsFetchData={setIsFetchData}
                                 currentStep={currentStep}
                                 key={index}
                                 slug={slug}

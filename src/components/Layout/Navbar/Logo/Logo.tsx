@@ -14,7 +14,7 @@ const Logo = (): JSX.Element => {
             {location.pathname === '/' ? (
                 <>
                     {' '}
-                    <h4 className={styles.logoHeading}>Học Lập Trình Để Đi Làm</h4>
+                    <h4 className={`${styles.logoHeading} !text-red-900`}>Học Lập Trình Để Đi Làm</h4>
                 </>
             ) : (
                 <>
