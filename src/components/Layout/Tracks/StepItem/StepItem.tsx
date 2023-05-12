@@ -5,20 +5,20 @@ import { convertNumberToTimeENG } from '../../../../helpers';
 import { useNavigate } from 'react-router-dom';
 import CourseService from '../../../../services/course';
 
-const StepItem = ({ userProgress, step, slug, currentStep }: any): JSX.Element => {
+const StepItem = ({ userProgress, step, slug, currentStep, setIsFetchData }: any): JSX.Element => {
     const navigate = useNavigate();
     const isCompleted = userProgress.find((progress: any) => progress.stepId === step._id);
     const handleSwitchLesson = () => {
         navigate(`/learning/${slug}?id=${step._id}`);
-        navigate(0);
+        setIsFetchData((preState: any) => !preState);
     };
 
     const handleCompleteLesson = async (e: any, id: any) => {
         e.stopPropagation();
         const lessonResponse: any = await CourseService.completedLesson({ stepId: id }, slug);
         if (lessonResponse?.data?.data) {
-            // navigate(`/learning/${slug}?id=${step._id}`);
-            navigate(0);
+            navigate(`/learning/${slug}?id=${step._id}`);
+            setIsFetchData((preState: any) => !preState);
         }
     };
 

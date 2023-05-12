@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Tracks.module.scss';
 import TrackItem from './TrackItem/TrackItem';
 
-const Tracks = ({ tracks, steps, slug }: any): JSX.Element => {
+const Tracks = ({ tracks, steps, slug, setIsFetchData }: any): JSX.Element => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
@@ -37,6 +37,7 @@ const Tracks = ({ tracks, steps, slug }: any): JSX.Element => {
                                     slug={slug}
                                     currentStep={steps.step}
                                     userProgress={tracks.userProgress}
+                                    setIsFetchData={setIsFetchData}
                                 />
                             );
                         })}

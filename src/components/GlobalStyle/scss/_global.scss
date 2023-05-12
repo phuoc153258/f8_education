@@ -11,6 +11,10 @@
 .m-0-auto {
     margin: 0 auto;
 }
+#root {
+    min-width: 100vw;
+    min-height: 100vh;
+}
 
 @keyframes fadeIn {
     from {
@@ -23,4 +27,51 @@
 
 .w-100 {
     width: 100% !important;
+}
+
+.p-column-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+th {
+    color: #fff;
+    line-height: 1.4;
+    background-color: #3399ff;
+}
+
+td {
+    color: #666;
+    line-height: 1.4;
+    font-weight: unset !important;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ececff;
+    cursor: pointer;
+}
+
+.p-paginator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0 20px;
+    padding: 20px;
+}
+
+.p-paginator-element:hover {
+    cursor: pointer;
+}
+
+.p-paginator-pages {
+    display: flex;
+    gap: 0 20px;
+}
+
+.p-highlight {
+    font-weight: bold;
 }

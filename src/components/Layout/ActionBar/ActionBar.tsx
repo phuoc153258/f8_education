@@ -3,11 +3,11 @@ import styles from './ActionBar.module.scss';
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
-const ActionBar = ({ steps, slug, setShowTrack, showTrack }: any): JSX.Element => {
+const ActionBar = ({ steps, slug, setShowTrack, showTrack, setIsFetchData }: any): JSX.Element => {
     const navigate = useNavigate();
     const handleStepLesson = (id: any) => {
         navigate(`/learning/${slug}?id=${id}`);
-        navigate(0);
+        setIsFetchData((preState: any) => !preState);
     };
     return (
         <div className={styles.wrapper}>

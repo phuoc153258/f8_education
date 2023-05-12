@@ -16,6 +16,7 @@ const Learning = (): JSX.Element => {
     const [showTrack, setShowTrack] = useState<any>(true);
     const [steps, setSteps] = useState<any>({});
     const [tracks, setTracks] = useState<any>({});
+    const [isFecthData, setIsFetchData] = useState<any>(false);
 
     const fetchData = async () => {
         try {
@@ -45,7 +46,7 @@ const Learning = (): JSX.Element => {
     useEffect(() => {
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [isFecthData]);
 
     if (!show) return <></>;
     else
@@ -53,9 +54,21 @@ const Learning = (): JSX.Element => {
             <div>
                 <section className={clsx('index-module_grid', 'index-module_fullWidth')}>
                     <Header tracks={tracks} course={steps.course} />
-                    <>{showTrack ? <Tracks slug={slug} tracks={tracks} steps={steps} /> : <></>}</>
+                    <>
+                        {showTrack ? (
+                            <Tracks slug={slug} tracks={tracks} steps={steps} setIsFetchData={setIsFetchData} />
+                        ) : (
+                            <></>
+                        )}
+                    </>
                     <Content steps={steps} w100={!showTrack ? 'w-100' : ''} />
-                    <ActionBar steps={steps} slug={slug} setShowTrack={setShowTrack} showTrack={showTrack} />
+                    <ActionBar
+                        steps={steps}
+                        slug={slug}
+                        setShowTrack={setShowTrack}
+                        showTrack={showTrack}
+                        setIsFetchData={setIsFetchData}
+                    />
                 </section>
             </div>
         );
