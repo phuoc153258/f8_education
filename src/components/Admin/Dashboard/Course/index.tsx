@@ -16,6 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import photoStyles from '../../../Layout/Setting/PhotoField/PhotoField.module.scss';
 import clsx from 'clsx';
 import WillLearnAdminRouter from '../../../../services/admin/willLearn';
+import RequirementRouter from '../../../../services/admin/requirement';
 
 function Course() {
     const navigate = useNavigate();
@@ -30,6 +31,7 @@ function Course() {
     const [showModalDetail, setShowModalDetail] = useState<any>(false);
     const [showModalDetailCourse, setShowModalDetailCourse] = useState<any>(false);
     const [showModalDetailWillLearn, setShowModalDetailWillLearn] = useState<any>(false);
+    const [showModalDetailRequirement, setShowModalDetailRequirement] = useState<any>(false);
 
     const [courses, setCourses] = useState<any>([]);
 
@@ -64,6 +66,8 @@ function Course() {
     const [iconShow, setIconShow] = useState<any>('');
 
     const [courseWillLearnsDetail, setCourseWillLearnsDetail] = useState<any>([]);
+
+    const [courseRequirementsDetail, setCourseRequirementsDetail] = useState<any>([]);
 
     const handleCreateCourse = async () => {
         try {
@@ -171,9 +175,6 @@ function Course() {
 
     const handleUpdateWillLearn = async (index: any) => {
         try {
-            console.log(index);
-            console.log(courseWillLearnsDetail[index]);
-
             const courseResponse: any = await WillLearnAdminRouter.update(
                 { content: courseWillLearnsDetail[index].content, courseId: courseWillLearnsDetail[index].courseId },
                 courseWillLearnsDetail[index]._id,
@@ -231,6 +232,78 @@ function Course() {
                         ...x,
                     }));
                     setCourseWillLearnsDetail(clone);
+                }
+                // setShowModalDetailCourse(false);
+                toast('Thêm thành công!');
+                setIsFetchData((prevState: any) => !prevState);
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+        }
+    };
+
+    const handleUpdateRequirement = async (index: any) => {
+        try {
+            const courseResponse: any = await RequirementRouter.update(
+                {
+                    content: courseRequirementsDetail[index].content,
+                    courseId: courseRequirementsDetail[index].courseId,
+                },
+                courseRequirementsDetail[index]._id,
+            );
+            if (courseResponse?.data?.data) {
+                setDetailCourse(courseResponse?.data?.data);
+                const clone: any = courseResponse?.data?.data?.requirements.map((x: any) => ({
+                    ...x,
+                }));
+                setCourseRequirementsDetail(clone);
+            }
+            // setShowModalDetailCourse(false);
+            toast('Cập nhật thông tin thành công!');
+            setIsFetchData((prevState: any) => !prevState);
+        } catch (error) {
+            console.log(error);
+        } finally {
+        }
+    };
+
+    const handleDeleteRequirement = async (index: any) => {
+        try {
+            // eslint-disable-next-line no-restricted-globals
+            if (confirm('Xóa mục này !')) {
+                const courseResponse: any = await RequirementRouter.delete({}, courseRequirementsDetail[index]._id);
+                if (courseResponse?.data?.data) {
+                    setDetailCourse(courseResponse?.data?.data);
+                    const clone: any = courseResponse?.data?.data?.requirements.map((x: any) => ({
+                        ...x,
+                    }));
+                    setCourseRequirementsDetail(clone);
+                }
+                // setShowModalDetailCourse(false);
+                toast('Xóa thành công!');
+                setIsFetchData((prevState: any) => !prevState);
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+        }
+    };
+
+    const handleCreateRequirement = async () => {
+        try {
+            let requirement = prompt('Nhập thông tin', '');
+            if (requirement != null) {
+                const courseResponse: any = await RequirementRouter.create({
+                    content: requirement,
+                    courseId: detailCourse._id,
+                });
+                if (courseResponse?.data?.data) {
+                    setDetailCourse(courseResponse?.data?.data);
+                    const clone: any = courseResponse?.data?.data?.requirements.map((x: any) => ({
+                        ...x,
+                    }));
+                    setCourseRequirementsDetail(clone);
                 }
                 // setShowModalDetailCourse(false);
                 toast('Thêm thành công!');
@@ -1016,7 +1089,18 @@ function Course() {
                                             <div className="mb-6 relative">
                                                 {' '}
                                                 <div className="absolute top-0 right-0 cursor-pointer">
-                                                    <FaPen className="w-[15px] h-[15px]" />
+                                                    <FaPen
+                                                        className="w-[15px] h-[15px]"
+                                                        onClick={() => {
+                                                            setShowModalDetailRequirement(true);
+                                                            const clone: any = detailCourse.requirements.map(
+                                                                (x: any) => ({
+                                                                    ...x,
+                                                                }),
+                                                            );
+                                                            setCourseRequirementsDetail(clone);
+                                                        }}
+                                                    />
                                                 </div>
                                                 <h2 className="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">
                                                     Yêu cầu:
@@ -1592,6 +1676,169 @@ function Course() {
                                                                         <FaTrash
                                                                             onClick={() => {
                                                                                 handleDeleteWillLearn(index);
+                                                                            }}
+                                                                        />
+                                                                    </td>
+                                                                </tr>
+                                                            );
+                                                        })}
+                                                    </>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Modal footer */}
+                                {/* <div className="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                    <button
+                                        data-modal-hide="extralarge-modal"
+                                        type="button"
+                                        onClick={() => {
+                                            setShowModalDetailWillLearn(false);
+                                        }}
+                                        className="text-gray-500 text-2xl p-5 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200  font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                                    >
+                                        Hủy
+                                    </button>
+                                    <button
+                                        data-modal-hide="extralarge-modal"
+                                        type="button"
+                                        className="text-white text-2xl p-5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                        onClick={handleUpdateDetailCourse}
+                                    >
+                                        Cập nhật khóa học
+                                    </button>
+                                </div> */}
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {showModalDetailRequirement === true && (
+                    <div
+                        id="extralarge-modal"
+                        tabIndex={-1}
+                        className={`z-[992] flex justify-center bg-gray-900 bg-opacity-50  overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0  w-full md:inset-0 h-modal md:h-full`}
+                    >
+                        <div className="mb-5 flex justify-center item-center  relative p-4 w-full h-max top-[50px]">
+                            <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 w-[900px]">
+                                {/* Modal header */}
+                                <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
+                                    <h3 className="text-4xl font-medium font-medium text-gray-900 dark:text-white m-0">
+                                        Yêu cầu của khóa học
+                                    </h3>
+                                    <button
+                                        type="button"
+                                        className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-hide="extralarge-modal"
+                                        onClick={() => {
+                                            setShowModalDetailRequirement(false);
+                                        }}
+                                    >
+                                        <svg
+                                            aria-hidden="true"
+                                            className="w-10 h-10"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                fillRule="evenodd"
+                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                clipRule="evenodd"
+                                            />
+                                        </svg>
+                                        <span className="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                {/* Modal body */}
+                                <div className="p-6 space-y-6">
+                                    <div className="mb-6 flex gap-6 items-center justify-between">
+                                        <div className="flex items-center w-[50%]">
+                                            {' '}
+                                            <label
+                                                htmlFor="large-input"
+                                                className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white w-[30%]"
+                                            >
+                                                Tên khóa học
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                alt="Tên khóa học..."
+                                                value={detailCourse.title}
+                                                readOnly={true}
+                                            />
+                                        </div>
+                                        <button>
+                                            <FaPlus
+                                                className="w-[20px] h-[20px]"
+                                                onClick={() => {
+                                                    handleCreateRequirement();
+                                                }}
+                                            />
+                                        </button>
+                                    </div>
+                                    <div className="mb-6">
+                                        <div className="relative overflow-x-auto">
+                                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                                    <tr>
+                                                        <th scope="col" className="px-6 py-3 text-2xl">
+                                                            ID
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3 text-2xl">
+                                                            Nội dung
+                                                        </th>
+                                                        <th
+                                                            scope="col"
+                                                            className="px-6 py-3 text-2xl text-center"
+                                                            style={{ height: '50px' }}
+                                                        >
+                                                            Hành động
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <>
+                                                        {courseRequirementsDetail.map((item: any, index: any) => {
+                                                            return (
+                                                                <tr
+                                                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                                                    key={index}
+                                                                >
+                                                                    <th
+                                                                        scope="row"
+                                                                        className="text-2xl px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                                                    >
+                                                                        {item._id}
+                                                                    </th>
+                                                                    <td className="text-2xl px-6 py-4">
+                                                                        {' '}
+                                                                        <input
+                                                                            type="text"
+                                                                            id="voice-search"
+                                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                                            placeholder="Bạn sẽ học được..."
+                                                                            value={item.content}
+                                                                            onChange={(e) => {
+                                                                                let newArr = [
+                                                                                    ...courseRequirementsDetail,
+                                                                                ];
+                                                                                newArr[index].content = e.target.value;
+                                                                                setCourseWillLearnsDetail(newArr);
+                                                                            }}
+                                                                        />
+                                                                    </td>
+                                                                    <td className="text-2xl px-6 py-4 flex gap-8 items-center justify-center">
+                                                                        <FaPen
+                                                                            onClick={() => {
+                                                                                handleUpdateRequirement(index);
+                                                                            }}
+                                                                        />
+                                                                        <FaTrash
+                                                                            onClick={() => {
+                                                                                handleDeleteRequirement(index);
                                                                             }}
                                                                         />
                                                                     </td>
