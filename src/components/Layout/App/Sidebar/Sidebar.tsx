@@ -63,7 +63,7 @@ const Sidebar = ({ page }: any): JSX.Element => {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/courses" className={styles.itemBtn}>
+                    <Link to="/courses" className={clsx(styles.itemBtn, page === 'courses' ? styles.active : '')}>
                         <svg
                             aria-hidden="true"
                             focusable="false"

@@ -9,7 +9,8 @@ import Profile from './pages/Profile/Profile';
 import Setting from './pages/Setting/Setting';
 import LearningPath from './pages/LearningPath/LearningPath';
 import Payment from './pages/Payment/Payment';
-import Course from './components/Admin/Dashboard/Course';
+import CourseAdmin from './components/Admin/Dashboard/Course';
+import Course from './pages/Course/Course';
 
 function App() {
     return (
@@ -20,11 +21,12 @@ function App() {
                 <Route path="/learning-paths" element={<LearningPath />} />
                 <Route path="/learning/:slug" element={<Learning />} />
                 <Route path="/courses/:slug" element={<CourseDetail />} />
+                <Route path="/courses" element={<Course />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/settings/:slug" element={<Setting />} />
                 <Route path="/:slug" element={<Profile />} />
-                <Route path="/admin/courses" element={<Course />} />
+                <Route path="/admin/courses" element={<CourseAdmin />} />
                 <Route path="/" element={<Home />} />
             </Routes>
         </>
