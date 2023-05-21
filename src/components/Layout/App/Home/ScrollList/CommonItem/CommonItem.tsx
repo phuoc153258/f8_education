@@ -63,7 +63,7 @@ const CommonItem = ({ data }: Props): JSX.Element => {
                 </Link>
             </h3>
             <>
-                {data.studentCount && data.isPublished ? (
+                {data.studentCount >= 0 && data.isPublished ? (
                     <CourseItem studentCount={data.studentCount} price={data.price} />
                 ) : (
                     ''

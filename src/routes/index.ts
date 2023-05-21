@@ -6,3 +6,4 @@ export * from './api/payment';
 export * from './api/admin/course';
 export * from './api/admin/user';
 export * from './api/admin/level';
+export * from './api/admin/willLearn';

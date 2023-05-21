@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, Fragment, useEffect } from 'react';
 import Navbar from '../../Layout/Navbar';
 import SideBar from '../../Layout/SideBar';
-import { FaInfoCircle, FaTrash } from 'react-icons/fa';
+import { FaInfoCircle, FaTrash, FaPen, FaPlus } from 'react-icons/fa';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { FilterMatchMode } from 'primereact/api';
@@ -13,21 +13,27 @@ import { ENV } from '../../../../config';
 import LevelAdminService from '../../../../services/admin/level';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import photoStyles from '../../../Layout/Setting/PhotoField/PhotoField.module.scss';
+import clsx from 'clsx';
+import WillLearnAdminRouter from '../../../../services/admin/willLearn';
 
 function Course() {
     const navigate = useNavigate();
+    const [isFetchData, setIsFetchData] = useState<any>(false);
 
-    const [showModalCreate, setShowModalCreate] = useState<any>(false);
-    const [showModalDelete, setShowModalDelete] = useState<any>(false);
-    // const [showModalCreate, setShowModalCreate] = useState<any>(false);
-
-    const [courses, setCourses] = useState<any>([]);
     const [filters, setFilters] = useState<any>({
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
     });
 
-    const [levels, setLevels] = useState<any>([]);
+    const [showModalCreate, setShowModalCreate] = useState<any>(false);
+    const [showModalDelete, setShowModalDelete] = useState<any>(false);
+    const [showModalDetail, setShowModalDetail] = useState<any>(false);
+    const [showModalDetailCourse, setShowModalDetailCourse] = useState<any>(false);
+    const [showModalDetailWillLearn, setShowModalDetailWillLearn] = useState<any>(false);
 
+    const [courses, setCourses] = useState<any>([]);
+
+    const [levels, setLevels] = useState<any>([]);
     const [title, setTitle] = useState<any>('');
     const [description, setDescription] = useState<any>('');
     const [image, setImage] = useState<any>(null);
@@ -35,10 +41,29 @@ function Course() {
     const [level, setLevel] = useState<any>(null);
     const [isPro, setIsPro] = useState<any>(false);
     const [price, setPrice] = useState<any>(0);
-    const [isFetchData, setIsFetchData] = useState<any>(false);
 
     const [deleteCourseId, setDeleteCourseId] = useState<any>(null);
+    // const [detailCourseId, setDetailCourseId] = useState<any>(null);
+
+    const [detailCourse, setDetailCourse] = useState<any>(null);
+
     const [titleCourseDelete, setTitleCourseDelete] = useState<any>(null);
+
+    const [courseDetailUpdate, setCourseDetailUpdate] = useState<any>({
+        id: null,
+        title: '',
+        description: '',
+        level: null,
+        isPro: false,
+        price: 0,
+        isPublished: false,
+    });
+    const [file, setFile] = useState('');
+    const [imageShow, setImageShow] = useState<any>('');
+    const [fileIcon, setFileIcon] = useState('');
+    const [iconShow, setIconShow] = useState<any>('');
+
+    const [courseWillLearnsDetail, setCourseWillLearnsDetail] = useState<any>([]);
 
     const handleCreateCourse = async () => {
         try {
@@ -91,6 +116,132 @@ function Course() {
         }
     };
 
+    const handleShowDetail = async (id: any) => {
+        try {
+            const courseResponse: any = await CourseAdminService.detail({}, id);
+            if (courseResponse?.data?.data) setDetailCourse(courseResponse?.data?.data);
+            console.log(courseResponse);
+            setShowModalDetail(true);
+        } catch (error) {
+            console.log(error);
+        } finally {
+        }
+    };
+
+    const handleImageChange = (event: any) => {
+        setFile(event.target.files[0]);
+        const selectedImage = event.target.files[0];
+        setImageShow(URL.createObjectURL(selectedImage));
+    };
+
+    const handleIconChange = (event: any) => {
+        setFileIcon(event.target.files[0]);
+        const selectedImage = event.target.files[0];
+        setIconShow(URL.createObjectURL(selectedImage));
+    };
+
+    const handleUpdateDetailCourse = async () => {
+        try {
+            let formData = new FormData();
+            formData.append('title', courseDetailUpdate.title);
+            formData.append('description', courseDetailUpdate.description);
+            formData.append('image', file);
+            formData.append('icon', fileIcon);
+            formData.append('level', courseDetailUpdate.level);
+            formData.append('isPro', courseDetailUpdate.isPro);
+            formData.append('price', courseDetailUpdate.price);
+            formData.append('isPublished', courseDetailUpdate.isPublished);
+            const courseResponse: any = await CourseAdminService.update(formData, courseDetailUpdate.id);
+            if (courseResponse?.data?.data) {
+                setDetailCourse(courseResponse?.data?.data);
+                const newCourses = courses.map((item: any) => {
+                    if (item._id === courseResponse?.data?.data._id) return courseResponse?.data?.data;
+                    else return item;
+                });
+                setCourses(newCourses);
+            }
+            setShowModalDetailCourse(false);
+            toast('Tạo khóa học thành công!');
+            setIsFetchData((prevState: any) => !prevState);
+        } catch (error) {
+            console.log(error);
+        } finally {
+        }
+    };
+
+    const handleUpdateWillLearn = async (index: any) => {
+        try {
+            console.log(index);
+            console.log(courseWillLearnsDetail[index]);
+
+            const courseResponse: any = await WillLearnAdminRouter.update(
+                { content: courseWillLearnsDetail[index].content, courseId: courseWillLearnsDetail[index].courseId },
+                courseWillLearnsDetail[index]._id,
+            );
+            console.log(courseResponse);
+            if (courseResponse?.data?.data) {
+                setDetailCourse(courseResponse?.data?.data);
+                const clone: any = courseResponse?.data?.data?.willLearns.map((x: any) => ({
+                    ...x,
+                }));
+                setCourseWillLearnsDetail(clone);
+            }
+            // setShowModalDetailCourse(false);
+            toast('Cập nhật thông tin thành công!');
+            setIsFetchData((prevState: any) => !prevState);
+        } catch (error) {
+            console.log(error);
+        } finally {
+        }
+    };
+
+    const handleDeleteWillLearn = async (index: any) => {
+        try {
+            // eslint-disable-next-line no-restricted-globals
+            if (confirm('Xóa mục này !')) {
+                const courseResponse: any = await WillLearnAdminRouter.delete({}, courseWillLearnsDetail[index]._id);
+                if (courseResponse?.data?.data) {
+                    setDetailCourse(courseResponse?.data?.data);
+                    const clone: any = courseResponse?.data?.data?.willLearns.map((x: any) => ({
+                        ...x,
+                    }));
+                    setCourseWillLearnsDetail(clone);
+                }
+                // setShowModalDetailCourse(false);
+                toast('Xóa thành công!');
+                setIsFetchData((prevState: any) => !prevState);
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+        }
+    };
+
+    const handleCreateWillLearn = async () => {
+        try {
+            let willLearn = prompt('Nhập thông tin', '');
+            if (willLearn != null) {
+                const courseResponse: any = await WillLearnAdminRouter.create({
+                    content: willLearn,
+                    courseId: detailCourse._id,
+                });
+                if (courseResponse?.data?.data) {
+                    setDetailCourse(courseResponse?.data?.data);
+                    const clone: any = courseResponse?.data?.data?.willLearns.map((x: any) => ({
+                        ...x,
+                    }));
+                    setCourseWillLearnsDetail(clone);
+                }
+                // setShowModalDetailCourse(false);
+                toast('Thêm thành công!');
+                setIsFetchData((prevState: any) => !prevState);
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+        }
+    };
+
     const fecthData = async () => {
         try {
             const courseResponse: any = await CourseAdminService.list({});
@@ -114,7 +265,11 @@ function Course() {
                         action: (
                             <Fragment>
                                 <div className="flex gap-5 justify-center">
-                                    <FaInfoCircle />
+                                    <FaInfoCircle
+                                        onClick={() => {
+                                            handleShowDetail(item._id);
+                                        }}
+                                    />
                                     <FaTrash
                                         onClick={() => {
                                             setShowModalDelete(true);
@@ -239,7 +394,7 @@ function Course() {
                     <div
                         id="extralarge-modal"
                         tabIndex={-1}
-                        className={`z-[999] flex justify-center bg-gray-900 bg-opacity-50  overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0  w-full md:inset-0 h-modal md:h-full`}
+                        className={`z-[991] flex justify-center bg-gray-900 bg-opacity-50  overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0  w-full md:inset-0 h-modal md:h-full`}
                     >
                         <div className="mb-5 flex justify-center item-center  relative p-4 w-full h-max top-[50px]">
                             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 w-[900px]">
@@ -300,7 +455,7 @@ function Course() {
                                         </label>
                                         <textarea
                                             id="message"
-                                            rows={4}
+                                            rows={2}
                                             className="block p-2.5 w-full text-2xl text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             placeholder="Mô tả về khóa học..."
                                             value={description}
@@ -442,12 +597,13 @@ function Course() {
                         </div>
                     </div>
                 )}
+
                 {showModalDelete === true && (
                     <div
                         id="deleteModal"
                         tabIndex={-1}
                         aria-hidden="true"
-                        className=" overflow-y-auto overflow-x-hidden bg-gray-900 bg-opacity-50  fixed top-0 right-0 left-0 z-[99999] justify-center items-center w-full md:inset-0 h-modal md:h-full"
+                        className=" overflow-y-auto overflow-x-hidden bg-gray-900 bg-opacity-50  fixed top-0 right-0 left-0 z-[992] justify-center items-center w-full md:inset-0 h-modal md:h-full"
                     >
                         <div className="relative pt-[6.5rem] w-full max-w-md h-full md:h-auto t-0 r-0 l-0 m-auto">
                             {/* Modal content */}
@@ -506,6 +662,969 @@ function Course() {
                                         Xóa
                                     </button>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {showModalDetail === true && (
+                    <div
+                        id="extralarge-modal"
+                        tabIndex={-1}
+                        className={`z-[991] flex justify-center bg-gray-900 bg-opacity-50  overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0  w-full md:inset-0 h-modal md:h-full`}
+                    >
+                        <div className="mb-5 flex justify-center item-center  relative p-4 w-full h-max top-[50px]">
+                            <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 w-[1400px]">
+                                {/* Modal header */}
+                                <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
+                                    <h3 className="text-4xl font-medium font-medium text-gray-900 dark:text-white m-0">
+                                        Chi tiết khóa học
+                                    </h3>
+                                    <button
+                                        type="button"
+                                        className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-hide="extralarge-modal"
+                                        onClick={() => {
+                                            setShowModalDetail(false);
+                                        }}
+                                    >
+                                        <svg
+                                            aria-hidden="true"
+                                            className="w-10 h-10"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                fillRule="evenodd"
+                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                clipRule="evenodd"
+                                            />
+                                        </svg>
+                                        <span className="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                {/* Modal body */}
+                                <div className="p-6 space-y-6">
+                                    <div className="grid grid-cols-4 gap-4">
+                                        <div className="w-full ">
+                                            <div className="mb-6 flex gap-6 relative">
+                                                <div
+                                                    className="absolute top-0 right-0 cursor-pointer"
+                                                    onClick={() => {
+                                                        setShowModalDetailCourse(true);
+                                                        setImageShow(ENV.staticFileUrl + detailCourse.image);
+                                                        setIconShow(ENV.staticFileUrl + detailCourse.icon);
+                                                        setCourseDetailUpdate({
+                                                            id: detailCourse._id,
+                                                            title: detailCourse.title,
+                                                            description: detailCourse.description,
+                                                            level: detailCourse.level._id,
+                                                            isPro: detailCourse.isPro,
+                                                            price: detailCourse.price,
+                                                            isPublished: detailCourse.isPublished,
+                                                        });
+                                                    }}
+                                                >
+                                                    <FaPen className="w-[15px] h-[15px]" />
+                                                </div>
+                                                <label
+                                                    htmlFor="large-input"
+                                                    className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                                >
+                                                    Icon:
+                                                </label>
+                                                <figure className="max-w-lg">
+                                                    <img
+                                                        className="h-auto max-w-full rounded-lg"
+                                                        src={ENV.staticFileUrl + detailCourse.icon}
+                                                        alt=""
+                                                    />
+                                                </figure>
+                                            </div>
+                                            <div className="mb-6">
+                                                <label
+                                                    htmlFor="large-input"
+                                                    className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                                >
+                                                    Ảnh:
+                                                </label>
+                                                <figure className="max-w-lg">
+                                                    <img
+                                                        className="h-auto max-w-full rounded-lg"
+                                                        src={ENV.staticFileUrl + detailCourse.image}
+                                                        alt=""
+                                                    />
+                                                </figure>
+                                            </div>
+                                        </div>
+                                        <div className="w-full ">
+                                            <div className="md:flex md:items-center mb-6">
+                                                <div className="w-[50%]">
+                                                    <label
+                                                        className="block text-2xl text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                                                        htmlFor="inline-full-name"
+                                                    >
+                                                        Tên khóa học
+                                                    </label>
+                                                </div>
+                                                <div className="w-full">
+                                                    <input
+                                                        className="bg-gray-200 text-2xl appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                                        id="inline-full-name"
+                                                        type="text"
+                                                        alt="Tên khóa học..."
+                                                        readOnly
+                                                        value={detailCourse.title}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="md:flex md:items-center mb-6">
+                                                <div className="w-[50%]">
+                                                    <label
+                                                        className="block text-2xl text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                                                        htmlFor="inline-full-name"
+                                                    >
+                                                        Mô tả về khóa học
+                                                    </label>
+                                                </div>
+                                                <div className="w-full">
+                                                    <textarea
+                                                        id="message"
+                                                        rows={4}
+                                                        className="block p-2.5 w-full text-2xl text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="Mô tả về khóa học..."
+                                                        value={detailCourse.description}
+                                                        onChange={(e) => {
+                                                            setDescription(e.target.value);
+                                                        }}
+                                                        readOnly
+                                                    ></textarea>
+                                                </div>
+                                            </div>
+                                            <div className="md:flex md:items-center mb-6">
+                                                <div className="w-[50%]">
+                                                    <label
+                                                        className="block text-2xl text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                                                        htmlFor="inline-full-name"
+                                                    >
+                                                        Slug
+                                                    </label>
+                                                </div>
+                                                <div className="w-full">
+                                                    <input
+                                                        className="bg-gray-200 text-2xl appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                                        id="inline-full-name"
+                                                        type="text"
+                                                        alt="Slug..."
+                                                        value={detailCourse.slug}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="md:flex md:items-center mb-6">
+                                                <div className="w-[50%]">
+                                                    <label
+                                                        className="block text-2xl text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                                                        htmlFor="inline-full-name"
+                                                    >
+                                                        Khóa học Pro
+                                                    </label>
+                                                </div>
+                                                <div className="w-full">
+                                                    <input
+                                                        className="bg-gray-200 text-2xl appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                                        id="inline-full-name"
+                                                        type="text"
+                                                        alt="isPro..."
+                                                        value={detailCourse.isPro}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="md:flex md:items-center mb-6">
+                                                <div className="w-[50%]">
+                                                    <label
+                                                        className="block text-2xl text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                                                        htmlFor="inline-full-name"
+                                                    >
+                                                        Giá
+                                                    </label>
+                                                </div>
+                                                <div className="w-full">
+                                                    <input
+                                                        className="bg-gray-200 text-2xl appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                                        id="inline-full-name"
+                                                        type="text"
+                                                        alt="Giá..."
+                                                        value={detailCourse.price}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="w-full ">
+                                            <div className="md:flex md:items-center mb-6">
+                                                <div className="w-[50%]">
+                                                    <label
+                                                        className="block text-2xl text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                                                        htmlFor="inline-full-name"
+                                                    >
+                                                        Cấp độ khóa học
+                                                    </label>
+                                                </div>
+                                                <div className="w-full">
+                                                    <input
+                                                        className="bg-gray-200 text-2xl appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                                        id="inline-full-name"
+                                                        type="text"
+                                                        alt="Cấp độ khóa học..."
+                                                        value={detailCourse.level.name}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="md:flex md:items-center mb-6">
+                                                <div className="w-[50%]">
+                                                    <label
+                                                        className="block text-2xl text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                                                        htmlFor="inline-full-name"
+                                                    >
+                                                        Số lượng học viên
+                                                    </label>
+                                                </div>
+                                                <div className="w-full">
+                                                    <input
+                                                        className="bg-gray-200 text-2xl appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                                        id="inline-full-name"
+                                                        type="text"
+                                                        alt="Số lượng học viên..."
+                                                        value={detailCourse.studentCount}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="md:flex md:items-center mb-6">
+                                                <div className="w-[50%]">
+                                                    <label
+                                                        className="block text-2xl text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                                                        htmlFor="inline-full-name"
+                                                    >
+                                                        Mở khóa học:
+                                                    </label>
+                                                </div>
+                                                <div className="w-full">
+                                                    <input
+                                                        className="bg-gray-200 text-2xl appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                                        id="inline-full-name"
+                                                        type="text"
+                                                        alt="Mở khóa học..."
+                                                        value={detailCourse.isPublished}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="md:flex md:items-center mb-6">
+                                                <div className="w-[50%]">
+                                                    <label
+                                                        className="block text-2xl text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                                                        htmlFor="inline-full-name"
+                                                    >
+                                                        Mở khóa học vào
+                                                    </label>
+                                                </div>
+                                                <div className="w-full">
+                                                    <input
+                                                        className="bg-gray-200 text-2xl appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                                        id="inline-full-name"
+                                                        type="text"
+                                                        alt="Mở khóa học vào..."
+                                                        value={detailCourse.publishedAt}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="md:flex md:items-center mb-6">
+                                                <div className="w-[50%]">
+                                                    <label
+                                                        className="block text-2xl text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                                                        htmlFor="inline-full-name"
+                                                    >
+                                                        Ngày tạo khóa học
+                                                    </label>
+                                                </div>
+                                                <div className="w-full">
+                                                    <input
+                                                        className="bg-gray-200 text-2xl appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                                        id="inline-full-name"
+                                                        type="text"
+                                                        alt="Ngày tạo khóa học..."
+                                                        value={detailCourse.createdAt}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="md:flex md:items-center mb-6">
+                                                <div className="w-[50%]">
+                                                    <label
+                                                        className="block text-2xl text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                                                        htmlFor="inline-full-name"
+                                                    >
+                                                        Ngày cập nhật khóa học
+                                                    </label>
+                                                </div>
+                                                <div className="w-full">
+                                                    <input
+                                                        className="bg-gray-200 text-2xl appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                                                        id="inline-full-name"
+                                                        type="text"
+                                                        alt="Ngày cập nhật khóa học..."
+                                                        value={detailCourse.updatedAt}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="w-full ">
+                                            <div className="mb-6 relative">
+                                                {' '}
+                                                <div className="absolute top-0 right-0 cursor-pointer">
+                                                    <FaPen
+                                                        className="w-[15px] h-[15px]"
+                                                        onClick={() => {
+                                                            setShowModalDetailWillLearn(true);
+                                                            const clone: any = detailCourse.willLearns.map(
+                                                                (x: any) => ({
+                                                                    ...x,
+                                                                }),
+                                                            );
+                                                            setCourseWillLearnsDetail(clone);
+                                                        }}
+                                                    />
+                                                </div>
+                                                <h2 className="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">
+                                                    Bạn sẽ học được gì:
+                                                </h2>
+                                                <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400 text-2xl">
+                                                    <>
+                                                        {detailCourse.willLearns.map((item: any, index: any) => {
+                                                            return <li key={index}>{item.content}</li>;
+                                                        })}
+                                                    </>
+                                                </ul>
+                                            </div>
+                                            <div className="mb-6 relative">
+                                                {' '}
+                                                <div className="absolute top-0 right-0 cursor-pointer">
+                                                    <FaPen className="w-[15px] h-[15px]" />
+                                                </div>
+                                                <h2 className="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">
+                                                    Yêu cầu:
+                                                </h2>
+                                                <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400 text-2xl">
+                                                    <>
+                                                        {detailCourse.requirements.map((item: any, index: any) => {
+                                                            return <li key={index}>{item.content}</li>;
+                                                        })}
+                                                    </>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Modal footer */}
+                                <div className="space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                    <div className="flex gap-5 justify-between items-center	 px-8 font-bold text-3xl">
+                                        <h3>Nội dung khóa học</h3>
+                                        <FaPlus />
+                                    </div>
+                                    <>
+                                        {detailCourse.tracks.map((item: any, index: any) => {
+                                            return (
+                                                <>
+                                                    {/* component */}
+                                                    <style
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: '\n  #journal-scroll::-webkit-scrollbar {\n            width: 4px;\n            cursor: pointer;\n            /*background-color: rgba(229, 231, 235, var(--bg-opacity));*/\n\n        }\n        #journal-scroll::-webkit-scrollbar-track {\n            background-color: rgba(229, 231, 235, var(--bg-opacity));\n            cursor: pointer;\n            /*background: red;*/\n        }\n        #journal-scroll::-webkit-scrollbar-thumb {\n            cursor: pointer;\n            background-color: #a0aec0;\n            /*outline: 1px solid slategrey;*/\n        }\n',
+                                                        }}
+                                                    />
+                                                    <div
+                                                        className="container mx-auto py-5 flex justify-center"
+                                                        key={index}
+                                                    >
+                                                        <div className="w-screen px-6 flex flex-col">
+                                                            <div className="bg-white text-2xl text-gray-500 font-bold px-5 py-2 shadow border-b border-gray-300 flex gap-5 justify-between">
+                                                                <p>
+                                                                    {index + 1}. {item.title}
+                                                                </p>
+                                                                <div className="flex gap-5">
+                                                                    <FaPen />
+                                                                    <FaTrash />
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className="w-full overflow-auto shadow bg-white"
+                                                                id="journal-scroll"
+                                                            >
+                                                                <table className="w-full">
+                                                                    <tbody className="">
+                                                                        <>
+                                                                            {item.steps.map((step: any, idx: any) => {
+                                                                                return (
+                                                                                    <tr
+                                                                                        key={idx}
+                                                                                        className="relative transform scale-100 text-xs py-1 border-b-2 border-blue-100 cursor-default"
+                                                                                    >
+                                                                                        <td className="whitespace-no-wrap text-2xl flex gap-5 justify-between px-5">
+                                                                                            <div className="text-gray-400">
+                                                                                                {step.title}
+                                                                                            </div>
+                                                                                            <div className="flex gap-5">
+                                                                                                <FaPen />
+                                                                                                <FaTrash />
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                );
+                                                                            })}
+                                                                        </>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            );
+                                        })}
+                                    </>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {showModalDetailCourse === true && (
+                    <div
+                        id="extralarge-modal"
+                        tabIndex={-1}
+                        className={`z-[992] flex justify-center bg-gray-900 bg-opacity-50  overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0  w-full md:inset-0 h-modal md:h-full`}
+                    >
+                        <div className="mb-5 flex justify-center item-center  relative p-4 w-full h-max top-[50px]">
+                            <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 w-[900px]">
+                                {/* Modal header */}
+                                <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
+                                    <h3 className="text-4xl font-medium font-medium text-gray-900 dark:text-white m-0">
+                                        Chỉnh sửa khóa học
+                                    </h3>
+                                    <button
+                                        type="button"
+                                        className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-hide="extralarge-modal"
+                                        onClick={() => {
+                                            setShowModalDetailCourse(false);
+                                        }}
+                                    >
+                                        <svg
+                                            aria-hidden="true"
+                                            className="w-10 h-10"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                fillRule="evenodd"
+                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                clipRule="evenodd"
+                                            />
+                                        </svg>
+                                        <span className="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                {/* Modal body */}
+                                <div className="p-6 space-y-6">
+                                    <div className="mb-6">
+                                        <label
+                                            htmlFor="large-input"
+                                            className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                        >
+                                            Tên khóa học
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            alt="Tên khóa học..."
+                                            value={courseDetailUpdate.title}
+                                            onChange={(e) => {
+                                                setCourseDetailUpdate({ ...courseDetailUpdate, title: e.target.value });
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="mb-6">
+                                        <label
+                                            htmlFor="large-input"
+                                            className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                        >
+                                            Mô tả về khóa học
+                                        </label>
+                                        <textarea
+                                            id="message"
+                                            rows={3}
+                                            className="block p-2.5 w-full text-2xl text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="Mô tả về khóa học..."
+                                            value={courseDetailUpdate.description}
+                                            onChange={(e) => {
+                                                setCourseDetailUpdate({
+                                                    ...courseDetailUpdate,
+                                                    description: e.target.value,
+                                                });
+                                            }}
+                                        ></textarea>
+                                    </div>
+                                    <div className="mb-6 ">
+                                        <label
+                                            className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                            htmlFor="file_input"
+                                        >
+                                            Ảnh khóa học
+                                        </label>
+                                        <div
+                                            className={photoStyles.contentImage}
+                                            style={
+                                                {
+                                                    width: '40%',
+                                                    margin: 0,
+                                                } as React.CSSProperties
+                                            }
+                                        >
+                                            <div
+                                                className={photoStyles.avatar}
+                                                style={
+                                                    {
+                                                        width: '100%',
+                                                        height: '100%',
+                                                        borderRadius: '5%',
+                                                        margin: 0,
+                                                    } as React.CSSProperties
+                                                }
+                                            >
+                                                <img
+                                                    src={imageShow}
+                                                    alt={detailCourse.title}
+                                                    style={
+                                                        {
+                                                            width: '100%',
+                                                        } as React.CSSProperties
+                                                    }
+                                                />
+                                            </div>
+                                            <label form="avatar">
+                                                <div
+                                                    className={photoStyles.chooseAva}
+                                                    style={
+                                                        {
+                                                            top: 0,
+                                                            right: 0,
+                                                            left: 0,
+                                                            bottom: 0,
+                                                            margin: 'auto',
+                                                        } as React.CSSProperties
+                                                    }
+                                                >
+                                                    <svg
+                                                        aria-hidden="true"
+                                                        focusable="false"
+                                                        data-prefix="fas"
+                                                        data-icon="camera"
+                                                        className={clsx(
+                                                            'svg-inline--fa',
+                                                            'fa-camera',
+                                                            photoStyles.chooseImg,
+                                                        )}
+                                                        role="img"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 512 512"
+                                                    >
+                                                        <path
+                                                            fill="currentColor"
+                                                            d="M194.6 32H317.4C338.1 32 356.4 45.22 362.9 64.82L373.3 96H448C483.3 96 512 124.7 512 160V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V160C0 124.7 28.65 96 64 96H138.7L149.1 64.82C155.6 45.22 173.9 32 194.6 32H194.6zM256 384C309 384 352 341 352 288C352 234.1 309 192 256 192C202.1 192 160 234.1 160 288C160 341 202.1 384 256 384z"
+                                                        ></path>
+                                                    </svg>
+                                                </div>
+                                                <div className={photoStyles.pickAva}>
+                                                    <input
+                                                        type="file"
+                                                        accept="image/jpg, image/jpeg, image/png"
+                                                        id="avatar"
+                                                        onChange={handleImageChange}
+                                                    />
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div className="mb-6 flex gap-8 items-center">
+                                        <label
+                                            className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                            htmlFor="file_input"
+                                        >
+                                            Icon khóa học:
+                                        </label>
+                                        <div
+                                            className={photoStyles.contentImage}
+                                            style={
+                                                {
+                                                    width: '5%',
+                                                    margin: 0,
+                                                } as React.CSSProperties
+                                            }
+                                        >
+                                            <div
+                                                className={photoStyles.avatar}
+                                                style={
+                                                    {
+                                                        width: '100%',
+                                                        height: '100%',
+                                                        borderRadius: '5%',
+                                                        margin: 0,
+                                                    } as React.CSSProperties
+                                                }
+                                            >
+                                                <img
+                                                    src={iconShow}
+                                                    alt={detailCourse.title}
+                                                    style={
+                                                        {
+                                                            width: '100%',
+                                                        } as React.CSSProperties
+                                                    }
+                                                />
+                                            </div>
+                                            <label form="avatar">
+                                                <div
+                                                    className={photoStyles.chooseAva}
+                                                    style={
+                                                        {
+                                                            top: 0,
+                                                            right: 0,
+                                                            left: 0,
+                                                            bottom: 0,
+                                                            margin: 'auto',
+                                                            width: '30px',
+                                                            height: '30px',
+                                                        } as React.CSSProperties
+                                                    }
+                                                >
+                                                    <svg
+                                                        aria-hidden="true"
+                                                        focusable="false"
+                                                        data-prefix="fas"
+                                                        data-icon="camera"
+                                                        className={clsx(
+                                                            'svg-inline--fa',
+                                                            'fa-camera',
+                                                            photoStyles.chooseImg,
+                                                        )}
+                                                        role="img"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 512 512"
+                                                    >
+                                                        <path
+                                                            fill="currentColor"
+                                                            d="M194.6 32H317.4C338.1 32 356.4 45.22 362.9 64.82L373.3 96H448C483.3 96 512 124.7 512 160V416C512 451.3 483.3 480 448 480H64C28.65 480 0 451.3 0 416V160C0 124.7 28.65 96 64 96H138.7L149.1 64.82C155.6 45.22 173.9 32 194.6 32H194.6zM256 384C309 384 352 341 352 288C352 234.1 309 192 256 192C202.1 192 160 234.1 160 288C160 341 202.1 384 256 384z"
+                                                        ></path>
+                                                    </svg>
+                                                </div>
+                                                <div className={photoStyles.pickAva}>
+                                                    <input
+                                                        type="file"
+                                                        accept="image/jpg, image/jpeg, image/png"
+                                                        id="avatar"
+                                                        onChange={handleIconChange}
+                                                    />
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div className="mb-6 ">
+                                        <label
+                                            htmlFor="countries"
+                                            className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                        >
+                                            Cấp độ khóa học
+                                        </label>
+                                        <select
+                                            id="countries"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={(e) => {
+                                                setCourseDetailUpdate({ ...courseDetailUpdate, level: e.target.value });
+                                            }}
+                                        >
+                                            <>
+                                                {levels.map((item: any, index: any) => {
+                                                    return (
+                                                        <option
+                                                            key={index}
+                                                            selected={item._id === detailCourse.level._id}
+                                                            value={item._id}
+                                                        >
+                                                            {item.name}
+                                                        </option>
+                                                    );
+                                                })}
+                                            </>
+                                        </select>
+                                    </div>
+                                    <div className="mb-6 ">
+                                        <label
+                                            htmlFor="countries"
+                                            className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                        >
+                                            Khóa học Pro
+                                        </label>
+                                        <select
+                                            id="countries"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={(e) => {
+                                                setCourseDetailUpdate({
+                                                    ...courseDetailUpdate,
+                                                    isPro: e.target.value === '1' ? true : false,
+                                                });
+                                            }}
+                                        >
+                                            <option value="1" selected={detailCourse.isPro === true}>
+                                                Có
+                                            </option>
+                                            <option value="2" selected={detailCourse.isPro === false}>
+                                                Không
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div className="mb-6">
+                                        <label
+                                            htmlFor="large-input"
+                                            className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                        >
+                                            Giá
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            alt="Giá khóa học..."
+                                            value={courseDetailUpdate.price}
+                                            onChange={(e) => {
+                                                setCourseDetailUpdate({ ...courseDetailUpdate, price: e.target.value });
+                                            }}
+                                        />
+                                    </div>{' '}
+                                    <div className="mb-6 ">
+                                        <label
+                                            htmlFor="countries"
+                                            className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                        >
+                                            Công khai
+                                        </label>
+                                        <select
+                                            id="countries"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={(e) => {
+                                                setCourseDetailUpdate({
+                                                    ...courseDetailUpdate,
+                                                    isPublished: e.target.value === '1' ? true : false,
+                                                });
+                                            }}
+                                        >
+                                            <option value="1" selected={detailCourse.isPublished === true}>
+                                                Có
+                                            </option>
+                                            <option value="2" selected={detailCourse.isPublished === false}>
+                                                Không
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                {/* Modal footer */}
+                                <div className="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                    <button
+                                        data-modal-hide="extralarge-modal"
+                                        type="button"
+                                        onClick={() => {
+                                            setShowModalDetailCourse(false);
+                                        }}
+                                        className="text-gray-500 text-2xl p-5 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200  font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                                    >
+                                        Hủy
+                                    </button>
+                                    <button
+                                        data-modal-hide="extralarge-modal"
+                                        type="button"
+                                        className="text-white text-2xl p-5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                        onClick={handleUpdateDetailCourse}
+                                    >
+                                        Cập nhật khóa học
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {showModalDetailWillLearn === true && (
+                    <div
+                        id="extralarge-modal"
+                        tabIndex={-1}
+                        className={`z-[992] flex justify-center bg-gray-900 bg-opacity-50  overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0  w-full md:inset-0 h-modal md:h-full`}
+                    >
+                        <div className="mb-5 flex justify-center item-center  relative p-4 w-full h-max top-[50px]">
+                            <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 w-[900px]">
+                                {/* Modal header */}
+                                <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
+                                    <h3 className="text-4xl font-medium font-medium text-gray-900 dark:text-white m-0">
+                                        Bạn sẽ học được gì
+                                    </h3>
+                                    <button
+                                        type="button"
+                                        className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-hide="extralarge-modal"
+                                        onClick={() => {
+                                            setShowModalDetailWillLearn(false);
+                                        }}
+                                    >
+                                        <svg
+                                            aria-hidden="true"
+                                            className="w-10 h-10"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                fillRule="evenodd"
+                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                clipRule="evenodd"
+                                            />
+                                        </svg>
+                                        <span className="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                {/* Modal body */}
+                                <div className="p-6 space-y-6">
+                                    <div className="mb-6 flex gap-6 items-center justify-between">
+                                        <div className="flex items-center w-[50%]">
+                                            {' '}
+                                            <label
+                                                htmlFor="large-input"
+                                                className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white w-[30%]"
+                                            >
+                                                Tên khóa học
+                                            </label>
+                                            <input
+                                                type="text"
+                                                className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                alt="Tên khóa học..."
+                                                value={detailCourse.title}
+                                                readOnly={true}
+                                            />
+                                        </div>
+                                        <button>
+                                            <FaPlus
+                                                className="w-[20px] h-[20px]"
+                                                onClick={() => {
+                                                    handleCreateWillLearn();
+                                                }}
+                                            />
+                                        </button>
+                                    </div>
+                                    <div className="mb-6">
+                                        <div className="relative overflow-x-auto">
+                                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                                    <tr>
+                                                        <th scope="col" className="px-6 py-3 text-2xl">
+                                                            ID
+                                                        </th>
+                                                        <th scope="col" className="px-6 py-3 text-2xl">
+                                                            Nội dung
+                                                        </th>
+                                                        <th
+                                                            scope="col"
+                                                            className="px-6 py-3 text-2xl text-center"
+                                                            style={{ height: '50px' }}
+                                                        >
+                                                            Hành động
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <>
+                                                        {courseWillLearnsDetail.map((item: any, index: any) => {
+                                                            return (
+                                                                <tr
+                                                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                                                    key={index}
+                                                                >
+                                                                    <th
+                                                                        scope="row"
+                                                                        className="text-2xl px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                                                    >
+                                                                        {item._id}
+                                                                    </th>
+                                                                    <td className="text-2xl px-6 py-4">
+                                                                        {' '}
+                                                                        <input
+                                                                            type="text"
+                                                                            id="voice-search"
+                                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                                            placeholder="Bạn sẽ học được..."
+                                                                            value={item.content}
+                                                                            onChange={(e) => {
+                                                                                let newArr = [
+                                                                                    ...courseWillLearnsDetail,
+                                                                                ];
+                                                                                newArr[index].content = e.target.value;
+                                                                                setCourseWillLearnsDetail(newArr);
+                                                                            }}
+                                                                        />
+                                                                    </td>
+                                                                    <td className="text-2xl px-6 py-4 flex gap-8 items-center justify-center">
+                                                                        <FaPen
+                                                                            onClick={() => {
+                                                                                handleUpdateWillLearn(index);
+                                                                            }}
+                                                                        />
+                                                                        <FaTrash
+                                                                            onClick={() => {
+                                                                                handleDeleteWillLearn(index);
+                                                                            }}
+                                                                        />
+                                                                    </td>
+                                                                </tr>
+                                                            );
+                                                        })}
+                                                    </>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* Modal footer */}
+                                {/* <div className="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                    <button
+                                        data-modal-hide="extralarge-modal"
+                                        type="button"
+                                        onClick={() => {
+                                            setShowModalDetailWillLearn(false);
+                                        }}
+                                        className="text-gray-500 text-2xl p-5 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200  font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                                    >
+                                        Hủy
+                                    </button>
+                                    <button
+                                        data-modal-hide="extralarge-modal"
+                                        type="button"
+                                        className="text-white text-2xl p-5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                        onClick={handleUpdateDetailCourse}
+                                    >
+                                        Cập nhật khóa học
+                                    </button>
+                                </div> */}
                             </div>
                         </div>
                     </div>

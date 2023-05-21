@@ -14,6 +14,14 @@ class CourseAdminService {
         let uri = COURSE_ADMIN_ROUTER.delete + id;
         return fetch.delete(uri, params);
     }
+    static detail(params: object, id: any) {
+        let uri = COURSE_ADMIN_ROUTER.detail + id;
+        return fetch.get(uri, params);
+    }
+    static update(params: object, id: any) {
+        let uri = COURSE_ADMIN_ROUTER.update + id;
+        return fetch.putFile(uri, params);
+    }
 }
 
 export default CourseAdminService;
