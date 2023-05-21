@@ -26,7 +26,8 @@ const App = ({ page }: Props): JSX.Element => {
                     {page === 'home' ? <Home /> : ''}
                     {page === 'courseDetail' ? <CourseDetail /> : ''}
                     {page === 'profile' ? <Profile /> : ''}
-                    {page === 'learning-paths' ? <DefaultLayout /> : ''}
+                    {page === 'learning-paths' ? <DefaultLayout page={page} /> : ''}
+                    {page === 'courses' ? <DefaultLayout page={page} /> : ''}
                 </section>
             </div>
         </div>
