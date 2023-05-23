@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-function SideBar() {
+function SideBar({ page }: any) {
     return (
         <aside
             id="sidebar-multi-level-sidebar"
@@ -13,7 +13,11 @@ function SideBar() {
                     <li className="p-2">
                         <Link
                             to="/"
-                            className="flex items-center p-4 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                            className={`flex items-center p-4 text-gray-900 rounded-lg dark:text-white  ${
+                                page === 'courses'
+                                    ? 'bg-gray-200 dark:bg-gray-700'
+                                    : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                            } `}
                         >
                             <svg
                                 aria-hidden="true"
