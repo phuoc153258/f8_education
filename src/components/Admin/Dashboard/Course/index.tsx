@@ -16,6 +16,11 @@ import clsx from 'clsx';
 import WillLearnAdminRouter from '../../../../services/admin/willLearn';
 import RequirementRouter from '../../../../services/admin/requirement';
 import TrackAdminService from '../../../../services/admin/track';
+import TextEditor from '../../../Share/TextEditor/TextEditor';
+import StepAdminService from '../../../../services/admin/step';
+import { ContentState, EditorState, convertFromHTML, convertFromRaw, convertToRaw } from 'draft-js';
+import { stateToHTML } from 'draft-js-export-html';
+import YouTube from 'react-youtube';
 
 function Course() {
     const navigate = useNavigate();
@@ -33,6 +38,8 @@ function Course() {
     const [showModalDetailRequirement, setShowModalDetailRequirement] = useState<any>(false);
     const [showModalCreateTrack, setShowModalCreateTrack] = useState<any>(false);
     const [showModalUpdateTrack, setShowModalUpdateTrack] = useState<any>(false);
+    const [showModalCreateStep, setShowModalCreateStep] = useState<any>(false);
+    const [showModalUpdateStep, setShowModalUpdateStep] = useState<any>(false);
 
     const [courses, setCourses] = useState<any>([]);
 
@@ -70,11 +77,63 @@ function Course() {
 
     const [courseRequirementsDetail, setCourseRequirementsDetail] = useState<any>([]);
 
-    const [positionTrack, setPositionTrack] = useState<any>([]);
+    const [positionTrack, setPositionTrack] = useState<any>({});
 
     const [trackCreate, setTrackCreate] = useState<any>({ title: '', position: 0, isPublished: true });
 
     const [trackUpdate, setTrackUpdate] = useState<any>({ _id: null, title: '', position: 0, isPublished: true });
+
+    const [positionStep, setPositionStep] = useState<any>({});
+    const [stepCreate, setStepCreate] = useState<any>({
+        trackId: null,
+        trackName: '',
+        title: '',
+        description: '',
+        duration: 0,
+        videoUrl: '',
+        imageUrl: '',
+        position: 0,
+        isPublished: true,
+    });
+    const [stepUpdate, setStepUpdate] = useState<any>({
+        trackId: null,
+        trackName: '',
+        title: '',
+        description: '',
+        duration: 0,
+        videoUrl: '',
+        imageUrl: '',
+        position: 0,
+        isPublished: true,
+    });
+
+    const [editorState, setEditorState] = useState<EditorState>(() => EditorState.createEmpty());
+
+    const [editorUpdateStepState, setEditorUpdateStepState] = useState<EditorState>(() => EditorState.createEmpty());
+
+    const handleEditorChange = (newEditorState: EditorState) => {
+        setEditorState(newEditorState);
+    };
+
+    const handleEditorUpdateStepChange = (newEditorState: EditorState) => {
+        setEditorUpdateStepState(newEditorState);
+    };
+
+    const convertToHTML = (): string => {
+        const contentState = editorState.getCurrentContent();
+        const rawContentState = convertToRaw(contentState);
+        const contentStateWithEntity = convertFromRaw(rawContentState);
+        const html = stateToHTML(contentStateWithEntity);
+        return html;
+    };
+
+    const convertToHTMLStep = (): string => {
+        const contentState = editorUpdateStepState.getCurrentContent();
+        const rawContentState = convertToRaw(contentState);
+        const contentStateWithEntity = convertFromRaw(rawContentState);
+        const html = stateToHTML(contentStateWithEntity);
+        return html;
+    };
 
     const handleCreateCourse = async () => {
         try {
@@ -341,6 +400,26 @@ function Course() {
         return elements;
     }
 
+    function createStepElements() {
+        let elements = [];
+        for (let i = 0; i <= positionStep.position; i++) {
+            elements.push(<option value={i}>{i + 1}</option>);
+        }
+        return elements;
+    }
+
+    function createStepUpdateElements() {
+        let elements = [];
+        for (let i = 0; i <= positionStep.position; i++) {
+            elements.push(
+                <option value={i} selected={stepUpdate.position === i}>
+                    {i + 1}
+                </option>,
+            );
+        }
+        return elements;
+    }
+
     const handleCreateTrack = async () => {
         try {
             const trackResponse: any = await TrackAdminService.create({
@@ -373,11 +452,10 @@ function Course() {
                 }
                 const positionResponse: any = await TrackAdminService.position({}, detailCourse._id);
                 if (positionResponse?.data?.data) setPositionTrack(positionResponse?.data?.data);
+                setShowModalCreateTrack(false);
+                toast('Xóa thành công!');
+                setIsFetchData((prevState: any) => !prevState);
             }
-
-            setShowModalCreateTrack(false);
-            toast('Xóa thành công!');
-            setIsFetchData((prevState: any) => !prevState);
         } catch (error) {
             console.log(error);
         } finally {
@@ -398,6 +476,93 @@ function Course() {
                 setDetailCourse(trackResponse?.data?.data);
             }
             setShowModalUpdateTrack(false);
+            toast('Cập nhật thông tin thành công!');
+            setIsFetchData((prevState: any) => !prevState);
+        } catch (error) {
+            console.log(error);
+        } finally {
+        }
+    };
+
+    const handlePositionStep = async (id: any) => {
+        try {
+            const stepResponse: any = await StepAdminService.position({}, id);
+            if (stepResponse?.data?.data) {
+                setPositionStep(stepResponse?.data?.data);
+            }
+            // const positionResponse: any = await TrackAdminService.position({}, detailCourse._id);
+            // if (positionResponse?.data?.data) setPositionTrack(positionResponse?.data?.data);
+            // setShowModalCreateTrack(false);
+            // toast('Thêm thành công!');
+            setIsFetchData((prevState: any) => !prevState);
+        } catch (error) {
+            console.log(error);
+        } finally {
+        }
+    };
+
+    const handleCreateStep = async () => {
+        try {
+            const stepResonse: any = await StepAdminService.create({
+                title: stepCreate.title,
+                description: convertToHTML(),
+                duration: parseInt(stepCreate.duration),
+                imageUrl: stepCreate.imageUrl,
+                videoUrl: stepCreate.videoUrl,
+                isPublished: stepCreate.isPublished,
+                position: stepCreate.position,
+                trackId: stepCreate.trackId,
+            });
+            if (stepResonse?.data?.data) {
+                setDetailCourse(stepResonse?.data?.data);
+            }
+            setShowModalCreateStep(false);
+            toast('Thêm thành công!');
+            setIsFetchData((prevState: any) => !prevState);
+        } catch (error) {
+            console.log(error);
+        } finally {
+        }
+    };
+
+    const handleDeleteStep = async (id: any) => {
+        try {
+            // eslint-disable-next-line no-restricted-globals
+            if (confirm('Xóa mục này !')) {
+                console.log(id);
+                const stepResponse: any = await StepAdminService.delete({}, id);
+                if (stepResponse?.data?.data) {
+                    setDetailCourse(stepResponse?.data?.data);
+                }
+
+                toast('Xóa thành công!');
+                setIsFetchData((prevState: any) => !prevState);
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+        }
+    };
+
+    const handleUpdateStep = async () => {
+        try {
+            const stepResonse: any = await StepAdminService.update(
+                {
+                    title: stepUpdate.title,
+                    description: convertToHTMLStep(),
+                    duration: parseInt(stepCreate.duration),
+                    imageUrl: stepUpdate.imageUrl,
+                    videoUrl: stepUpdate.videoUrl,
+                    isPublished: stepUpdate.isPublished,
+                    position: stepUpdate.position,
+                    trackId: stepUpdate.trackId,
+                },
+                stepUpdate._id,
+            );
+            if (stepResonse?.data?.data) {
+                setDetailCourse(stepResonse?.data?.data);
+            }
+            setShowModalUpdateStep(false);
             toast('Cập nhật thông tin thành công!');
             setIsFetchData((prevState: any) => !prevState);
         } catch (error) {
@@ -461,6 +626,16 @@ function Course() {
         }
     };
 
+    const checkElapsedTime = (e: any) => {
+        const duration = e.target.getDuration();
+        if (duration) setStepCreate({ ...stepCreate, duration: duration });
+    };
+    const opts = {
+        playerVars: {
+            // https://developers.google.com/youtube/player_parameters
+            autoplay: 1,
+        },
+    };
     useEffect(() => {
         fecthData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -468,6 +643,7 @@ function Course() {
 
     return (
         <>
+            <div id="player"></div>
             <div className="flex-1 p-10 bg-gray-100">
                 <div className="block rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
                     <h5 className="mb-3 mt-3 text-6xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
@@ -1209,18 +1385,31 @@ function Course() {
                                         return (
                                             <>
                                                 {/* component */}
-                                                <style
-                                                    dangerouslySetInnerHTML={{
-                                                        __html: '\n  #journal-scroll::-webkit-scrollbar {\n            width: 4px;\n            cursor: pointer;\n            /*background-color: rgba(229, 231, 235, var(--bg-opacity));*/\n\n        }\n        #journal-scroll::-webkit-scrollbar-track {\n            background-color: rgba(229, 231, 235, var(--bg-opacity));\n            cursor: pointer;\n            /*background: red;*/\n        }\n        #journal-scroll::-webkit-scrollbar-thumb {\n            cursor: pointer;\n            background-color: #a0aec0;\n            /*outline: 1px solid slategrey;*/\n        }\n',
-                                                    }}
-                                                />
                                                 <div className="container mx-auto py-5 flex justify-center" key={index}>
+                                                    <style
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: '\n  #journal-scroll::-webkit-scrollbar {\n            width: 4px;\n            cursor: pointer;\n            /*background-color: rgba(229, 231, 235, var(--bg-opacity));*/\n\n        }\n        #journal-scroll::-webkit-scrollbar-track {\n            background-color: rgba(229, 231, 235, var(--bg-opacity));\n            cursor: pointer;\n            /*background: red;*/\n        }\n        #journal-scroll::-webkit-scrollbar-thumb {\n            cursor: pointer;\n            background-color: #a0aec0;\n            /*outline: 1px solid slategrey;*/\n        }\n',
+                                                        }}
+                                                    />
                                                     <div className="w-screen px-6 flex flex-col">
                                                         <div className="bg-white text-2xl text-gray-500 font-bold px-5 py-2 shadow border-b border-gray-300 flex gap-5 justify-between">
                                                             <p>
                                                                 {index + 1}. {item.title}
                                                             </p>
                                                             <div className="flex gap-5">
+                                                                <button
+                                                                    onClick={() => {
+                                                                        setShowModalCreateStep(true);
+                                                                        setStepCreate({
+                                                                            ...stepCreate,
+                                                                            trackId: item._id,
+                                                                            trackName: item.title,
+                                                                        });
+                                                                        handlePositionStep(item._id);
+                                                                    }}
+                                                                >
+                                                                    <FaPlus />
+                                                                </button>
                                                                 <button
                                                                     onClick={() => {
                                                                         setShowModalUpdateTrack(true);
@@ -1256,8 +1445,44 @@ function Course() {
                                                                                             {step.title}
                                                                                         </div>
                                                                                         <div className="flex gap-5">
-                                                                                            <FaPen />
-                                                                                            <FaTrash />
+                                                                                            <button
+                                                                                                onClick={() => {
+                                                                                                    setShowModalUpdateStep(
+                                                                                                        true,
+                                                                                                    );
+                                                                                                    setStepUpdate(step);
+                                                                                                    handlePositionStep(
+                                                                                                        step.trackId,
+                                                                                                    );
+                                                                                                    const blocksFromHTML =
+                                                                                                        convertFromHTML(
+                                                                                                            step.description,
+                                                                                                        );
+                                                                                                    const contentState =
+                                                                                                        ContentState.createFromBlockArray(
+                                                                                                            blocksFromHTML.contentBlocks,
+                                                                                                            blocksFromHTML.entityMap,
+                                                                                                        );
+                                                                                                    const newEditorState =
+                                                                                                        EditorState.createWithContent(
+                                                                                                            contentState,
+                                                                                                        );
+                                                                                                    setEditorUpdateStepState(
+                                                                                                        newEditorState,
+                                                                                                    );
+                                                                                                }}
+                                                                                            >
+                                                                                                <FaPen />
+                                                                                            </button>
+                                                                                            <button
+                                                                                                onClick={() => {
+                                                                                                    handleDeleteStep(
+                                                                                                        step._id,
+                                                                                                    );
+                                                                                                }}
+                                                                                            >
+                                                                                                <FaTrash />
+                                                                                            </button>
                                                                                         </div>
                                                                                     </td>
                                                                                 </tr>
@@ -2199,6 +2424,401 @@ function Course() {
                                     onClick={handleUpdateTrack}
                                 >
                                     Cập nhật chương
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showModalCreateStep === true && (
+                <div
+                    id="extralarge-modal"
+                    tabIndex={-1}
+                    className={`z-[992] flex justify-center bg-gray-900 bg-opacity-50  overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0  w-full md:inset-0 h-modal md:h-full`}
+                >
+                    <div className="mb-5 flex justify-center item-center  relative p-4 w-full h-max top-[50px]">
+                        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 w-[900px]">
+                            {/* Modal header */}
+                            <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
+                                <h3 className="text-4xl font-medium font-medium text-gray-900 dark:text-white m-0">
+                                    Tạo bài học
+                                </h3>
+                                <button
+                                    type="button"
+                                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                    data-modal-hide="extralarge-modal"
+                                    onClick={() => {
+                                        setShowModalCreateStep(false);
+                                    }}
+                                >
+                                    <svg
+                                        aria-hidden="true"
+                                        className="w-10 h-10"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                    <span className="sr-only">Close modal</span>
+                                </button>
+                            </div>
+                            {/* Modal body */}
+                            <div className="p-6 space-y-6">
+                                <div className="mb-6">
+                                    <label
+                                        htmlFor="large-input"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Tiêu đề
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        alt="Tiêu đề..."
+                                        value={stepCreate.title}
+                                        onChange={(e) => {
+                                            setStepCreate({ ...stepCreate, title: e.target.value });
+                                        }}
+                                    />
+                                </div>
+                                <div className="mb-6">
+                                    <label
+                                        htmlFor="large-input"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Mô tả
+                                    </label>
+                                    <TextEditor editorState={editorState} handleEditorChange={handleEditorChange} />
+                                </div>
+                                {/* <div className="mb-6">
+                                    <label
+                                        htmlFor="large-input"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Thời lượng
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        alt="Thời lượng..."
+                                        value={stepCreate.duration}
+                                        onChange={(e) => {
+                                            setStepCreate({ ...stepCreate, duration: e.target.value });
+                                        }}
+                                    />
+                                </div> */}
+                                <div className="mb-6">
+                                    <label
+                                        htmlFor="large-input"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Video URL1
+                                    </label>{' '}
+                                    <div hidden={true}>
+                                        <YouTube
+                                            videoId={stepCreate.videoUrl}
+                                            onStateChange={(e) => checkElapsedTime(e)}
+                                            opts={opts}
+                                        />
+                                    </div>
+                                    <input
+                                        type="text"
+                                        className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        alt="Video URL..."
+                                        value={stepCreate.videoUrl}
+                                        onChange={(e) => {
+                                            setStepCreate({ ...stepCreate, videoUrl: e.target.value });
+                                        }}
+                                    />
+                                </div>
+                                <div className="mb-6">
+                                    <label
+                                        htmlFor="large-input"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Image URL
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        alt="Image URL..."
+                                        value={stepCreate.imageUrl}
+                                        onChange={(e) => {
+                                            setStepCreate({ ...stepCreate, imageUrl: e.target.value });
+                                        }}
+                                    />
+                                </div>
+                                <div className="mb-6 ">
+                                    <label
+                                        htmlFor="countries"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Vị trí
+                                    </label>
+                                    <select
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        onChange={(e) => {
+                                            setStepCreate({ ...stepCreate, position: e.target.value });
+                                        }}
+                                    >
+                                        <>{createStepElements()}</>
+                                    </select>
+                                </div>{' '}
+                                <div className="mb-6 ">
+                                    <label
+                                        htmlFor="countries"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Công bố
+                                    </label>
+                                    <select
+                                        onChange={(e) => {
+                                            if (e.target.value === '1')
+                                                setStepCreate({ ...stepCreate, isPublished: true });
+                                            else setStepCreate({ ...stepCreate, isPublished: false });
+                                        }}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    >
+                                        <option value="1" selected={true}>
+                                            Có
+                                        </option>
+                                        <option value="2">Không</option>
+                                    </select>
+                                </div>
+                            </div>
+                            {/* Modal footer */}
+                            <div className="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                <button
+                                    data-modal-hide="extralarge-modal"
+                                    type="button"
+                                    onClick={() => {
+                                        setShowModalCreateStep(false);
+                                    }}
+                                    className="text-gray-500 text-2xl p-5 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200  font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                                >
+                                    Hủy
+                                </button>
+                                <button
+                                    data-modal-hide="extralarge-modal"
+                                    type="button"
+                                    className="text-white text-2xl p-5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    onClick={handleCreateStep}
+                                >
+                                    Tạo bài học
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showModalUpdateStep === true && (
+                <div
+                    id="extralarge-modal"
+                    tabIndex={-1}
+                    className={`z-[992] flex justify-center bg-gray-900 bg-opacity-50  overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0  w-full md:inset-0 h-modal md:h-full`}
+                >
+                    <div className="mb-5 flex justify-center item-center  relative p-4 w-full h-max top-[50px]">
+                        <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 w-[900px]">
+                            {/* Modal header */}
+                            <div className="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
+                                <h3 className="text-4xl font-medium font-medium text-gray-900 dark:text-white m-0">
+                                    Chỉnh sửa bài học
+                                </h3>
+                                <button
+                                    type="button"
+                                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                    data-modal-hide="extralarge-modal"
+                                    onClick={() => {
+                                        setShowModalUpdateStep(false);
+                                    }}
+                                >
+                                    <svg
+                                        aria-hidden="true"
+                                        className="w-10 h-10"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                    <span className="sr-only">Close modal</span>
+                                </button>
+                            </div>
+                            {/* Modal body */}
+                            <div className="p-6 space-y-6">
+                                <div className="mb-6">
+                                    <label
+                                        htmlFor="large-input"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Tiêu đề
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        alt="Tiêu đề..."
+                                        value={stepUpdate.title}
+                                        onChange={(e) => {
+                                            setStepUpdate({ ...stepUpdate, title: e.target.value });
+                                        }}
+                                    />
+                                </div>
+                                <div className="mb-6">
+                                    <label
+                                        htmlFor="large-input"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Mô tả
+                                    </label>
+                                    <TextEditor
+                                        editorState={editorUpdateStepState}
+                                        handleEditorChange={handleEditorUpdateStepChange}
+                                    />
+                                </div>
+                                {/* <div className="mb-6">
+                                    <label
+                                        htmlFor="large-input"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Thời lượng
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        alt="Thời lượng..."
+                                        value={stepUpdate.duration}
+                                        onChange={(e) => {
+                                            setStepUpdate({ ...stepUpdate, duration: e.target.value });
+                                        }}
+                                    />
+                                </div> */}
+                                <div className="mb-6">
+                                    <label
+                                        htmlFor="large-input"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Video URL
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        alt="Video URL..."
+                                        value={stepUpdate.videoUrl}
+                                        onChange={(e) => {
+                                            setStepUpdate({ ...stepUpdate, videoUrl: e.target.value });
+                                        }}
+                                    />
+                                </div>
+                                <div className="mb-6">
+                                    <label
+                                        htmlFor="large-input"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Image URL
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        alt="Image URL..."
+                                        value={stepUpdate.imageUrl}
+                                        onChange={(e) => {
+                                            setStepUpdate({ ...stepUpdate, imageUrl: e.target.value });
+                                        }}
+                                    />
+                                </div>{' '}
+                                <div className="mb-6 ">
+                                    <label
+                                        htmlFor="countries"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Chương
+                                    </label>
+                                    <select
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        onChange={(e) => {
+                                            setStepUpdate({ ...stepUpdate, trackId: e.target.value });
+                                            handlePositionStep(e.target.value);
+                                        }}
+                                    >
+                                        <>
+                                            {detailCourse.tracks.map((item: any, index: any) => {
+                                                return (
+                                                    <option value={item._id} selected={stepUpdate.trackId === item._id}>
+                                                        {item.title}
+                                                    </option>
+                                                );
+                                            })}
+                                        </>
+                                    </select>
+                                </div>{' '}
+                                <div className="mb-6 ">
+                                    <label
+                                        htmlFor="countries"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Vị trí
+                                    </label>
+                                    <select
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        onChange={(e) => {
+                                            setStepUpdate({ ...stepUpdate, position: e.target.value });
+                                        }}
+                                    >
+                                        <>{createStepUpdateElements()}</>
+                                    </select>
+                                </div>{' '}
+                                <div className="mb-6 ">
+                                    <label
+                                        htmlFor="countries"
+                                        className="block mb-2 text-2xl font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Công bố
+                                    </label>
+                                    <select
+                                        onChange={(e) => {
+                                            if (e.target.value === '1')
+                                                setStepCreate({ ...stepCreate, isPublished: true });
+                                            else setStepCreate({ ...stepCreate, isPublished: false });
+                                        }}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-2xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    >
+                                        <option value="1" selected={true}>
+                                            Có
+                                        </option>
+                                        <option value="2">Không</option>
+                                    </select>
+                                </div>
+                            </div>
+                            {/* Modal footer */}
+                            <div className="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                <button
+                                    data-modal-hide="extralarge-modal"
+                                    type="button"
+                                    onClick={() => {
+                                        setShowModalUpdateStep(false);
+                                    }}
+                                    className="text-gray-500 text-2xl p-5 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200  font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                                >
+                                    Hủy
+                                </button>
+                                <button
+                                    data-modal-hide="extralarge-modal"
+                                    type="button"
+                                    className="text-white text-2xl p-5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    onClick={handleUpdateStep}
+                                >
+                                    Chỉnh sửa bài học
                                 </button>
                             </div>
                         </div>
