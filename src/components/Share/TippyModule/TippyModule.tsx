@@ -20,6 +20,26 @@ const Tippy_module = ({ user }: any): JSX.Element => {
         <ul className={clsx(styles.wrapper, userMenuStyles.wrapper, 'hide-on-click')}>
             <UserMenuUser user={user} />
             <hr />
+            {user.roleId === '63664c0b0ec8388637abd10a' ? (
+                <>
+                    {' '}
+                    <UserMenuList
+                        content={
+                            <Fragment>
+                                <li>
+                                    <Link className={userMenuStyles.item} to={`/admin/courses`}>
+                                        {'Admin'}
+                                    </Link>
+                                </li>
+                            </Fragment>
+                        }
+                    />{' '}
+                    <hr />
+                </>
+            ) : (
+                ''
+            )}
+
             <UserMenuList
                 content={
                     <Fragment>

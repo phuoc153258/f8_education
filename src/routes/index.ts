@@ -9,3 +9,4 @@ export * from './api/admin/level';
 export * from './api/admin/willLearn';
 export * from './api/admin/requirement';
 export * from './api/admin/track';
+export * from './api/admin/step';
