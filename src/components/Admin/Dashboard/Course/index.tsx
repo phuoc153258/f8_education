@@ -529,7 +529,6 @@ function Course() {
         try {
             // eslint-disable-next-line no-restricted-globals
             if (confirm('Xóa mục này !')) {
-                console.log(id);
                 const stepResponse: any = await StepAdminService.delete({}, id);
                 if (stepResponse?.data?.data) {
                     setDetailCourse(stepResponse?.data?.data);
@@ -634,6 +633,7 @@ function Course() {
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
             autoplay: 1,
+            mute: 1,
         },
     };
     useEffect(() => {
@@ -1332,7 +1332,7 @@ function Course() {
                                             <h2 className="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">
                                                 Bạn sẽ học được gì:
                                             </h2>
-                                            <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400 text-2xl">
+                                            <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400 text-2xl overflow-auto h-[120px]">
                                                 <>
                                                     {detailCourse.willLearns.map((item: any, index: any) => {
                                                         return <li key={index}>{item.content}</li>;
@@ -1357,7 +1357,7 @@ function Course() {
                                             <h2 className="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">
                                                 Yêu cầu:
                                             </h2>
-                                            <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400 text-2xl">
+                                            <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400 text-2xl overflow-auto h-[120px]">
                                                 <>
                                                     {detailCourse.requirements.map((item: any, index: any) => {
                                                         return <li key={index}>{item.content}</li>;
@@ -1369,7 +1369,7 @@ function Course() {
                                 </div>
                             </div>
                             {/* Modal footer */}
-                            <div className="space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                            <div className="space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600  overflow-auto h-[500px]">
                                 <div className="flex gap-5 justify-between items-center	 px-8 font-bold text-3xl">
                                     <h3>Nội dung khóa học</h3>
                                     <button>

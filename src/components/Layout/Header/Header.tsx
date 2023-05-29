@@ -39,7 +39,7 @@ const Header = ({ tracks, course }: any): JSX.Element => {
                         content={
                             <Fragment>
                                 <div className={styles.percent}>
-                                    <span className={styles.num}>{tracks.passPercent}</span>%
+                                    <span className={styles.num}>{Math.round(tracks.passPercent)}</span>%
                                 </div>
                             </Fragment>
                         }
