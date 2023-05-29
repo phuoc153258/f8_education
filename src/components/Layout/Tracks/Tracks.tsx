@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Tracks.module.scss';
 import TrackItem from './TrackItem/TrackItem';
 
@@ -38,6 +38,8 @@ const Tracks = ({ tracks, steps, slug, setIsFetchData }: any): JSX.Element => {
                                     currentStep={steps.step}
                                     userProgress={tracks.userProgress}
                                     setIsFetchData={setIsFetchData}
+                                    tracks={tracks}
+                                    indexTrack={index}
                                 />
                             );
                         })}

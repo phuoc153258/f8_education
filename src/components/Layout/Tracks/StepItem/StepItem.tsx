@@ -5,7 +5,11 @@ import { convertNumberToTimeENG } from '../../../../helpers';
 import { useNavigate } from 'react-router-dom';
 import CourseService from '../../../../services/course';
 
-const StepItem = ({ userProgress, step, slug, currentStep, setIsFetchData }: any): JSX.Element => {
+const StepItem = ({ userProgress, step, slug, currentStep, setIsFetchData, tracks, indexTrack }: any): JSX.Element => {
+    let indexStep = 0;
+    for (let index = 0; index < indexTrack; index++) {
+        indexStep += tracks.tracks[index].steps.length;
+    }
     const navigate = useNavigate();
     const isCompleted = userProgress.find((progress: any) => progress.stepId === step._id);
     const handleSwitchLesson = () => {
@@ -28,7 +32,7 @@ const StepItem = ({ userProgress, step, slug, currentStep, setIsFetchData }: any
             className={clsx(
                 styles.wrapper,
                 'learn-item-1',
-                isCompleted || userProgress.length === step.position ? '' : styles.locked,
+                isCompleted || userProgress.length === indexStep + step.position ? '' : styles.locked,
                 step._id === currentStep._id ? styles.active : '',
             )}
         >
