@@ -6,6 +6,7 @@ import FormControl from '../../Share/FormControl/FormControl';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthService from '../../../services/auth';
 import { isAuthenticate } from '../../../utils';
+import { ENV } from '../../../config';
 
 const Register = (): JSX.Element => {
     const navigate = useNavigate();
@@ -44,7 +45,7 @@ const Register = (): JSX.Element => {
                         <Link to="/">
                             <img
                                 className={clsx(styles.logo, 'm-0-auto')}
-                                src="http://localhost:3001/api/v1/file/f8_icon44x44.png"
+                                src={`${ENV.staticFileUrl}/f8_icon44x44.png`}
                                 alt="F8"
                             />
                         </Link>
