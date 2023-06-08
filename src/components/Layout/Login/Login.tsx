@@ -9,6 +9,7 @@ import { isAuthenticate, setToken, setUser } from '../../../utils';
 import UserService from '../../../services/user';
 import { useStore } from '../../../hooks';
 import { actions } from '../../../store';
+import { ENV } from '../../../config';
 
 const Login = (): JSX.Element => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -45,14 +46,17 @@ const Login = (): JSX.Element => {
     }, [navigate]);
 
     return (
-        <div className={clsx(styles.wrapper, styles.hasBg)}>
+        <div
+            className={clsx(styles.wrapper, styles.hasBg)}
+            style={{ '--bg-url': ENV.staticFileUrl + '/f8_bg_auth_1920.png' } as React.CSSProperties}
+        >
             <div className={styles.container}>
                 <div className={styles.content}>
                     <div className={styles.header}>
                         <Link to="/">
                             <img
                                 className={clsx(styles.logo, 'm-0-auto')}
-                                src="http://localhost:3001/api/v1/file/f8_icon44x44.png"
+                                src={`${ENV.staticFileUrl}/f8_icon44x44.png`}
                                 alt="F8"
                             />
                         </Link>

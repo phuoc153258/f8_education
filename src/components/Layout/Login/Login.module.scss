@@ -27,8 +27,8 @@
 }
 
 .wrapper.hasBg:after {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-        url('http://localhost:3001/api/v1/file/f8_bg_auth_1920.png');
+    //url(var(--bg-url)
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
     -webkit-filter: blur(0);
     filter: blur(0);
     z-index: 1;
@@ -182,8 +182,8 @@
 
 @media (max-width: 1920px) {
     .wrapper.hasBg:after {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-            url('http://localhost:3001/api/v1/file/f8_bg_auth_1920.png');
+        background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+        // , url(--bg-url)
     }
 }
 .submitBtn {
